@@ -1,0 +1,5 @@
+C:\programming\c#\mailclient\trunk\jabber .net\netlib.Dns\bin\Release\netlib.Dns.dll
+C:\programming\c#\mailclient\trunk\jabber .net\netlib.Dns\bin\Release\netlib.Dns.pdb
+C:\programming\c#\mailclient\trunk\jabber .net\netlib.Dns\obj\Release\ResolveAssemblyReference.cache
+C:\programming\c#\mailclient\trunk\jabber .net\netlib.Dns\obj\Release\netlib.Dns.dll
+C:\programming\c#\mailclient\trunk\jabber .net\netlib.Dns\obj\Release\netlib.Dns.pdb

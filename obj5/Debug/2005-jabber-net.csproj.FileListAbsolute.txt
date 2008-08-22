@@ -1,0 +1,54 @@
+C:\programming\c#\jabber .net\obj5\Debug\ResolveAssemblyReference.cache
+C:\programming\c#\jabber .net\obj5\Debug\jabber.client.JabberClient.resources
+C:\programming\c#\jabber .net\obj5\Debug\jabber.client.RosterManager.resources
+C:\programming\c#\jabber .net\obj5\Debug\jabber.connection.Options.resources
+C:\programming\c#\jabber .net\obj5\Debug\jabber.server.JabberService.resources
+C:\programming\c#\jabber .net\obj5\Debug\jabber.connection.CertificatePrompt.resources
+C:\programming\c#\jabber .net\obj5\Debug\2005-jabber-net.csproj.GenerateResource.Cache
+C:\programming\c#\jabber .net\bin5\Debug\jabber-net.dll
+C:\programming\c#\jabber .net\bin5\Debug\jabber-net.pdb
+C:\programming\c#\jabber .net\bin5\Debug\2005-jabber-net.xml
+C:\programming\c#\jabber .net\bin5\Debug\netlib.Dns.dll
+C:\programming\c#\jabber .net\bin5\Debug\zlib.net.dll
+C:\programming\c#\jabber .net\bin5\Debug\netlib.Dns.pdb
+C:\programming\c#\jabber .net\bin5\Debug\netlib.Dns.xml
+C:\programming\c#\jabber .net\obj5\Debug\jabber-net.dll
+C:\programming\c#\jabber .net\obj5\Debug\jabber-net.pdb
+C:\programming\c#\mailclient\trunk\jabber .net\bin5\Release\jabber-net.dll
+C:\programming\c#\mailclient\trunk\jabber .net\bin5\Release\2005-jabber-net.xml
+C:\programming\c#\mailclient\trunk\jabber .net\bin5\Release\netlib.Dns.dll
+C:\programming\c#\mailclient\trunk\jabber .net\bin5\Release\zlib.net.dll
+C:\programming\c#\mailclient\trunk\jabber .net\bin5\Release\netlib.Dns.pdb
+C:\programming\c#\mailclient\trunk\jabber .net\obj5\Debug\ResolveAssemblyReference.cache
+C:\programming\c#\mailclient\trunk\jabber .net\obj5\Debug\jabber.client.JabberClient.resources
+C:\programming\c#\mailclient\trunk\jabber .net\obj5\Debug\jabber.client.RosterManager.resources
+C:\programming\c#\mailclient\trunk\jabber .net\obj5\Debug\jabber.connection.Options.resources
+C:\programming\c#\mailclient\trunk\jabber .net\obj5\Debug\jabber.server.JabberService.resources
+C:\programming\c#\mailclient\trunk\jabber .net\obj5\Debug\jabber.connection.CertificatePrompt.resources
+C:\programming\c#\mailclient\trunk\jabber .net\obj5\Debug\2005-jabber-net.csproj.GenerateResource.Cache
+C:\programming\c#\mailclient\trunk\jabber .net\obj5\Debug\jabber-net.dll
+C:\programming\c#\mailclient\trunk\jabber .net\bin5\Debug\jabber-net.dll
+C:\programming\c#\mailclient\trunk\jabber .net\bin5\Debug\jabber-net.pdb
+C:\programming\c#\mailclient\trunk\jabber .net\bin5\Debug\2005-jabber-net.xml
+C:\programming\c#\mailclient\trunk\jabber .net\bin5\Debug\netlib.Dns.dll
+C:\programming\c#\mailclient\trunk\jabber .net\bin5\Debug\zlib.net.dll
+C:\programming\c#\mailclient\trunk\jabber .net\bin5\Debug\netlib.Dns.pdb
+C:\programming\c#\mailclient\trunk\jabber .net\bin5\Debug\netlib.Dns.xml
+C:\programming\c#\mailclient\trunk\jabber .net\obj5\Debug\jabber-net.pdb
+C:\programming\c#\mailclient\trunk\jabber .net\bin5\Release\jabber-net.pdb
+D:\Projects\eM Client\Working Copies\repo\trunk\jabber .net\bin5\Debug\jabber-net.dll
+D:\Projects\eM Client\Working Copies\repo\trunk\jabber .net\bin5\Debug\jabber-net.pdb
+D:\Projects\eM Client\Working Copies\repo\trunk\jabber .net\bin5\Debug\2005-jabber-net.xml
+D:\Projects\eM Client\Working Copies\repo\trunk\jabber .net\bin5\Debug\netlib.Dns.dll
+D:\Projects\eM Client\Working Copies\repo\trunk\jabber .net\bin5\Debug\zlib.net.dll
+D:\Projects\eM Client\Working Copies\repo\trunk\jabber .net\bin5\Debug\netlib.Dns.pdb
+D:\Projects\eM Client\Working Copies\repo\trunk\jabber .net\bin5\Debug\netlib.Dns.xml
+D:\Projects\eM Client\Working Copies\repo\trunk\jabber .net\obj5\Debug\ResolveAssemblyReference.cache
+D:\Projects\eM Client\Working Copies\repo\trunk\jabber .net\obj5\Debug\jabber.client.JabberClient.resources
+D:\Projects\eM Client\Working Copies\repo\trunk\jabber .net\obj5\Debug\jabber.client.RosterManager.resources
+D:\Projects\eM Client\Working Copies\repo\trunk\jabber .net\obj5\Debug\jabber.connection.Options.resources
+D:\Projects\eM Client\Working Copies\repo\trunk\jabber .net\obj5\Debug\jabber.server.JabberService.resources
+D:\Projects\eM Client\Working Copies\repo\trunk\jabber .net\obj5\Debug\jabber.connection.CertificatePrompt.resources
+D:\Projects\eM Client\Working Copies\repo\trunk\jabber .net\obj5\Debug\2005-jabber-net.csproj.GenerateResource.Cache
+D:\Projects\eM Client\Working Copies\repo\trunk\jabber .net\obj5\Debug\jabber-net.dll
+D:\Projects\eM Client\Working Copies\repo\trunk\jabber .net\obj5\Debug\jabber-net.pdb

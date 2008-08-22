@@ -1,0 +1,17 @@
+C:\programming\c#\jabber .net\netlib.Dns\bin\Debug\netlib.Dns.XML
+C:\programming\c#\jabber .net\netlib.Dns\bin\Debug\netlib.Dns.dll
+C:\programming\c#\jabber .net\netlib.Dns\bin\Debug\netlib.Dns.pdb
+C:\programming\c#\jabber .net\netlib.Dns\obj\Debug\ResolveAssemblyReference.cache
+C:\programming\c#\jabber .net\netlib.Dns\obj\Debug\netlib.Dns.dll
+C:\programming\c#\jabber .net\netlib.Dns\obj\Debug\netlib.Dns.pdb
+C:\programming\c#\mailclient\trunk\jabber .net\netlib.Dns\bin\Debug\netlib.Dns.XML
+C:\programming\c#\mailclient\trunk\jabber .net\netlib.Dns\bin\Debug\netlib.Dns.dll
+C:\programming\c#\mailclient\trunk\jabber .net\netlib.Dns\bin\Debug\netlib.Dns.pdb
+C:\programming\c#\mailclient\trunk\jabber .net\netlib.Dns\obj\Debug\ResolveAssemblyReference.cache
+C:\programming\c#\mailclient\trunk\jabber .net\netlib.Dns\obj\Debug\netlib.Dns.dll
+C:\programming\c#\mailclient\trunk\jabber .net\netlib.Dns\obj\Debug\netlib.Dns.pdb
+D:\Projects\eM Client\Working Copies\repo\trunk\jabber .net\netlib.Dns\bin\Debug\netlib.Dns.dll
+D:\Projects\eM Client\Working Copies\repo\trunk\jabber .net\netlib.Dns\bin\Debug\netlib.Dns.pdb
+D:\Projects\eM Client\Working Copies\repo\trunk\jabber .net\netlib.Dns\obj\Debug\ResolveAssemblyReference.cache
+D:\Projects\eM Client\Working Copies\repo\trunk\jabber .net\netlib.Dns\obj\Debug\netlib.Dns.dll
+D:\Projects\eM Client\Working Copies\repo\trunk\jabber .net\netlib.Dns\obj\Debug\netlib.Dns.pdb
