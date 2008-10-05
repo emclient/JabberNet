@@ -212,15 +212,7 @@ namespace bedrock.net
                 if (m_hostname != value)
                 {
                     m_hostname = value;
-
-                    try
-                    {
-                        m_ip = IPAddress.Parse(m_hostname);
-                    }
-                    catch (FormatException)
-                    {
-                        m_ip = null;
-                    }
+					IPAddress.TryParse(m_hostname, out m_ip);
                 }
             }
         }
