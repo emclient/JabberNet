@@ -900,7 +900,8 @@ namespace jabber.connection
         /// <param name="elem">The XML element to send.</param>
         public virtual void Write(XmlElement elem)
         {
-            m_stanzas.Write(elem);
+			if (m_stanzas!=null)
+				m_stanzas.Write(elem);
         }
 
         /// <summary>
