@@ -67,7 +67,8 @@ namespace jabber
     /// </summary>
     [SVN(@"$Id: JID.cs 696 2008-06-23 23:58:05Z hildjj $")]
     [System.ComponentModel.TypeConverter(typeof(JIDTypeConverter))]
-    public class JID : IComparable
+    [Serializable]
+	public class JID : IComparable
     {
 #if !NO_STRINGPREP
         private static readonly stringprep.Profile s_nodeprep     = new stringprep.XmppNode();
