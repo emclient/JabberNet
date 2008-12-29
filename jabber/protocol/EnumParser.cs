@@ -71,27 +71,30 @@ namespace jabber.protocol
         private static Dictionary<string, object> GetValHash(Type t)
         {
             Dictionary<string, object> map = null;
-            if (!s_vals.TryGetValue(t, out map))
-            {
-                s_vals[t] = map = new Dictionary<string, object>();
-                bool dash = IsDash(t);
+			lock (s_vals) // Needed if more JabberClient instances are used at the same time
+			{
+				if (!s_vals.TryGetValue(t, out map))
+				{
+					s_vals[t] = map = new Dictionary<string, object>();
+					bool dash = IsDash(t);
 
-                FieldInfo[] fields = t.GetFields(BindingFlags.Public | BindingFlags.Static);
-                foreach (FieldInfo fi in fields)
-                {
-                    object[] attrs = fi.GetCustomAttributes(typeof(XMLAttribute), false);
-                    object val = fi.GetValue(null);
-                    if (attrs.Length > 0)
-                    {
-                        string name = ((XMLAttribute)attrs[0]).Name;
-                        map[name] = val;
-                    }
-                    if (dash)
-                        map[fi.Name.Replace("_", "-")] = val;
-                    else
-                        map[fi.Name] = val;
-                }
-            }
+					FieldInfo[] fields = t.GetFields(BindingFlags.Public | BindingFlags.Static);
+					foreach (FieldInfo fi in fields)
+					{
+						object[] attrs = fi.GetCustomAttributes(typeof(XMLAttribute), false);
+						object val = fi.GetValue(null);
+						if (attrs.Length > 0)
+						{
+							string name = ((XMLAttribute)attrs[0]).Name;
+							map[name] = val;
+						}
+						if (dash)
+							map[fi.Name.Replace("_", "-")] = val;
+						else
+							map[fi.Name] = val;
+					}
+				}
+			}
             return map;
         }
 
@@ -100,29 +103,32 @@ namespace jabber.protocol
             Dictionary<object, string> map = null;
             string name;
 
-            if (!s_strings.TryGetValue(t, out map))
-            {
-                s_strings[t] = map = new Dictionary<object, string>();
+			lock (s_strings) // Needed if more JabberClient instances are used at the same time
+			{
+				if (!s_strings.TryGetValue(t, out map))
+				{
+					s_strings[t] = map = new Dictionary<object, string>();
 
-                bool dash = IsDash(t);
+					bool dash = IsDash(t);
 
-                FieldInfo[] fields = t.GetFields(BindingFlags.Public | BindingFlags.Static);
-                foreach (FieldInfo fi in fields)
-                {
-                    object[] attrs = fi.GetCustomAttributes(typeof(XMLAttribute), false);
-                    object val = fi.GetValue(null);
-                    if (attrs.Length > 0)
-                        name = ((XMLAttribute)attrs[0]).Name;
-                    else
-                    {
-                        if (dash)
-                            name = fi.Name.Replace('_', '-');
-                        else
-                            name = fi.Name;
-                    }
-                    map[val] = name;
-                }
-            }
+					FieldInfo[] fields = t.GetFields(BindingFlags.Public | BindingFlags.Static);
+					foreach (FieldInfo fi in fields)
+					{
+						object[] attrs = fi.GetCustomAttributes(typeof(XMLAttribute), false);
+						object val = fi.GetValue(null);
+						if (attrs.Length > 0)
+							name = ((XMLAttribute)attrs[0]).Name;
+						else
+						{
+							if (dash)
+								name = fi.Name.Replace('_', '-');
+							else
+								name = fi.Name;
+						}
+						map[val] = name;
+					}
+				}
+			}
             return map;
         }
 
