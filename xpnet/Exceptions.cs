@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  *
  * xpnet is a deriviative of James Clark's XP.  See copying.txt for more info.
@@ -20,7 +20,7 @@ namespace xpnet
     /// <summary>
     /// Base class for other exceptions
     /// </summary>
-    [SVN(@"$Id: Exceptions.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: Exceptions.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class TokenException : System.Exception
     {
     }
@@ -29,7 +29,7 @@ namespace xpnet
     /// An empty token was detected.  This only happens with a buffer of length 0 is passed in
     /// to the parser.
     /// </summary>
-    [SVN(@"$Id: Exceptions.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: Exceptions.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class EmptyTokenException : TokenException
     {
     }
@@ -37,7 +37,7 @@ namespace xpnet
     /// <summary>
     /// End of prolog.
     /// </summary>
-    [SVN(@"$Id: Exceptions.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: Exceptions.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class EndOfPrologException : TokenException
     {
     }
@@ -46,9 +46,9 @@ namespace xpnet
      * token, but that subsequent bytes in the same entity could be part of
      * the token.  For example, <code>Encoding.tokenizeProlog</code>
      * would throw this if the byte subarray consists of a legal XML name.
-     * @version $Revision: 579 $ $Date: 2008-02-13 14:29:33 -0700 (Wed, 13 Feb 2008) $
+     * @version $Revision: 724 $ $Date: 2008-08-06 20:09:25 +0200 (Wed, 06 Aug 2008) $
      */
-    [SVN(@"$Id: Exceptions.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: Exceptions.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class ExtensibleTokenException : TokenException
     {
         private TOK tokType;
@@ -74,7 +74,7 @@ namespace xpnet
     /// <summary>
     /// Several kinds of token problems.
     /// </summary>
-    [SVN(@"$Id: Exceptions.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: Exceptions.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class InvalidTokenException : TokenException
     {
         private int offset;
@@ -144,9 +144,9 @@ namespace xpnet
      * Thrown to indicate that the subarray being tokenized is not the
      * complete encoding of one or more characters, but might be if
      * more bytes were added.
-     * @version $Revision: 579 $ $Date: 2008-02-13 14:29:33 -0700 (Wed, 13 Feb 2008) $
+     * @version $Revision: 724 $ $Date: 2008-08-06 20:09:25 +0200 (Wed, 06 Aug 2008) $
      */
-    [SVN(@"$Id: Exceptions.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: Exceptions.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class PartialCharException : PartialTokenException
     {
         private int leadByteIndex;
@@ -173,7 +173,7 @@ namespace xpnet
     /// <summary>
     /// A partial token was received.  Try again, after you add more bytes to the buffer.
     /// </summary>
-    [SVN(@"$Id: Exceptions.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: Exceptions.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class PartialTokenException : TokenException
     {
     }

@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -27,7 +27,7 @@ namespace jabber.protocol
     /// <summary>
     /// An enum that should translate "_" into "-" for use externally.
     /// </summary>
-    [SVN(@"$Id: Element.cs 691 2008-06-23 21:30:15Z hildjj $")]
+    [SVN(@"$Id: Element.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class DashAttribute : Attribute
     {
         /// <summary>
@@ -42,7 +42,7 @@ namespace jabber.protocol
     /// An XmlElement with type-safe accessors.  This class is not much use by itself,
     /// but provides a number of utility functions for its descendants.
     /// </summary>
-    [SVN(@"$Id: Element.cs 691 2008-06-23 21:30:15Z hildjj $")]
+    [SVN(@"$Id: Element.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Element : XmlElement
     {
         /// <summary>

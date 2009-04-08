@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 namespace bedrock.util
@@ -30,7 +30,7 @@ namespace bedrock.util
     /// Also, now, you can create an instance of GetOpt, and pass in
     /// TODO: Give examples of sublcass and calling example.
     /// </summary>
-    [SVN(@"$Id: GetOptBase.cs 614 2008-02-21 20:50:15Z hildjj $")]
+    [SVN(@"$Id: GetOptBase.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class GetOpt
     {
         private object    m_obj   = null;
@@ -469,7 +469,7 @@ namespace bedrock.util
     /// </summary>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Method,
                     AllowMultiple=false)]
-    [SVN(@"$Id: GetOptBase.cs 614 2008-02-21 20:50:15Z hildjj $")]
+    [SVN(@"$Id: GetOptBase.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class CommandLineAttribute : Attribute
     {
         private string m_commandFlag = null;

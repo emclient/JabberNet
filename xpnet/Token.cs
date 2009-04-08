@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  *
  * xpnet is a deriviative of James Clark's XP.  See copying.txt for more info.
@@ -20,7 +20,7 @@ namespace xpnet
     /// <summary>
     /// A token that was parsed.
     /// </summary>
-    [SVN(@"$Id: Token.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: Token.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Token
     {
         private int tokenEnd = -1;

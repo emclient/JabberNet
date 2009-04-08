@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -21,7 +21,7 @@ namespace jabber.protocol.client
     /// <summary>
     /// Invalid protocol received.
     /// </summary>
-    [SVN(@"$Id: ProtocolException.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: ProtocolException.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class BadProtocolException : Exception
     {
         private XmlElement m_proto = null;
@@ -55,7 +55,7 @@ namespace jabber.protocol.client
     /// <summary>
     /// A jabber error, in an IQ.
     /// </summary>
-    [SVN(@"$Id: ProtocolException.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: ProtocolException.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class IQException : Exception
     {
         // TODO: fix this up for new error codes.

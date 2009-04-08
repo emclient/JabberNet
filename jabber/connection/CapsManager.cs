@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -34,7 +34,7 @@ namespace jabber.connection
     /// Manages the entity capabilities information for the local connection as well as remote ones.
     /// See XEP-0115, version 1.5 for details.
     /// </summary>
-    [SVN("$Id: CapsManager.cs 677 2008-06-12 17:13:48Z hildjj $")]
+    [SVN("$Id: CapsManager.cs 730 2008-09-07 23:00:48Z hildjj $")]
     public class CapsManager: StreamComponent
     {
         /// <summary>
@@ -447,10 +447,12 @@ namespace jabber.connection
                 return;
 
             string ver = (string)state;
-            if (ver != CalculateVer(node))
+            string calc = CalculateVer(node);
+            if (ver != calc)
             {
-                Debug.WriteLine("WARNING: invalid caps ver hash: " + ver);
-                Debug.WriteLine(node.Info.OuterXml);
+                Debug.WriteLine("WARNING: invalid caps ver hash: '" + ver + "' != '" + calc + "'");
+                if (node.Info != null)
+                    Debug.WriteLine(node.Info.OuterXml);
                 return;
             }
             m_cache[ver] = node.Info;
@@ -513,7 +515,6 @@ namespace jabber.connection
         /// <param name="info">The empty info element to fill in.</param>
         public void FillInInfo(DiscoInfo info)
         {
-            info.Node = NodeVer;
             foreach (Ident id in Identities)
                 info.AddIdentity(id.Category, id.Type, id.Name, id.Lang);
             foreach (string uri in Features)
@@ -533,7 +534,7 @@ namespace jabber.connection
             info = (DiscoInfo)resp.Query;
             FillInInfo(info);
 
-            m_stream.Write(resp);
+            Write(resp);
         }
 
         /// <summary>

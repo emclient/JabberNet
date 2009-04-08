@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -140,7 +140,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// IQ packet with a version query element inside.
     /// </summary>
-    [SVN(@"$Id: VCard.cs 639 2008-03-13 01:02:53Z hildjj $")]
+    [SVN(@"$Id: VCard.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class VCardIQ : jabber.protocol.client.TypedIQ<VCard>
     {
         /// <summary>
@@ -163,7 +163,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// A vCard element.
     /// </summary>
-    [SVN(@"$Id: VCard.cs 639 2008-03-13 01:02:53Z hildjj $")]
+    [SVN(@"$Id: VCard.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class VCard : Element
     {
         /// <summary>
@@ -220,23 +220,6 @@ namespace jabber.protocol.iq
         public VPhoto Photo
         {
             get { return this["PHOTO"] as VPhoto; }
-			/*
-			get {
-				//this["PHOTO"].InnerXml = this["PHOTO"].InnerXml.Replace("jpeg","png");
-
-				try
-				{
-					System.Xml.XmlElement xmlelem=((System.Xml.XmlElement)this["PHOTO"]);
-					return (VCard)xmlelem;
-				}
-				catch (Exception ex)
-				{
-					return null;	
-				}
-				
-
-			}
-			 */ 
             set { ReplaceChild(value); }
         }
 
@@ -447,7 +430,7 @@ namespace jabber.protocol.iq
         /// <summary>
         ///
         /// </summary>
-        [SVN(@"$Id: VCard.cs 639 2008-03-13 01:02:53Z hildjj $")]
+        [SVN(@"$Id: VCard.cs 724 2008-08-06 18:09:25Z hildjj $")]
         public class VName : Element
         {
             /// <summary>
@@ -500,7 +483,7 @@ namespace jabber.protocol.iq
         /// <summary>
         /// vCard Org Element
         /// </summary>
-        [SVN(@"$Id: VCard.cs 639 2008-03-13 01:02:53Z hildjj $")]
+        [SVN(@"$Id: VCard.cs 724 2008-08-06 18:09:25Z hildjj $")]
         public class VOrganization : Element
         {
             /// <summary>
@@ -544,7 +527,7 @@ namespace jabber.protocol.iq
         /// <summary>
         /// vCard Telephone Element
         /// </summary>
-        [SVN(@"$Id: VCard.cs 639 2008-03-13 01:02:53Z hildjj $")]
+        [SVN(@"$Id: VCard.cs 724 2008-08-06 18:09:25Z hildjj $")]
         public class VTelephone : Element
         {
             /// <summary>
@@ -640,7 +623,7 @@ namespace jabber.protocol.iq
         /// <summary>
         /// vCard Address Element
         /// </summary>
-        [SVN(@"$Id: VCard.cs 639 2008-03-13 01:02:53Z hildjj $")]
+        [SVN(@"$Id: VCard.cs 724 2008-08-06 18:09:25Z hildjj $")]
         public class VAddress : Element
         {
             /// <summary>
@@ -748,7 +731,7 @@ namespace jabber.protocol.iq
         /// <summary>
         /// vCard Email Element
         /// </summary>
-        [SVN(@"$Id: VCard.cs 639 2008-03-13 01:02:53Z hildjj $")]
+        [SVN(@"$Id: VCard.cs 724 2008-08-06 18:09:25Z hildjj $")]
         public class VEmail : Element
         {
             /// <summary>
@@ -836,7 +819,7 @@ namespace jabber.protocol.iq
         /// <summary>
         /// Geographic location
         /// </summary>
-        [SVN(@"$Id: VCard.cs 639 2008-03-13 01:02:53Z hildjj $")]
+        [SVN(@"$Id: VCard.cs 724 2008-08-06 18:09:25Z hildjj $")]
         public class VGeo : Element
         {
             /// <summary>
@@ -880,7 +863,7 @@ namespace jabber.protocol.iq
         /// <summary>
         ///
         /// </summary>
-        [SVN(@"$Id: VCard.cs 639 2008-03-13 01:02:53Z hildjj $")]
+        [SVN(@"$Id: VCard.cs 724 2008-08-06 18:09:25Z hildjj $")]
         public class VPhoto : Element
         {
             /// <summary>

@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 
@@ -24,7 +24,7 @@ namespace jabber.connection
     /// <summary>
     /// Manages the HTTP Polling XMPP stream.
     /// </summary>
-    [SVN(@"$Id: HttpStanzaStream.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: HttpStanzaStream.cs 746 2008-10-28 14:16:19Z hildjj $")]
     public abstract class HttpStanzaStream : StanzaStream, ISocketEventListener
     {
         private AsynchElementStream m_elements = null;
@@ -269,6 +269,8 @@ namespace jabber.connection
 
         bool ISocketEventListener.OnRead(BaseSocket sock, byte[] buf, int offset, int length)
         {
+            Debug.Assert(m_listener != null);
+            Debug.Assert(m_elements != null);
             m_listener.BytesRead(buf, offset, length);
             m_elements.Push(buf, offset, length);
             return true;

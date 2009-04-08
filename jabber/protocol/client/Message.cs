@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -22,7 +22,7 @@ namespace jabber.protocol.client
     /// <summary>
     /// Message type attribute
     /// </summary>
-    [SVN(@"$Id: Message.cs 639 2008-03-13 01:02:53Z hildjj $")]
+    [SVN(@"$Id: Message.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public enum MessageType
     {
         /// <summary>
@@ -51,7 +51,7 @@ namespace jabber.protocol.client
     /// TODO: Some XHTML is supported by setting the .Html property,
     /// but extra xmlns="" get put everywhere at the moment.
     /// </summary>
-    [SVN(@"$Id: Message.cs 639 2008-03-13 01:02:53Z hildjj $")]
+    [SVN(@"$Id: Message.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Message : Packet
     {
         /// <summary>

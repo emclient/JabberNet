@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -24,7 +24,7 @@ namespace jabber.protocol
     /// but removes the big old memory leak in MS's implementation.  Also, only returns first-level children,
     /// rather than all children below here with the given name.  Thanks, MS.
     /// </summary>
-    [SVN(@"$Id: ElementList.cs 641 2008-03-13 15:58:22Z hildjj $")]
+    [SVN(@"$Id: ElementList.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class ElementList : XmlNodeList
     {
         private XmlElement m_parent = null;
@@ -185,7 +185,7 @@ namespace jabber.protocol
     /// <summary>
     /// Parameterized version of ElementList.
     /// </summary>
-    [SVN(@"$Id: ElementList.cs 641 2008-03-13 15:58:22Z hildjj $")]
+    [SVN(@"$Id: ElementList.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class TypedElementList<T> : XmlNodeList, System.Collections.Generic.IEnumerable<T>
         where T : XmlElement
     {

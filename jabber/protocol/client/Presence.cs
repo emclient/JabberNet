@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -23,7 +23,7 @@ namespace jabber.protocol.client
     /// <summary>
     /// Presence type attribute
     /// </summary>
-    [SVN(@"$Id: Presence.cs 677 2008-06-12 17:13:48Z hildjj $")]
+    [SVN(@"$Id: Presence.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public enum PresenceType
     {
         /// <summary>
@@ -68,7 +68,7 @@ namespace jabber.protocol.client
     /// <summary>
     /// Client presence packet.
     /// </summary>
-    [SVN(@"$Id: Presence.cs 677 2008-06-12 17:13:48Z hildjj $")]
+    [SVN(@"$Id: Presence.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Presence : Packet, IComparable<Presence>, IComparable
     {
         /// <summary>

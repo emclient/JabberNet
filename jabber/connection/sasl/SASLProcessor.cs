@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -29,7 +29,7 @@ namespace jabber.connection.sasl
     /// <summary>
     /// Some sort of SASL error
     /// </summary>
-    [SVN(@"$Id: SASLProcessor.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: SASLProcessor.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class SASLException : ApplicationException
     {
         /// <summary>
@@ -47,7 +47,7 @@ namespace jabber.connection.sasl
     /// <summary>
     /// Authentication failed.
     /// </summary>
-    [SVN(@"$Id: SASLProcessor.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: SASLProcessor.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class AuthenticationFailedException : SASLException
     {
         /// <summary>
@@ -67,7 +67,7 @@ namespace jabber.connection.sasl
     /// <summary>
     /// A required directive wasn't supplied.
     /// </summary>
-    [SVN(@"$Id: SASLProcessor.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: SASLProcessor.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class MissingDirectiveException : SASLException
     {
         /// <summary>
@@ -81,7 +81,7 @@ namespace jabber.connection.sasl
     /// <summary>
     /// Server sent an invalid challenge
     /// </summary>
-    [SVN(@"$Id: SASLProcessor.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: SASLProcessor.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class InvalidServerChallengeException : SASLException
     {
         /// <summary>
@@ -94,7 +94,7 @@ namespace jabber.connection.sasl
     /// <summary>
     /// Summary description for SASLProcessor.
     /// </summary>
-    [SVN(@"$Id: SASLProcessor.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: SASLProcessor.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public abstract class SASLProcessor
     {
         /// <summary>

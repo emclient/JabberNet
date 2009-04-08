@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -20,7 +20,7 @@ namespace test.bedrock.util
     /// <summary>
     ///    Summary description for GetOptBaseTest.
     /// </summary>
-    [SVN(@"$Id: GetOptBaseTest.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: GetOptBaseTest.cs 724 2008-08-06 18:09:25Z hildjj $")]
     [TestFixture]
     public class GetOptTest
     {
@@ -214,7 +214,7 @@ namespace test.bedrock.util
         BAR
     }
 
-    [SVN(@"$Id: GetOptBaseTest.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: GetOptBaseTest.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class TestGetOpt : GetOpt
     {
         [CommandLine("nologo", Description="Command line argument for NUnit.")]

@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System.Collections;
@@ -19,7 +19,7 @@ namespace jabber.protocol
     /// <summary>
     /// Namespace stack.
     /// </summary>
-    [SVN(@"$Id: NS.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: NS.cs 745 2008-10-28 14:12:53Z hildjj $")]
     public class NS
     {
         private Stack m_stack = new Stack();
@@ -57,7 +57,8 @@ namespace jabber.protocol
         /// <param name="uri"></param>
         public void AddNamespace(string prefix, string uri)
         {
-            ((Hashtable)m_stack.Peek()).Add(prefix, uri);
+            Hashtable h = (Hashtable)m_stack.Peek();
+            h[prefix] = uri;
         }
 
         /// <summary>

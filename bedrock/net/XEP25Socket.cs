@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 
@@ -28,7 +28,7 @@ namespace bedrock.net
     /// <summary>
     /// XEP25 Error conditions
     /// </summary>
-    [SVN(@"$Id: XEP25Socket.cs 643 2008-03-17 16:24:55Z michael.wegman $")]
+    [SVN(@"$Id: XEP25Socket.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class XEP25Exception : WebException
     {
         /// <summary>
@@ -44,7 +44,7 @@ namespace bedrock.net
     /// Make a XEP-25 (http://www.xmpp.org/extensions/xep-0025.html) polling "connection" look like a socket.
     /// TODO: get rid of the PipeStream, if possible.
     /// </summary>
-    [SVN(@"$Id: XEP25Socket.cs 643 2008-03-17 16:24:55Z michael.wegman $")]
+    [SVN(@"$Id: XEP25Socket.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class XEP25Socket : BaseSocket, IHttpSocket
     {
         private const string CONTENT_TYPE = "application/x-www-form-urlencoded";

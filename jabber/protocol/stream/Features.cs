@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -25,7 +25,7 @@ namespace jabber.protocol.stream
     /// <summary>
     /// Stream features.  Will only be set by a version="1.0" or higher XMPP server.
     /// </summary>
-    [SVN(@"$Id: Features.cs 674 2008-06-11 23:31:08Z hildjj $")]
+    [SVN(@"$Id: Features.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Features : Element
     {
         /// <summary>

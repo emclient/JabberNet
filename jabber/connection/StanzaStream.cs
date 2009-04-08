@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -25,7 +25,7 @@ namespace jabber.connection
     /// <summary>
     /// Specifies the connection type, such as socket, polling, and so on.
     /// </summary>
-    [SVN(@"$Id: StanzaStream.cs 643 2008-03-17 16:24:55Z michael.wegman $")]
+    [SVN(@"$Id: StanzaStream.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public enum ConnectionType
     {
         /// <summary>
@@ -45,7 +45,7 @@ namespace jabber.connection
     /// <summary>
     /// Listens for stanza and connection events
     /// </summary>
-    [SVN(@"$Id: StanzaStream.cs 643 2008-03-17 16:24:55Z michael.wegman $")]
+    [SVN(@"$Id: StanzaStream.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public interface IStanzaEventListener
     {
         /// <summary>
@@ -150,7 +150,7 @@ namespace jabber.connection
     /// <summary>
     /// Manages the base stream for reading and writing full stanzas.
     /// </summary>
-    [SVN(@"$Id: StanzaStream.cs 643 2008-03-17 16:24:55Z michael.wegman $")]
+    [SVN(@"$Id: StanzaStream.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public abstract class StanzaStream
     {
         /// <summary>

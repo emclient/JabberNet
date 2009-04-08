@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -50,7 +50,7 @@ namespace muzzle
     /// A StripChart is a scrolling window showing a set number of data points.
     /// As new points are added, old points get shifted along.
     /// </summary>
-    [SVN(@"$Id: StripChart.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: StripChart.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class StripChart : System.Windows.Forms.UserControl
     {
         private bool       m_first     = true;

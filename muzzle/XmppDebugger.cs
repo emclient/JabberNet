@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -25,7 +25,7 @@ namespace muzzle
     /// <summary>
     /// Debug stream for XMPP, so I don't have write it every time.
     /// </summary>
-    [SVN(@"$Id: XmppDebugger.cs 614 2008-02-21 20:50:15Z hildjj $")]
+    [SVN(@"$Id: XmppDebugger.cs 749 2008-10-28 14:22:17Z hildjj $")]
     public class XmppDebugger : StreamControl
     {
         private RichTextBox rtSend;
@@ -40,6 +40,7 @@ namespace muzzle
         private string m_recv = "RECV:";
         private string m_err = "ERROR:";
         private string m_last = "";
+
 
         /// <summary>
         /// Required designer variable.
@@ -103,6 +104,17 @@ namespace muzzle
         {
             get { return m_otherColor; }
             set { m_otherColor = value; }
+        }
+
+        /// <summary>
+        /// Maximum number of lines to keep
+        /// </summary>
+        [Category("Appearance")]
+        [DefaultValue(500)]
+        public int MaxLines
+        {
+            get { return rtDebug.MaxLines; }
+            set { rtDebug.MaxLines = value; }
         }
 
         /// <summary>
@@ -254,7 +266,7 @@ namespace muzzle
             XmlElement elem = ValidateXML();
             if (elem != null)
             {
-                m_stream.Write(elem);
+                Write(elem);
                 rtSend.Clear();
             }
         }

@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -21,7 +21,7 @@ namespace jabber.protocol.stream
     /// <summary>
     /// SASL mechanisms registered with IANA as of 5/16/2004.
     /// </summary>
-    [SVN(@"$Id: SASL.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: SASL.cs 724 2008-08-06 18:09:25Z hildjj $")]
     [Flags]
     public enum MechanismType
     {
@@ -122,7 +122,7 @@ namespace jabber.protocol.stream
     /// <summary>
     /// SASL mechanisms in stream features.
     /// </summary>
-    [SVN(@"$Id: SASL.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: SASL.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Mechanisms : Element
     {
         /// <summary>
@@ -182,7 +182,7 @@ namespace jabber.protocol.stream
     /// <summary>
     /// Stores SASL mechanisms in stream features.
     /// </summary>
-    [SVN(@"$Id: SASL.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: SASL.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Mechanism : Element
     {
         /// <summary>
@@ -382,7 +382,7 @@ namespace jabber.protocol.stream
     /// <summary>
     /// First phase of SASL auth.
     /// </summary>
-    [SVN(@"$Id: SASL.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: SASL.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Auth : Step
     {
         /// <summary>
@@ -425,7 +425,7 @@ namespace jabber.protocol.stream
     /// <summary>
     /// Subsequent phases of SASL auth sent by server.
     /// </summary>
-    [SVN(@"$Id: SASL.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: SASL.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Challenge : Step
     {
         /// <summary>
@@ -452,7 +452,7 @@ namespace jabber.protocol.stream
     /// <summary>
     /// First phase of SASL auth.
     /// </summary>
-    [SVN(@"$Id: SASL.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: SASL.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Response : Step
     {
         /// <summary>
@@ -479,7 +479,7 @@ namespace jabber.protocol.stream
     /// <summary>
     /// SASL auth failed.
     /// </summary>
-    [SVN(@"$Id: SASL.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: SASL.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class SASLFailure : Step
     {
         /// <summary>
@@ -506,7 +506,7 @@ namespace jabber.protocol.stream
     /// <summary>
     /// Abort SASL auth.
     /// </summary>
-    [SVN(@"$Id: SASL.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: SASL.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Abort : Step
     {
         /// <summary>
@@ -533,7 +533,7 @@ namespace jabber.protocol.stream
     /// <summary>
     /// SASL auth successfult.
     /// </summary>
-    [SVN(@"$Id: SASL.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: SASL.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Success : Step
     {
         /// <summary>

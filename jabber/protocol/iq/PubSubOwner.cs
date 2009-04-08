@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -23,7 +23,7 @@ namespace jabber.protocol.iq
     /// A type-safe PubSub IQ for owner actions.
     /// </summary>
     /// <typeparam name="T">The type of command to create</typeparam>
-    [SVN(@"$Id: PubSubOwner.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubOwner.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class OwnerPubSubCommandIQ<T> : jabber.protocol.client.TypedIQ<OwnerPubSub<T>>
         where T : PubSubCommand
     {
@@ -61,7 +61,7 @@ namespace jabber.protocol.iq
     /// A type-safe pubsub element.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    [SVN(@"$Id: PubSubOwner.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubOwner.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class OwnerPubSub<T> : Element
         where T : PubSubCommand
     {
@@ -96,7 +96,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// The pubsub container for owner operations.
     /// </summary>
-    [SVN(@"$Id: PubSubOwner.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubOwner.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class PubSubOwner : Element
     {
         /// <summary>
@@ -139,7 +139,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Affiliations of all folks associated with a node
     /// </summary>
-    [SVN(@"$Id: PubSubOwner.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubOwner.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class OwnerAffliliations : PubSubCommand
     {
         /// <summary>
@@ -197,7 +197,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// An affiliation for another user, retrieved by the owner.
     /// </summary>
-    [SVN(@"$Id: PubSubOwner.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubOwner.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class OwnerAffiliation : Affiliation
     {
         /// <summary>
@@ -233,7 +233,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Owner-level configuration
     /// </summary>
-    [SVN(@"$Id: PubSubOwner.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubOwner.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class OwnerConfigure : PubSubCommand
     {
         /// <summary>
@@ -277,7 +277,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// The default configuration parameters
     /// </summary>
-    [SVN(@"$Id: PubSubOwner.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubOwner.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class OwnerDefault : PubSubCommand
     {
         /// <summary>
@@ -321,7 +321,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Delete a node
     /// </summary>
-    [SVN(@"$Id: PubSubOwner.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubOwner.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class OwnerDelete : PubSubCommand
     {
         /// <summary>
@@ -356,7 +356,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Purge all items from a node
     /// </summary>
-    [SVN(@"$Id: PubSubOwner.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubOwner.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class OwnerPurge : PubSubCommand
     {
         /// <summary>
@@ -391,7 +391,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// The subscription list
     /// </summary>
-    [SVN(@"$Id: PubSubOwner.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubOwner.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class OwnerSubscriptions : Subscriptions
     {
         /// <summary>

@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 
@@ -21,7 +21,7 @@ using jabber.connection;
 
 namespace Example
 {
-    [SVN(@"$Id: PubSubSubscribeForm.cs 580 2008-02-13 21:49:19Z hildjj $")]
+    [SVN(@"$Id: PubSubSubscribeForm.cs 725 2008-08-06 18:14:18Z hildjj $")]
     public class PubSubSubcribeForm : Form
     {
         private Label label1;

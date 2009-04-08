@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  *
  * xpnet is a deriviative of James Clark's XP.  See copying.txt for more info.
@@ -21,12 +21,12 @@ namespace xpnet
      * Represents a position in an entity.
      * A position can be modified by <code>Encoding.movePosition</code>.
      * @see Encoding#movePosition
-     * @version $Revision: 579 $ $Date: 2008-02-13 14:29:33 -0700 (Wed, 13 Feb 2008) $
+     * @version $Revision: 724 $ $Date: 2008-08-06 20:09:25 +0200 (Wed, 06 Aug 2008) $
      */
     ///<summary>
     /// Position of an entry in a table.
     ///</summary>
-    [SVN(@"$Id: Position.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: Position.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Position : System.ICloneable
     {
         private int lineNumber;

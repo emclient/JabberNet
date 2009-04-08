@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -33,7 +33,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// IQ packet with an time query element inside.
     /// </summary>
-    [SVN(@"$Id: Time.cs 639 2008-03-13 01:02:53Z hildjj $")]
+    [SVN(@"$Id: Time.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class TimeIQ : jabber.protocol.client.TypedIQ<Time>
     {
         /// <summary>
@@ -48,7 +48,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// A time query element.
     /// </summary>
-    [SVN(@"$Id: Time.cs 639 2008-03-13 01:02:53Z hildjj $")]
+    [SVN(@"$Id: Time.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Time : Element
     {
         /// <summary>

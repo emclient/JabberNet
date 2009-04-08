@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -23,7 +23,7 @@ namespace jabber.protocol.client
     /// <summary>
     /// Error codes for IQ and message
     /// </summary>
-    [SVN(@"$Id: Error.cs 639 2008-03-13 01:02:53Z hildjj $")]
+    [SVN(@"$Id: Error.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public enum ErrorCode
     {
         /// <summary>
@@ -136,7 +136,7 @@ namespace jabber.protocol.client
     /// <summary>
     /// Error IQ
     /// </summary>
-    [SVN(@"$Id: Error.cs 639 2008-03-13 01:02:53Z hildjj $")]
+    [SVN(@"$Id: Error.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class IQError : IQ
     {
         /// <summary>
@@ -155,7 +155,7 @@ namespace jabber.protocol.client
     /// <summary>
     /// Error in a message or IQ.
     /// </summary>
-    [SVN(@"$Id: Error.cs 639 2008-03-13 01:02:53Z hildjj $")]
+    [SVN(@"$Id: Error.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Error : Element
     {
         /// <summary>

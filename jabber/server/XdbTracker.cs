@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -30,7 +30,7 @@ namespace jabber.server
     /// <summary>
     /// Track outstanding XDB requests.
     /// </summary>
-    [SVN(@"$Id: XdbTracker.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: XdbTracker.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class XdbTracker
     {
         // this hash doesn't need concurrency control, i don't think,

@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -24,7 +24,7 @@ namespace muzzle
     /// <summary>
     /// A generic input getter dialog.
     /// </summary>
-    [SVN(@"$Id: InputBox.cs 581 2008-02-13 23:50:38Z hildjj $")]
+    [SVN(@"$Id: InputBox.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class InputBox : Form
     {
         private Label label1;

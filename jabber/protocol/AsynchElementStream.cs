@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -27,7 +27,7 @@ namespace jabber.protocol
     /// Summary description for AsynchElementStream.
     /// TODO: combine with ElementStream, since there's only one impl now.
     /// </summary>
-    [SVN(@"$Id: AsynchElementStream.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: AsynchElementStream.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class AsynchElementStream : ElementStream
     {
         private static System.Text.Encoding utf = System.Text.Encoding.UTF8;
@@ -327,7 +327,7 @@ namespace jabber.protocol
         /// <summary>
         /// There was an error parsing XML.  What was the context?
         /// </summary>
-        [SVN(@"$Id: AsynchElementStream.cs 680 2008-06-12 18:35:08Z hildjj $")]
+        [SVN(@"$Id: AsynchElementStream.cs 724 2008-08-06 18:09:25Z hildjj $")]
         public class XMLParseException : Exception
         {
             private string m_context = null;

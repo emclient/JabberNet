@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -23,7 +23,7 @@ namespace bedrock.collections
     /// A set of strings, backed into a BitArray.  Any given string that is inserted
     /// into any instance of a StringSet increases the size of all StringSets over time.
     /// </summary>
-    [SVN(@"$Id: StringSet.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: StringSet.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class StringSet : IEnumerable, IEnumerable<string>, ICloneable
 	{
         private BitArray m_bits = null;

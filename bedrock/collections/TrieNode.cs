@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -21,7 +21,7 @@ namespace bedrock.collections
     /// <summary>
     /// A node in a Trie.  This class is public to support traversal via Trie.Traverse().
     /// </summary>
-    [SVN(@"$Id: TrieNode.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: TrieNode.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class TrieNode : IEnumerable
     {
         // Warning: Assumption of 7-bit ASCII encoding!

@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -73,7 +73,7 @@ namespace jabber.connection
     /// <summary>
     /// Manages a set of conference rooms
     /// </summary>
-    [SVN(@"$Id: ConferenceManager.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: ConferenceManager.cs 731 2008-09-07 23:01:31Z hildjj $")]
     public class ConferenceManager : StreamComponent
     {
         /// <summary>
@@ -81,6 +81,7 @@ namespace jabber.connection
         /// </summary>
         private System.ComponentModel.IContainer components = null;
         private Hashtable m_rooms = new Hashtable();
+        private string m_nick = null;
 
         /// <summary>
         /// Creates a new conference manager.
@@ -258,6 +259,25 @@ namespace jabber.connection
         public event MessageHandler OnInvite;
 
         /// <summary>
+        /// The default room nickname, if one is not specified.  If none
+        /// specified, the user name from the stream JID is used.
+        /// </summary>
+        [Category("Manager")]
+        [DefaultValue(null)]
+        public string DefaultNick
+        {
+            get 
+            { 
+                if (m_nick != null)
+                    return m_nick;
+                if ((m_stream == null) || m_stream.JID == null)
+                    return null;
+                return m_stream.JID.User;
+            }
+            set { m_nick = value; }
+        }
+
+        /// <summary>
         /// Joins a conference room.
         /// </summary>
         /// <param name="roomAndNick">room@conference/nick, where "nick" is the desred nickname in the room.</param>
@@ -270,6 +290,9 @@ namespace jabber.connection
             if (roomAndNick == null)
                 throw new ArgumentNullException("roomAndNick");
 
+            if (roomAndNick.Resource == null)
+                roomAndNick.Resource = DefaultNick;
+
             Room r = (Room)m_rooms[roomAndNick];
             if (r != null)
                 return r;
@@ -278,7 +301,7 @@ namespace jabber.connection
             if (roomAndNick.Resource == null)
                 roomAndNick.Resource = m_stream.JID.User;
 
-            r = new Room(this, this.Stream, roomAndNick);
+            r = new Room(this, roomAndNick);
             r.OnJoin += OnJoin;
             r.OnLeave += OnLeave;
             r.OnPresenceError += OnPresenceError;
@@ -365,7 +388,7 @@ namespace jabber.connection
  */
             UniqueIQ iq = new UniqueIQ(m_stream.Document);
             iq.To = server;
-            m_stream.Tracker.BeginIQ(iq, new IqCB(GotUnique), new UniqueState(nick, callback, state));
+            BeginIQ(iq, new IqCB(GotUnique), new UniqueState(nick, callback, state));
         }
 
         private void GotUnique(object sender, IQ iq, object state)
@@ -396,7 +419,7 @@ namespace jabber.connection
     /// <summary>
     /// Manages a multi-user conference room.  See XEP-0045 (http://www.xmpp.org/extensions/xep-0045.html).
     /// </summary>
-    [SVN(@"$Id: ConferenceManager.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: ConferenceManager.cs 731 2008-09-07 23:01:31Z hildjj $")]
     public class Room
     {
         private enum STATE
@@ -419,7 +442,7 @@ namespace jabber.connection
         /// Bare room JID.  room@conference
         /// </summary>
         private JID m_room;
-        private XmppStream m_stream;
+        //private XmppStream m_stream;
         private bool m_default = false;
         private ConferenceManager m_manager;
         private Message m_subject;
@@ -429,17 +452,16 @@ namespace jabber.connection
         /// <summary>
         /// Create.
         /// </summary>
-        /// <param name="manager"></param>
-        /// <param name="stream"></param>
+        /// <param name="manager">The manager for this room.</param>
         /// <param name="roomAndNick">room@conference/nick, where "nick" is the desred nickname in the room.</param>
-        internal Room(ConferenceManager manager, XmppStream stream, JID roomAndNick)
+        internal Room(ConferenceManager manager, JID roomAndNick)
         {
             m_manager = manager;
-            m_stream = stream;
+            XmppStream stream = manager.Stream;
             m_jid = roomAndNick;
             m_room = new JID(m_jid.User, m_jid.Server, null);
-            m_stream.OnProtocol += new jabber.protocol.ProtocolHandler(m_stream_OnProtocol);
-            JabberClient jc = m_stream as JabberClient;
+            stream.OnProtocol += new jabber.protocol.ProtocolHandler(m_stream_OnProtocol);
+            JabberClient jc = stream as JabberClient;
             if (jc != null)
                 jc.OnAfterPresenceOut += new jabber.client.PresenceHandler(m_stream_OnAfterPresenceOut);
         }
@@ -530,12 +552,12 @@ namespace jabber.connection
             get { return m_subject.Subject; }
             set
             {
-                Message m = new Message(m_stream.Document);
+                Message m = new Message(m_manager.Stream.Document);
                 m.To = m_room;
                 m.Type = MessageType.groupchat;
                 m.Subject = value;
                 m.Body = "/me has changed the subject to: " + value;
-                m_stream.Write(m);
+                m_manager.Write(m);
             }
         }
 
@@ -573,9 +595,9 @@ namespace jabber.connection
             set
             {
                 m_jid = new JID(m_jid.User, m_jid.Server, value);
-                Presence p = new Presence(m_stream.Document);
+                Presence p = new Presence(m_manager.Stream.Document);
                 p.To = m_jid;
-                m_stream.Write(p);
+                m_manager.Write(p);
             }
         }
 
@@ -607,7 +629,7 @@ namespace jabber.connection
         {
             Presence p = (Presence)pres.CloneNode(true);
             p.To = m_room;
-            m_stream.Write(p);
+            m_manager.Write(p);
         }
 
         private void m_stream_OnProtocol(object sender, System.Xml.XmlElement rp)
@@ -767,8 +789,8 @@ namespace jabber.connection
             if (p.Type != PresenceType.unavailable)
                 return;
 
-            m_stream.OnProtocol -= new jabber.protocol.ProtocolHandler(m_stream_OnProtocol);
-            jabber.client.JabberClient jc = m_stream as jabber.client.JabberClient;
+            m_manager.Stream.OnProtocol -= new jabber.protocol.ProtocolHandler(m_stream_OnProtocol);
+            jabber.client.JabberClient jc = m_manager.Stream as jabber.client.JabberClient;
             if (jc != null)
                 jc.OnAfterPresenceOut -= new jabber.client.PresenceHandler(m_stream_OnAfterPresenceOut);
             m_manager.RemoveRoom(m_jid); // should cause this object to GC.
@@ -796,17 +818,17 @@ namespace jabber.connection
 </iq>
  */
             m_state = STATE.configGet;
-            OwnerIQ iq = new OwnerIQ(m_stream.Document);
+            OwnerIQ iq = new OwnerIQ(m_manager.Stream.Document);
             iq.Type = IQType.get;
             iq.To = m_room;
-            m_stream.Tracker.BeginIQ(iq, new IqCB(ConfigForm), null);
+            m_manager.BeginIQ(iq, new IqCB(ConfigForm), null);
         }
 
         private void ConfigForm(object sender, IQ iq, object context)
         {
             // We should always be on the GUI thread.
             // XmppStream should invoke before calling OnProtocol in the Tracker.
-            Debug.Assert((m_stream.InvokeControl == null) || (!m_stream.InvokeControl.InvokeRequired));
+            Debug.Assert((m_manager.Stream.InvokeControl == null) || (!m_manager.Stream.InvokeControl.InvokeRequired));
 
             IQ resp = OnRoomConfig(this, iq);
             if (resp == null)
@@ -819,7 +841,7 @@ namespace jabber.connection
             resp.To = m_room;
             resp.Type = IQType.set;
             resp.From = null;
-            m_stream.Tracker.BeginIQ(resp, new IqCB(Configured), null);
+            m_manager.BeginIQ(resp, new IqCB(Configured), null);
         }
 
         private void Configured(object sender, IQ iq, object context)
@@ -858,13 +880,13 @@ namespace jabber.connection
 </iq>
  */
             m_state = STATE.configSet;
-            OwnerIQ iq = new OwnerIQ(m_stream.Document);
+            OwnerIQ iq = new OwnerIQ(m_manager.Stream.Document);
             iq.Type = IQType.set;
             iq.To = m_room;
             OwnerQuery oq = iq.Instruction;
             Data form = oq.Form;
             form.Type = XDataType.submit;
-            m_stream.Tracker.BeginIQ(iq, new IqCB(Configured), null);
+            m_manager.BeginIQ(iq, new IqCB(Configured), null);
         }
 
         /// <summary>
@@ -873,12 +895,7 @@ namespace jabber.connection
         /// </summary>
         public void Join()
         {
-            if (m_state == STATE.running)
-                return;
-
-            m_state = STATE.join;
-            RoomPresence pres = new RoomPresence(m_stream.Document, m_jid);
-            m_stream.Write(pres);
+            Join(null);
         }
 
         /// <summary>
@@ -891,10 +908,11 @@ namespace jabber.connection
                 return;
 
             m_state = STATE.join;
-            RoomPresence pres = new RoomPresence(m_stream.Document, m_jid);
-            pres.X.Password = password;
+            RoomPresence pres = new RoomPresence(m_manager.Stream.Document, m_jid);
+            if (password != null)
+                pres.X.Password = password;
 
-            m_stream.Write(pres);
+            m_manager.Write(pres);
         }
 
         /// <summary>
@@ -912,12 +930,12 @@ namespace jabber.connection
   <status>gone where the goblins go</status>
 </presence>
  */
-            Presence p = new Presence(m_stream.Document);
+            Presence p = new Presence(m_manager.Stream.Document);
             p.To = m_jid;
             p.Type = PresenceType.unavailable;
             if (reason != null)
                 p.Status = reason;
-            m_stream.Write(p);
+            m_manager.Write(p);
 
 
             // cleanup done when unavailable/110 received.
@@ -940,11 +958,11 @@ namespace jabber.connection
  */
             if (body == null)
                 throw new ArgumentNullException("body");
-            Message m = new Message(m_stream.Document);
+            Message m = new Message(m_manager.Stream.Document);
             m.To = m_room;
             m.Type = MessageType.groupchat;
             m.Body = body;
-            m_stream.Write(m);
+            m_manager.Write(m);
         }
 
         /// <summary>
@@ -969,11 +987,11 @@ namespace jabber.connection
             if (body == null)
                 throw new ArgumentNullException("body");
 
-            Message m = new Message(m_stream.Document);
+            Message m = new Message(m_manager.Stream.Document);
             m.To = new JID(m_room.User, m_room.Server, nick);
             m.Type = MessageType.chat;
             m.Body = body;
-            m_stream.Write(m);
+            m_manager.Write(m);
         }
 
         /// <summary>
@@ -1001,12 +1019,12 @@ namespace jabber.connection
   </x>
 </message>
  */
-            Message m = new Message(m_stream.Document);
+            Message m = new Message(m_manager.Stream.Document);
             m.To = m_room;
-            UserX x = new UserX(m_stream.Document);
+            UserX x = new UserX(m_manager.Stream.Document);
             x.AddInvite(invitee, reason);
             m.AddChild(x);
-            m_stream.Write(m);
+            m_manager.Write(m);
         }
 
 #region Moderator use cases
@@ -1037,7 +1055,7 @@ namespace jabber.connection
   </query>
 </iq>
 */
-            RoomAdminIQ iq = new RoomAdminIQ(m_stream.Document);
+            RoomAdminIQ iq = new RoomAdminIQ(m_manager.Stream.Document);
             iq.To = m_room;
             iq.Type = IQType.set;
             AdminQuery query = iq.Instruction;
@@ -1045,7 +1063,7 @@ namespace jabber.connection
             item.Nick = nick;
             item.Role = role;
             item.Reason = reason;
-            m_stream.Tracker.BeginIQ(iq, null, null);
+            m_manager.BeginIQ(iq, null, null);
         }
 
         /// <summary>
@@ -1111,11 +1129,11 @@ namespace jabber.connection
   </query>
 </iq>
 */
-            RoomAdminIQ iq = new RoomAdminIQ(m_stream.Document);
+            RoomAdminIQ iq = new RoomAdminIQ(m_manager.Stream.Document);
             iq.To = m_room;
             AdminQuery query = iq.Instruction;
             query.AddItem().Role = role;
-            m_stream.Tracker.BeginIQ(iq, new IqCB(GotList), new RetrieveParticipantsState(callback, state));
+            m_manager.BeginIQ(iq, new IqCB(GotList), new RetrieveParticipantsState(callback, state));
         }
 
         private void GotList(object sender, IQ iq, object state)
@@ -1144,9 +1162,9 @@ namespace jabber.connection
             ParticipantCollection.Modification mod;
             foreach (AdminItem item in query.GetItems())
             {
-                Presence pres = new Presence(m_stream.Document);
+                Presence pres = new Presence(m_manager.Stream.Document);
                 pres.From = new JID(m_jid.User, m_jid.Server, item.Nick);
-                UserX x = new UserX(m_stream.Document);
+                UserX x = new UserX(m_manager.Stream.Document);
                 RoomItem xi = x.RoomItem;
                 xi.Role = item.Role;
                 xi.Affiliation = item.Affiliation;
@@ -1189,7 +1207,7 @@ namespace jabber.connection
   </query>
 </iq>
 */
-            RoomAdminIQ iq = new RoomAdminIQ(m_stream.Document);
+            RoomAdminIQ iq = new RoomAdminIQ(m_manager.Stream.Document);
             iq.To = m_room;
             iq.Type = IQType.set;
             AdminQuery query = iq.Instruction;
@@ -1207,7 +1225,7 @@ namespace jabber.connection
                 }
             }
             if (count > 0)
-                m_stream.Tracker.BeginIQ(iq, callback, state);
+                m_manager.BeginIQ(iq, callback, state);
             else
                 callback(this, null, state);
         }
@@ -1242,7 +1260,7 @@ namespace jabber.connection
   </query>
 </iq>
  */
-            RoomAdminIQ iq = new RoomAdminIQ(m_stream.Document);
+            RoomAdminIQ iq = new RoomAdminIQ(m_manager.Stream.Document);
             iq.To = m_room;
             iq.Type = IQType.set;
             AdminQuery query = iq.Instruction;
@@ -1250,7 +1268,7 @@ namespace jabber.connection
             item.JID = jid;
             item.Affiliation = affiliation;
             item.Reason = reason;
-            m_stream.Tracker.BeginIQ(iq, null, null);
+            m_manager.BeginIQ(iq, null, null);
         }
 
         /// <summary>
@@ -1314,11 +1332,11 @@ namespace jabber.connection
   </query>
 </iq>
 */
-            RoomAdminIQ iq = new RoomAdminIQ(m_stream.Document);
+            RoomAdminIQ iq = new RoomAdminIQ(m_manager.Stream.Document);
             iq.To = m_room;
             AdminQuery query = iq.Instruction;
             query.AddItem().Affiliation = affiliation;
-            m_stream.Tracker.BeginIQ(iq, new IqCB(GotList), new RetrieveParticipantsState(callback, state));
+            m_manager.BeginIQ(iq, new IqCB(GotList), new RetrieveParticipantsState(callback, state));
         }
 
         /// <summary>
@@ -1346,7 +1364,7 @@ namespace jabber.connection
   </query>
 </iq>
 */
-            RoomAdminIQ iq = new RoomAdminIQ(m_stream.Document);
+            RoomAdminIQ iq = new RoomAdminIQ(m_manager.Stream.Document);
             iq.To = m_room;
             iq.Type = IQType.set;
             AdminQuery query = iq.Instruction;
@@ -1364,7 +1382,7 @@ namespace jabber.connection
                 }
             }
             if (count > 0)
-                m_stream.Tracker.BeginIQ(iq, callback, state);
+                m_manager.BeginIQ(iq, callback, state);
             else
                 callback(this, null, state);
         }
@@ -1374,7 +1392,7 @@ namespace jabber.connection
     /// <summary>
     /// A list of all of the current participants.
     /// </summary>
-    [SVN(@"$Id: ConferenceManager.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: ConferenceManager.cs 731 2008-09-07 23:01:31Z hildjj $")]
     public class ParticipantCollection : IEnumerable
     {
         private Hashtable m_hash = new Hashtable();
@@ -1481,7 +1499,7 @@ namespace jabber.connection
     /// <summary>
     /// Someone who is currently in or associated with a room.
     /// </summary>
-    [SVN(@"$Id: ConferenceManager.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: ConferenceManager.cs 731 2008-09-07 23:01:31Z hildjj $")]
     public class RoomParticipant
     {
         private Presence m_presence;

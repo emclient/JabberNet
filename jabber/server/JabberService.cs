@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -33,7 +33,7 @@ namespace jabber.server
     /// This list will grow over time to include
     /// queued connections, direct (in-proc) connections, etc.
     /// </summary>
-    [SVN(@"$Id: JabberService.cs 694 2008-06-23 22:51:46Z hildjj $")]
+    [SVN(@"$Id: JabberService.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public enum ComponentType
     {
         /// <summary>
@@ -64,12 +64,13 @@ namespace jabber.server
     /// <summary>
     /// Summary description for ServerComponent.
     /// </summary>
-    [SVN(@"$Id: JabberService.cs 694 2008-06-23 22:51:46Z hildjj $")]
+    [SVN(@"$Id: JabberService.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class JabberService : jabber.connection.XmppStream
     {
         private static readonly object[][] DEFAULTS = new object[][] {
             new object[] {Options.COMPONENT_DIRECTION, ComponentType.Accept},
             new object[] {Options.PORT, 7400},
+            new object[] {Options.OVERRIDE_FROM, null},
         };
 
         private void init()
@@ -211,8 +212,6 @@ namespace jabber.server
             }
         }
 
-
-
         /// <summary>
         /// The stream namespace for this connection.
         /// </summary>
@@ -223,6 +222,16 @@ namespace jabber.server
             {
                 return (this.Type == ComponentType.Accept) ? URI.ACCEPT : URI.CONNECT;
             }
+        }
+
+        /// <summary>
+        /// Override the from address that is stamped on all outbound stanzas that 
+        /// have no from address.
+        /// </summary>
+        public JID OverrideFrom
+        {
+            get { return this[Options.OVERRIDE_FROM] as JID; }
+            set { this[Options.OVERRIDE_FROM] = value; }
         }
 
         /// <summary>
@@ -263,7 +272,13 @@ namespace jabber.server
             if (State == RunningState.Instance)
             {
                 if (elem.GetAttribute("from") == "")
-                    elem.SetAttribute("from", this.ComponentID);
+                {
+                    JID from = this[Options.OVERRIDE_FROM] as JID;
+                    if (from == null)
+                        from = this.ComponentID;
+
+                    elem.SetAttribute("from", from);
+                }
             }
             base.Write(elem);
         }
@@ -428,7 +443,7 @@ namespace jabber.server
     /// <summary>
     /// Waiting for handshake result.
     /// </summary>
-    [SVN(@"$Id: JabberService.cs 694 2008-06-23 22:51:46Z hildjj $")]
+    [SVN(@"$Id: JabberService.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class HandshakingState : jabber.connection.BaseState
     {
         /// <summary>
@@ -440,7 +455,7 @@ namespace jabber.server
     /// <summary>
     /// Waiting for socket connection.
     /// </summary>
-    [SVN(@"$Id: JabberService.cs 694 2008-06-23 22:51:46Z hildjj $")]
+    [SVN(@"$Id: JabberService.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class AcceptingState : jabber.connection.BaseState
     {
         /// <summary>

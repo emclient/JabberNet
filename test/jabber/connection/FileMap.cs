@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -24,7 +24,7 @@ using jabber.protocol.iq;
 
 namespace test.jabber.connection
 {
-    [SVN(@"$Id: FileMap.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: FileMap.cs 724 2008-08-06 18:09:25Z hildjj $")]
     [TestFixture]
     public class FileMapTest
     {

@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -27,7 +27,7 @@ namespace ConsoleClient
     /// <summary>
     /// Summary description for Class1.
     /// </summary>
-    [SVN(@"$Id: Main.cs 676 2008-06-12 17:05:11Z hildjj $")]
+    [SVN(@"$Id: Main.cs 725 2008-08-06 18:14:18Z hildjj $")]
     class Class1
     {
         [CommandLine("j", "user@host Jabber ID", true)]

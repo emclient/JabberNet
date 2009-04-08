@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System.Xml;
@@ -28,7 +28,7 @@ using Rhino.Mocks.Interfaces;
 namespace test.jabber.connection
 {
     [TestFixture]
-    [SVN(@"$Id: DiscoManagerTest.cs 684 2008-06-13 15:23:15Z michael.wegman $")]
+    [SVN(@"$Id: DiscoManagerTest.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class DiscoManagerTest
     {
         private MockRepository mocks;

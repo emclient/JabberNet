@@ -8,12 +8,13 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
 
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Xml;
@@ -31,7 +32,7 @@ namespace jabber.connection
     /// <summary>
     /// Informs the client that an IQ has timed out.
     /// </summary>
-    [SVN(@"$Id: IQTracker.cs 652 2008-04-02 15:57:08Z hildjj $")]
+    [SVN(@"$Id: IQTracker.cs 736 2008-09-09 21:16:18Z hildjj $")]
     public class IQTimeoutException : Exception
     {
         /// <summary>
@@ -47,7 +48,7 @@ namespace jabber.connection
     ///<summary>
     /// Represents the interface for tracking an IQ packet.
     ///</summary>
-    [SVN(@"$Id: IQTracker.cs 652 2008-04-02 15:57:08Z hildjj $")]
+    [SVN(@"$Id: IQTracker.cs 736 2008-09-09 21:16:18Z hildjj $")]
     public interface IIQTracker
     {
         ///<summary>
@@ -70,10 +71,10 @@ namespace jabber.connection
     /// <summary>
     /// Tracks outstanding IQ requests.
     /// </summary>
-    [SVN(@"$Id: IQTracker.cs 652 2008-04-02 15:57:08Z hildjj $")]
+    [SVN(@"$Id: IQTracker.cs 736 2008-09-09 21:16:18Z hildjj $")]
     public class IQTracker: IIQTracker
     {
-        private Hashtable  m_pending = new Hashtable();
+        private Dictionary<string, TrackerData> m_pending = new Dictionary<string, TrackerData>();
         private XmppStream m_cli     = null;
 
         /// <summary>
@@ -91,19 +92,21 @@ namespace jabber.connection
             IQ iq = elem as IQ;
             if (iq == null)
                 return;
+            if ((iq.Type != IQType.result) && (iq.Type != IQType.error))
+                return;
 
             string id = iq.ID;
             TrackerData td;
 
             lock (m_pending)
             {
-                td = (TrackerData) m_pending[id];
+                if (!m_pending.TryGetValue(id, out td))
+                    return;
 
                 // this wasn't one that was being tracked.
-                if (td == null)
-                {
+                if (!td.IsMatch(iq))
                     return;
-                }
+
                 m_pending.Remove(id);
             }
 
@@ -121,7 +124,7 @@ namespace jabber.connection
             // if no callback, ignore response.
             if (cb != null)
             {
-                TrackerData td = new TrackerData(cb, cbArg);
+                TrackerData td = new TrackerData(cb, cbArg, iq.To, iq.ID);
                 lock (m_pending)
                 {
                     m_pending[iq.ID] = td;
@@ -139,7 +142,7 @@ namespace jabber.connection
         public IQ IQ(IQ iqp, int millisecondsTimeout)
         {
             AutoResetEvent are = new AutoResetEvent(false);
-            TrackerData td = new TrackerData(SignalEvent, are);
+            TrackerData td = new TrackerData(SignalEvent, are, iqp.To, iqp.ID);
             string id = iqp.ID;
             lock (m_pending)
             {
@@ -154,7 +157,7 @@ namespace jabber.connection
 
             lock (m_pending)
             {
-                IQ resp = (IQ) m_pending[id];
+                IQ resp = td.Response;
                 m_pending.Remove(id);
                 return resp;
             }
@@ -162,29 +165,54 @@ namespace jabber.connection
 
         private void SignalEvent(object sender, IQ iq, object data)
         {
-            m_pending[iq.ID] = iq;
             ((AutoResetEvent)data).Set();
         }
 
         /// <summary>
         /// Internal state for a pending tracker request
         /// </summary>
-        [SVN(@"$Id: IQTracker.cs 652 2008-04-02 15:57:08Z hildjj $")]
+        [SVN(@"$Id: IQTracker.cs 736 2008-09-09 21:16:18Z hildjj $")]
         public class TrackerData
         {
             private IqCB  cb;
             private object data;
+            private JID jid;
+            private string id;
+            private IQ response = null;
 
             /// <summary>
             /// Create a tracker data instance.
             /// </summary>
             /// <param name="callback"></param>
             /// <param name="state"></param>
-            public TrackerData(IqCB callback, object state)
+            /// <param name="to"></param>
+            /// <param name="iq_id"></param>
+            public TrackerData(IqCB callback, object state, JID to, string iq_id)
             {
                 Debug.Assert(callback != null);
                 cb = callback;
                 data = state;
+                jid = to;
+                id = iq_id;
+            }
+
+            /// <summary>
+            /// The response that came in.
+            /// </summary>
+            public IQ Response
+            {
+                get { return response; }
+            }
+
+            /// <summary>
+            /// Is this IQ the one we're looking for?
+            /// </summary>
+            /// <param name="iq"></param>
+            /// <returns></returns>
+            public bool IsMatch(IQ iq)
+            {
+                JID from = iq.From;
+                return (iq.ID == id) && ((jid == null) || (from == null) || (from == jid));
             }
 
             /// <summary>
@@ -194,6 +222,7 @@ namespace jabber.connection
             /// <param name="iq"></param>
             public void Call(object sender, IQ iq)
             {
+                response = iq;
                 cb(sender, iq, data);
             }
         }

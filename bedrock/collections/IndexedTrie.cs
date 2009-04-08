@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -21,7 +21,7 @@ namespace bedrock.collections
     /// A Trie that is searchable for substrings.  Uses a separate set of indexes
     /// to allow entry into the Trie at any point.  Yes, this
     /// </summary>
-    [SVN(@"$Id: IndexedTrie.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: IndexedTrie.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class IndexedTrie : Trie
     {
         private Tree m_indexes    = new Tree();

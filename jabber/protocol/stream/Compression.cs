@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -21,7 +21,7 @@ namespace jabber.protocol.stream
     /// <summary>
     /// XEP-138 compression.
     /// </summary>
-    [SVN(@"$Id: Compression.cs 580 2008-02-13 21:49:19Z hildjj $")]
+    [SVN(@"$Id: Compression.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Compression : Element
     {
         /// <summary>
@@ -88,7 +88,7 @@ namespace jabber.protocol.stream
     /// <summary>
     /// XEP-138 compression failure.
     /// </summary>
-    [SVN(@"$Id: Compression.cs 580 2008-02-13 21:49:19Z hildjj $")]
+    [SVN(@"$Id: Compression.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class CompressionFailure : Element
     {
         /// <summary>
@@ -131,7 +131,7 @@ namespace jabber.protocol.stream
     /// <summary>
     /// XEP-138 compression start.
     /// </summary>
-    [SVN(@"$Id: Compression.cs 580 2008-02-13 21:49:19Z hildjj $")]
+    [SVN(@"$Id: Compression.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Compress : Element
     {
         /// <summary>
@@ -168,7 +168,7 @@ namespace jabber.protocol.stream
     /// <summary>
     /// XEP-138 compression success.
     /// </summary>
-    [SVN(@"$Id: Compression.cs 580 2008-02-13 21:49:19Z hildjj $")]
+    [SVN(@"$Id: Compression.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Compressed : Element
     {
         /// <summary>

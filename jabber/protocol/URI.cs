@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -21,7 +21,7 @@ namespace jabber.protocol
     /// <summary>
     /// Namespace constants for http://etherx.jabber.org/streams.
     /// </summary>
-    [SVN(@"$Id: URI.cs 652 2008-04-02 15:57:08Z hildjj $")]
+    [SVN(@"$Id: URI.cs 733 2008-09-07 23:03:44Z hildjj $")]
     public class URI
     {
         /// <summary>
@@ -252,5 +252,16 @@ namespace jabber.protocol
         /// </summary>
         public const string PUBSUB_ERRORS = "http://jabber.org/protocol/pubsub#errors";
 
+        /// <summary>
+        /// Bookmarks.
+        /// See XEP-0048 (http://www.xmpp.org/extensions/xep-0048.html)
+        /// </summary>
+        public const string BOOKMARKS = "storage:bookmarks";
+
+        /// <summary>
+        /// Private storage.
+        /// See XEP-0049 (http://www.xmpp.org/extensions/xep-0049.html)
+        /// </summary>
+        public const string PRIVATE = "jabber:iq:private";
     }
 }

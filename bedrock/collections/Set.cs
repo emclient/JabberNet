@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -21,7 +21,7 @@ namespace bedrock.collections
     /// <summary>
     /// The different ways a set can be implemented.
     /// </summary>
-    [SVN(@"$Id: Set.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: Set.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public enum SetImplementation
     {
         /// <summary>
@@ -41,7 +41,7 @@ namespace bedrock.collections
     /// <summary>
     /// Set backed into a Tree.
     /// </summary>
-    [SVN(@"$Id: Set.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: Set.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Set : ISet
     {
         private static readonly object s_nothing = new object();

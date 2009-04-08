@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -23,7 +23,7 @@ namespace bedrock.io
     /// <summary>
     /// Compression failed.
     /// </summary>
-    [SVN(@"$Id: ZlibStream.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: ZlibStream.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class CompressionFailedException : ApplicationException
     {
         /// <summary>
@@ -46,7 +46,7 @@ namespace bedrock.io
     /// No, System.IO.Compression.GZipStream won't work, because they didn't expose
     /// compression levels or flush types.
     /// </summary>
-    [SVN(@"$Id: ZlibStream.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: ZlibStream.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class ZlibStream : Stream
     {
         /// <summary>

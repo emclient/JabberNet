@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -23,7 +23,7 @@ namespace jabber.protocol.x
     /// Types of events
     /// </summary>
     [Flags]
-    [SVN(@"$Id: Event.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: Event.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public enum EventType
     {
         /// <summary>
@@ -60,7 +60,7 @@ namespace jabber.protocol.x
     /// <summary>
     /// A event x element, described by XEP-0022.
     /// </summary>
-    [SVN(@"$Id: Event.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: Event.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Event : Element
     {
         /// <summary>

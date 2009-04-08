@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 
@@ -32,7 +32,7 @@ namespace jabber.connection
     /// Intentionally-ugly form to deal with bad certificates.  Because you don't like it, you should catch XmppStream.OnInvalidCertificate,
     /// and do something better.
     /// </summary>
-    [SVN(@"$Id: CertificatePrompt.cs 614 2008-02-21 20:50:15Z hildjj $")]
+    [SVN(@"$Id: CertificatePrompt.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class CertificatePrompt
 #if UI_OK
         : Form

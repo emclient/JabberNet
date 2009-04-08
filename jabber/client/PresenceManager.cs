@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -40,7 +40,7 @@ namespace jabber.client
     /// <summary>
     /// Specifies the presence proxy database.
     /// </summary>
-    [SVN(@"$Id: PresenceManager.cs 681 2008-06-12 20:42:07Z hildjj $")]
+    [SVN(@"$Id: PresenceManager.cs 729 2008-09-07 22:59:07Z hildjj $")]
     public class PresenceManager : jabber.connection.StreamComponent, IEnumerable
     {
         /// <summary>
@@ -97,7 +97,7 @@ namespace jabber.client
         }
 
         /// <summary>
-        /// The RosterManager for this view
+        /// The CapsManager for this view
         /// </summary>
         [Category("Jabber")]
         public CapsManager CapsManager

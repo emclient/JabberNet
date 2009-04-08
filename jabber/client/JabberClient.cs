@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -51,7 +51,7 @@ namespace jabber.client
     /// You can install this in your Toolbox, drop onto a form, a service, and so on.
     /// This class hooks into the OnProtocol event and calls the Connect() method.
     /// </summary>
-    [SVN(@"$Id: JabberClient.cs 707 2008-07-15 21:49:47Z hildjj $")]
+    [SVN(@"$Id: JabberClient.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class JabberClient : XmppStream
     {
         private static readonly object[][] DEFAULTS = new object[][] {
@@ -894,7 +894,6 @@ namespace jabber.client
             if (feat["bind", URI.BIND] != null)
             {
                 IQ iq = new IQ(this.Document);
-                iq.To = this.Server;
                 iq.Type = IQType.set;
 
                 jabber.protocol.stream.Bind bind = new jabber.protocol.stream.Bind(this.Document);
@@ -907,7 +906,6 @@ namespace jabber.client
             else if (feat["session", URI.SESSION] != null)
             {
                 IQ iq = new IQ(this.Document);
-                iq.To = this.Server;
                 iq.Type = IQType.set;
                 iq.AddChild(new jabber.protocol.stream.Session(this.Document));
                 this.Tracker.BeginIQ(iq, new IqCB(GotSession), feat);
@@ -954,7 +952,6 @@ namespace jabber.client
             if (feat["session", URI.SESSION] != null)
             {
                 IQ iqs = new IQ(this.Document);
-                iqs.To = this.Server;
                 iqs.Type = IQType.set;
                 iqs.AddChild(new jabber.protocol.stream.Session(this.Document));
                 this.Tracker.BeginIQ(iqs, new IqCB(GotSession), feat);
@@ -983,7 +980,7 @@ namespace jabber.client
     /// <summary>
     /// Contains the "Getting authorization" information.
     /// </summary>
-    [SVN(@"$Id: JabberClient.cs 707 2008-07-15 21:49:47Z hildjj $")]
+    [SVN(@"$Id: JabberClient.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class GetAuthState : jabber.connection.BaseState
     {
         /// <summary>
@@ -995,7 +992,7 @@ namespace jabber.client
     /// <summary>
     /// Contains the "Setting authorization" information.
     /// </summary>
-    [SVN(@"$Id: JabberClient.cs 707 2008-07-15 21:49:47Z hildjj $")]
+    [SVN(@"$Id: JabberClient.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class SetAuthState : jabber.connection.BaseState
     {
         /// <summary>
@@ -1008,7 +1005,7 @@ namespace jabber.client
     /// Informs the client that the JabberClient is in
     /// the "Waiting for manual login" state.
     /// </summary>
-    [SVN(@"$Id: JabberClient.cs 707 2008-07-15 21:49:47Z hildjj $")]
+    [SVN(@"$Id: JabberClient.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class ManualLoginState : jabber.connection.BaseState
     {
         /// <summary>
@@ -1022,7 +1019,7 @@ namespace jabber.client
     /// the "Waiting for manual login" state, but when Login()
     /// happens, it should try SASL.
     /// </summary>
-    [SVN(@"$Id: JabberClient.cs 707 2008-07-15 21:49:47Z hildjj $")]
+    [SVN(@"$Id: JabberClient.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class ManualSASLLoginState : jabber.connection.BaseState
     {
         /// <summary>

@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -22,7 +22,7 @@ namespace jabber.protocol.x
     /// <summary>
     /// XData types.
     /// </summary>
-    [SVN(@"$Id: Data.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: Data.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public enum XDataType
     {
         /// <summary>
@@ -46,7 +46,7 @@ namespace jabber.protocol.x
     /// <summary>
     /// Compare two x:data forms by form type.
     /// </summary>
-    [SVN(@"$Id: Data.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: Data.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class FormTypeComparer : System.Collections.Generic.Comparer<Data>
     {
         /// <summary>
@@ -64,7 +64,7 @@ namespace jabber.protocol.x
     /// <summary>
     /// jabber:x:data support, as in http://www.xmpp.org/extensions/xep-0004.html.
     /// </summary>
-    [SVN(@"$Id: Data.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: Data.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Data : Element
     {
         /// <summary>
@@ -253,7 +253,7 @@ namespace jabber.protocol.x
     /// Types of fields.  This enum doesn't exactly match the XEP,
     /// since most of the field types aren't valid identifiers in C#.
     /// </summary>
-    [SVN(@"$Id: Data.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: Data.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public enum FieldType
     {
         /// <summary>
@@ -301,7 +301,7 @@ namespace jabber.protocol.x
     /// <summary>
     /// Form field.
     /// </summary>
-    [SVN(@"$Id: Data.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: Data.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Field : Element
     {
         /// <summary>
@@ -584,7 +584,7 @@ namespace jabber.protocol.x
     /// <summary>
     /// Field options, for list-single and list-multi type fields.
     /// </summary>
-    [SVN(@"$Id: Data.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: Data.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Option : Element
     {
         /// <summary>

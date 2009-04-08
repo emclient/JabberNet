@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -39,7 +39,7 @@ namespace jabber.connection
     /// <summary>
     /// Manages option names.  These must be well-formed XML element names.
     /// </summary>
-    [SVN(@"$Id: XmppStream.cs 681 2008-06-12 20:42:07Z hildjj $")]
+    [SVN(@"$Id: XmppStream.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public abstract class Options
     {
         /// <summary>
@@ -208,12 +208,16 @@ namespace jabber.connection
         /// Contains the password for the proxy server.
         /// </summary>
         public const string PROXY_PW   = "proxy.password";
+        /// <summary>
+        /// Override the from address, in a component/service connection.
+        /// </summary>
+        public const string OVERRIDE_FROM = "override_from";
     }
 
     /// <summary>
     /// Manages the XMPP stream of the connection.
     /// </summary>
-    [SVN(@"$Id: XmppStream.cs 681 2008-06-12 20:42:07Z hildjj $")]
+    [SVN(@"$Id: XmppStream.cs 724 2008-08-06 18:09:25Z hildjj $")]
     abstract public class XmppStream :
         System.ComponentModel.Component,
         IStanzaEventListener
@@ -900,8 +904,8 @@ namespace jabber.connection
         /// <param name="elem">The XML element to send.</param>
         public virtual void Write(XmlElement elem)
         {
-			if (m_stanzas!=null)
-				m_stanzas.Write(elem);
+            if (m_stanzas!=null)
+                m_stanzas.Write(elem);
         }
 
         /// <summary>

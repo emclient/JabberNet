@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -37,7 +37,7 @@ namespace bedrock.net
     /// but adds async DNS lookups.
     /// TODO: add SRV?
     /// </summary>
-    [SVN(@"$Id: Address.cs 659 2008-04-07 19:14:05Z hildjj $")]
+    [SVN(@"$Id: Address.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Address
     {
         private string    m_hostname = null;
@@ -212,7 +212,7 @@ namespace bedrock.net
                 if (m_hostname != value)
                 {
                     m_hostname = value;
-					IPAddress.TryParse(m_hostname, out m_ip);
+                    IPAddress.TryParse(m_hostname, out m_ip);
                 }
             }
         }

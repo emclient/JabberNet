@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -22,7 +22,7 @@ namespace bedrock.net
     /// events.  This is an interface instead of events in order
     /// to preserve symmetry with libbedrock.
     /// </summary>
-    [SVN(@"$Id: SocketEventListener.cs 614 2008-02-21 20:50:15Z hildjj $")]
+    [SVN(@"$Id: SocketEventListener.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public interface ISocketEventListener
     {
         /// <summary>
@@ -98,7 +98,7 @@ namespace bedrock.net
     /// <summary>
     /// Default, empty implementation of ISocketEventListener
     /// </summary>
-    [SVN(@"$Id: SocketEventListener.cs 614 2008-02-21 20:50:15Z hildjj $")]
+    [SVN(@"$Id: SocketEventListener.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class SocketEventListener : ISocketEventListener
     {
         #region Implementation of ISocketEventListener

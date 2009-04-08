@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -32,7 +32,7 @@ namespace jabber.connection
     /// <summary>
     /// Manages a service discovery (disco) identity. See <a href="http://www.xmpp.org/extensions/xep-0030.html">XEP-0030</a> for more information.
     /// </summary>
-    [SVN(@"$Id: DiscoManager.cs 683 2008-06-12 22:28:44Z hildjj $")]
+    [SVN(@"$Id: DiscoManager.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Ident : IComparable
     {
         private string m_name;
@@ -203,7 +203,7 @@ namespace jabber.connection
     /// <summary>
     /// Manages a JID and Node combination.
     /// </summary>
-    [SVN(@"$Id: DiscoManager.cs 683 2008-06-12 22:28:44Z hildjj $")]
+    [SVN(@"$Id: DiscoManager.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class JIDNode
     {
         private JID m_jid = null;
@@ -315,7 +315,7 @@ namespace jabber.connection
     ///
     /// NOTE: If you have multiple connections in the same process, they all share the same Disco cache.
     /// </summary>
-    [SVN(@"$Id: DiscoManager.cs 683 2008-06-12 22:28:44Z hildjj $")]
+    [SVN(@"$Id: DiscoManager.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class DiscoNode : JIDNode, IEnumerable
     {
         /// <summary>
@@ -838,7 +838,7 @@ namespace jabber.connection
     // TODO: once etags are finished, make all of this information cached on disk.
     // TODO: cache XEP-115 client caps data to disk
     // TODO: add negative caching
-    [SVN(@"$Id: DiscoManager.cs 683 2008-06-12 22:28:44Z hildjj $")]
+    [SVN(@"$Id: DiscoManager.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class DiscoManager : StreamComponent, IEnumerable
     {
         /// <summary>
@@ -982,9 +982,7 @@ namespace jabber.connection
                     jabber.server.JabberService js = m_stream as jabber.server.JabberService;
                     if (js != null)
                         iq.From = js.ComponentID;
-                    m_stream.Tracker.BeginIQ(iq,
-                                             new jabber.connection.IqCB(GotInfo),
-                                             node);
+                    BeginIQ(iq, new jabber.connection.IqCB(GotInfo), node);
                 }
             }
         }
@@ -999,9 +997,7 @@ namespace jabber.connection
                     jabber.server.JabberService js = m_stream as jabber.server.JabberService;
                     if (js != null)
                         iq.From = js.ComponentID;
-                    m_stream.Tracker.BeginIQ(iq,
-                                             new jabber.connection.IqCB(GotItems),
-                                             node);
+                    BeginIQ(iq, new jabber.connection.IqCB(GotItems), node);
                 }
             }
         }
@@ -1026,7 +1022,7 @@ namespace jabber.connection
                             (cond == Error.SERVICE_UNAVAILABLE))
                         {
                             IQ aiq = new AgentsIQ(m_stream.Document);
-                            m_stream.Tracker.BeginIQ(aiq, new jabber.connection.IqCB(GotAgents), m_root);
+                            BeginIQ(aiq, new jabber.connection.IqCB(GotAgents), m_root);
                             return;
                         }
                     }

@@ -83,10 +83,7 @@
     <DefineConstants Condition="'$(BuildMono)'=='true'">TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>pdbonly</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-    <Optimize>false</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup Condition="'$(BuildMono)'==''">
     <Reference Include="System">
@@ -143,6 +140,9 @@
     </Compile>
     <Compile Include="bedrock\io\BufferAggregate.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="jabber\client\BookmarkManager.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="jabber\connection\FileMap.cs" />
     <Compile Include="bedrock\io\ReadEventStream.cs">
@@ -304,6 +304,7 @@
     <Compile Include="jabber\protocol\iq\Auth.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="jabber\protocol\iq\Bookmarks.cs" />
     <Compile Include="jabber\protocol\iq\Browse.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -324,6 +325,7 @@
     <Compile Include="jabber\protocol\iq\OOB.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="jabber\protocol\iq\Private.cs" />
     <Compile Include="jabber\protocol\iq\PubSub.cs" />
     <Compile Include="jabber\protocol\iq\PubSubErrors.cs" />
     <Compile Include="jabber\protocol\iq\PubSubEvent.cs" />
@@ -435,13 +437,11 @@
     <EmbeddedResource Include="jabber\client\JabberClient.bmp" />
     <EmbeddedResource Include="jabber\client\JabberClient.resx">
       <DependentUpon>JabberClient.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="jabber\client\PresenceManager.bmp" />
     <EmbeddedResource Include="jabber\client\RosterManager.bmp" />
     <EmbeddedResource Include="jabber\client\RosterManager.resx">
       <DependentUpon>RosterManager.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="jabber\connection\XmppStream.resx">
       <DependentUpon>XmppStream.cs</DependentUpon>
@@ -450,7 +450,6 @@
     <EmbeddedResource Include="jabber\server\JabberService.bmp" />
     <EmbeddedResource Include="jabber\server\JabberService.resx">
       <DependentUpon>JabberService.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -473,30 +472,13 @@
     <EmbeddedResource Include="jabber\connection\ConferenceManager.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Data" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="netlib.Dns\netlib.Dns.csproj">
+    <ProjectReference Condition="'$(BuildMono)'==''" Include="netlib.Dns\netlib.Dns.csproj">
       <Project>{40AC7A7C-D3E5-46DF-B740-06BD9D2A00E1}</Project>
       <Name>netlib.Dns</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Data" />
   </ItemGroup>
   <Import Condition="'$(BuildMono)'==''" Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
@@ -507,24 +489,8 @@
     <SignAssembly>false</SignAssembly>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <OldToolsVersion>2.0</OldToolsVersion>
-    <ProductVersion>9.0.21022</ProductVersion>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
 </Project>

@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -22,7 +22,7 @@ namespace jabber.protocol.x
     /// <summary>
     /// A delay x element.
     /// </summary>
-    [SVN(@"$Id: Delay.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: Delay.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Delay : Element
     {
         /// <summary>
@@ -75,7 +75,7 @@ namespace jabber.protocol.x
     /// <summary>
     /// A modern, XEP-0203 delay element
     /// </summary>
-    [SVN(@"$Id: Delay.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: Delay.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class ModernDelay : Element
     {
 /*

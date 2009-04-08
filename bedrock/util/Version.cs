@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -27,7 +27,7 @@ namespace bedrock.util
     /// <see cref="StarTeamAttribute"/>
     /// <see cref="SourceSafeAttribute"/>
     /// <see cref="RCSAttribute"/>
-    //    [SVN(@"$Id: Version.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    //    [SVN(@"$Id: Version.cs 724 2008-08-06 18:09:25Z hildjj $")]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.Enum | AttributeTargets.Struct,
                     AllowMultiple = false,
                     Inherited     = false)]
@@ -300,7 +300,7 @@ namespace bedrock.util
     ///
     /// SourceVersionAttribute sta = SourceVersionAttribute.GetVersion(typeof(foo));
     /// </example>
-    [SVN(@"$Id: Version.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: Version.cs 724 2008-08-06 18:09:25Z hildjj $")]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.Enum | AttributeTargets.Struct,
                     AllowMultiple=false, Inherited=false)]
     public class StarTeamAttribute : SourceVersionAttribute
@@ -359,7 +359,7 @@ namespace bedrock.util
     /// <summary>
     /// Version control attribute for RCS and CVS.
     /// </summary>
-    [SVN(@"$Id: Version.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: Version.cs 724 2008-08-06 18:09:25Z hildjj $")]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.Enum | AttributeTargets.Struct,
                     AllowMultiple=false, Inherited=false)]
     public class RCSAttribute : SourceVersionAttribute
@@ -422,7 +422,7 @@ namespace bedrock.util
     /// I don't use this any more, so someone tell me if it breaks with
     /// some new release.
     /// </summary>
-    [SVN(@"$Id: Version.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: Version.cs 724 2008-08-06 18:09:25Z hildjj $")]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.Enum | AttributeTargets.Struct,
                     AllowMultiple=false, Inherited=false)]
     public class SourceSafeAttribute : SourceVersionAttribute
@@ -472,7 +472,7 @@ namespace bedrock.util
     /// return a list of all of the versioned classes in the
     /// current working set.
     /// </summary>
-    [SVN(@"$Id: Version.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: Version.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class SourceVersionCollection : NameObjectCollectionBase
     {
         /// <summary>
@@ -586,7 +586,7 @@ namespace bedrock.util
     /// <summary>
     /// Version control attribute for Subversion.
     /// </summary>
-    [SVN(@"$Id: Version.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: Version.cs 724 2008-08-06 18:09:25Z hildjj $")]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.Enum | AttributeTargets.Struct,
                     AllowMultiple=false, Inherited=false)]
     public class SVNAttribute : SourceVersionAttribute

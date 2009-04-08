@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System.IO;
@@ -27,7 +27,7 @@ namespace test.jabber.protocol
     /// <summary>
     /// Summary description for ElementStreamTest.
     /// </summary>
-    [SVN(@"$Id: ElementStreamTest.cs 589 2008-02-14 21:10:27Z hildjj $")]
+    [SVN(@"$Id: ElementStreamTest.cs 724 2008-08-06 18:09:25Z hildjj $")]
     [TestFixture]
     public class ElementStreamTest
     {

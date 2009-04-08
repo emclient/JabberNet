@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -38,7 +38,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// IQ packet with a disco#items query element inside.
     /// </summary>
-    [SVN(@"$Id: Disco.cs 691 2008-06-23 21:30:15Z hildjj $")]
+    [SVN(@"$Id: Disco.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class DiscoItemsIQ : jabber.protocol.client.TypedIQ<DiscoItems>
     {
         /// <summary>
@@ -62,7 +62,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// IQ packet with a disco#info query element inside.
     /// </summary>
-    [SVN(@"$Id: Disco.cs 691 2008-06-23 21:30:15Z hildjj $")]
+    [SVN(@"$Id: Disco.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class DiscoInfoIQ : jabber.protocol.client.TypedIQ<DiscoInfo>
     {
         /// <summary>
@@ -114,7 +114,7 @@ namespace jabber.protocol.iq
     /// A disco#items query element.
     /// See <a href="http://www.xmpp.org/extensions/xep-0030.html">XEP-0030</a> for more information.
     /// </summary>
-    [SVN(@"$Id: Disco.cs 691 2008-06-23 21:30:15Z hildjj $")]
+    [SVN(@"$Id: Disco.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class DiscoItems : Element
     {
         /// <summary>
@@ -167,7 +167,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Actions for iq/set in the disco#items namespace.
     /// </summary>
-    [SVN(@"$Id: Disco.cs 691 2008-06-23 21:30:15Z hildjj $")]
+    [SVN(@"$Id: Disco.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public enum DiscoAction
     {
         /// <summary>
@@ -187,7 +187,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// An item inside a disco#items result.
     /// </summary>
-    [SVN(@"$Id: Disco.cs 691 2008-06-23 21:30:15Z hildjj $")]
+    [SVN(@"$Id: Disco.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class DiscoItem : Element
     {
         /// <summary>
@@ -280,7 +280,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// The information associated with a disco node.
     /// </summary>
-    [SVN(@"$Id: Disco.cs 691 2008-06-23 21:30:15Z hildjj $")]
+    [SVN(@"$Id: Disco.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class DiscoInfo : Element
     {
         private StringSet m_features = null;
@@ -464,7 +464,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// The identitiy associated with a disco node.
     /// </summary>
-    [SVN(@"$Id: Disco.cs 691 2008-06-23 21:30:15Z hildjj $")]
+    [SVN(@"$Id: Disco.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class DiscoIdentity : Element
     {
         /// <summary>
@@ -518,7 +518,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// A feature associated with a disco node.
     /// </summary>
-    [SVN(@"$Id: Disco.cs 691 2008-06-23 21:30:15Z hildjj $")]
+    [SVN(@"$Id: Disco.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class DiscoFeature : Element
     {
         /// <summary>

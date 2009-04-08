@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -17,13 +17,14 @@ using System.Text;
 using System.Diagnostics;
 
 using bedrock.util;
+using System.Text.RegularExpressions;
 
 namespace jabber
 {
     /// <summary>
     /// Informs the client that an invalid JID was entered.
     /// </summary>
-    [SVN(@"$Id: JID.cs 696 2008-06-23 23:58:05Z hildjj $")]
+    [SVN(@"$Id: JID.cs 748 2008-10-28 14:21:07Z hildjj $")]
     public class JIDFormatException : ApplicationException
     {
         /// <summary>
@@ -65,10 +66,10 @@ namespace jabber
     /// <summary>
     /// Provides simple JID management.
     /// </summary>
-    [SVN(@"$Id: JID.cs 696 2008-06-23 23:58:05Z hildjj $")]
+    [SVN(@"$Id: JID.cs 748 2008-10-28 14:21:07Z hildjj $")]
     [System.ComponentModel.TypeConverter(typeof(JIDTypeConverter))]
     [Serializable]
-	public class JID : IComparable
+    public class JID : IComparable
     {
 #if !NO_STRINGPREP
         private static readonly stringprep.Profile s_nodeprep     = new stringprep.XmppNode();
@@ -115,6 +116,21 @@ namespace jabber
 #endif
             m_JID      = build(m_user, m_server, m_resource);
 
+        }
+
+        /// <summary>
+        /// Builds a new JID, from portions that are guaranteed to already be stringprep'd.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="server"></param>
+        /// <param name="resource"></param>
+        /// <param name="full">The full user@server/resource JID, so that it doesn't have to be recreated from the parts</param>
+        private JID(string user, string server, string resource, string full)
+        {
+            m_user = user;
+            m_server = server;
+            m_resource = resource;
+            m_JID = full;
         }
 
         private static string build(string user, string server, string resource)
@@ -426,8 +442,119 @@ namespace jabber
             get
             {
                 parse();
+                if (m_resource == null)
+                    return m_JID;
                 return build(m_user, m_server, null);
             }
+        }
+
+        /// <summary>
+        /// Gets the user@server JID associated with this JID, as a JID.
+        /// Slightly faster than building it yourself, since stringprep
+        /// is avoided.
+        /// </summary>
+        public JID BareJID
+        {
+            get 
+            {
+                parse();
+                if (m_resource == null)
+                    return this; // already bare
+                return new JID(m_user, m_server, null, build(m_user, m_server, null)); 
+            }
+        }
+
+
+        /// <summary>
+        /// XEP-0106 escaping.
+        /// </summary>
+        /// <returns></returns>
+        public static JID Escape(string user, string server, string resource)
+        {
+            StringBuilder sb = new StringBuilder();
+            int count = 0;
+            foreach (char c in user)
+            {
+                switch (c)
+                {
+                    case ' ':
+                        if ((count == 0) || (count == (user.Length - 1)))
+                            throw new JIDFormatException();
+                        sb.Append("\\20");
+                        break;
+                    case '"':
+                        sb.Append("\\22");
+                        break;
+                    case '&':
+                        sb.Append("\\26");
+                        break;
+                    case '\'':
+                        sb.Append("\\27");
+                        break;
+                    case '/':
+                        sb.Append("\\2f");
+                        break;
+                    case ':':
+                        sb.Append("\\3a");
+                        break;
+                    case '<':
+                        sb.Append("\\3c");
+                        break;
+                    case '>':
+                        sb.Append("\\3e");
+                        break;
+                    case '@':
+                        sb.Append("\\40");
+                        break;
+                    case '\\':
+                        sb.Append("\\5c");
+                        break;
+                    default:
+                        sb.Append(c);
+                        break;
+                }
+                count++;
+            }
+            string u = sb.ToString();
+            return new JID(u, server, resource); 
+        }
+
+        /// <summary>
+        /// Unescape the username portion of a JID, as specified in XEP-106.
+        /// </summary>
+        /// <returns></returns>
+        public string Unescape()
+        {
+            Regex re = new Regex(@"\\([2-5][0267face])");
+            string u = re.Replace(m_user, new MatchEvaluator(delegate(Match m)
+            {
+                switch (m.Groups[1].Value)
+                {
+                    case "20":
+                        return " ";
+                    case "22":
+                        return "\"";
+                    case "26":
+                        return "&";
+                    case "27":
+                        return "'";
+                    case "2f":
+                        return "/";
+                    case "3a":
+                        return ":";
+                    case "3c":
+                        return "<";
+                    case "3e":
+                        return ">";
+                    case "40":
+                        return "@";
+                    case "5c":
+                        return "\\";
+                    default:
+                        return m.Groups[0].Value;
+                }
+            }));
+            return u;
         }
 
         #region Implementation of IComparable
@@ -559,6 +686,9 @@ namespace jabber
         /// <returns></returns>
         public override object ConvertFrom(System.ComponentModel.ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
         {
+            if (value == null)
+                return null;
+
             string s = value as string;
             if (s != null)
             {
@@ -582,6 +712,8 @@ namespace jabber
         /// <returns></returns>
         public override object ConvertTo(System.ComponentModel.ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
         {
+            if (value == null)
+                return null;
             if (destinationType == typeof(string))
                 return value.ToString();
             if (destinationType == typeof(JID))

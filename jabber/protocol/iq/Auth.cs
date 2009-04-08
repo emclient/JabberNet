@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -24,7 +24,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// An auth IQ.
     /// </summary>
-    [SVN(@"$Id: Auth.cs 639 2008-03-13 01:02:53Z hildjj $")]
+    [SVN(@"$Id: Auth.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class AuthIQ : jabber.protocol.client.TypedIQ<Auth>
     {
         /// <summary>
@@ -40,7 +40,7 @@ namespace jabber.protocol.iq
     /// Client authentication, with digest support.  Call SetAuth() to compute
     /// the digest.
     /// </summary>
-    [SVN(@"$Id: Auth.cs 639 2008-03-13 01:02:53Z hildjj $")]
+    [SVN(@"$Id: Auth.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Auth : Element
     {
         /// <summary>

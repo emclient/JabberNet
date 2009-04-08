@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -22,7 +22,7 @@ namespace bedrock.net
     /// <summary>
     /// Proxy object for sockets that want to do SOCKS proxying.
     /// </summary>
-    [SVN(@"$Id: Socks5Proxy.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: Socks5Proxy.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Socks5Proxy : ProxySocket
     {
         private enum States { None, Connecting, GettingMethods, WaitingForAuth, RequestingProxy, Running, Closed }

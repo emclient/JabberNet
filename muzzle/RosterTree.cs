@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -34,7 +34,7 @@ namespace muzzle
     /// form you drop this on has a JabberClient, a PresenceManager, and a RosterManager
     /// on the form first, and this widget will automatically connect to them.
     /// </summary>
-    [SVN(@"$Id: RosterTree.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: RosterTree.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class RosterTree : System.Windows.Forms.TreeView
     {
         // image list offsets
@@ -540,7 +540,7 @@ namespace muzzle
         /// <summary>
         /// A TreeNode to hold a Roster Group
         /// </summary>
-        [SVN(@"$Id: RosterTree.cs 680 2008-06-12 18:35:08Z hildjj $")]
+        [SVN(@"$Id: RosterTree.cs 724 2008-08-06 18:09:25Z hildjj $")]
         public class GroupNode : TreeNode
         {
             private jabber.protocol.iq.Group m_group;
@@ -592,7 +592,7 @@ namespace muzzle
         /// <summary>
         /// A TreeNode to hold a RosterItem
         /// </summary>
-        [SVN(@"$Id: RosterTree.cs 680 2008-06-12 18:35:08Z hildjj $")]
+        [SVN(@"$Id: RosterTree.cs 724 2008-08-06 18:09:25Z hildjj $")]
         public class ItemNode : TreeNode
         {
             private jabber.protocol.iq.Item m_item;

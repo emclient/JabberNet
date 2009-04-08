@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -23,7 +23,7 @@ namespace jabber.protocol.stream
     /// <summary>
     /// The fabled stream:stream packet.  Id's get assigned automatically on allocation.
     /// </summary>
-    [SVN(@"$Id: Stream.cs 675 2008-06-12 16:18:03Z hildjj $")]
+    [SVN(@"$Id: Stream.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Stream : Packet
     {
         private static readonly RandomNumberGenerator RNG = RandomNumberGenerator.Create();

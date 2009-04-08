@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -22,7 +22,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// IQ packet with a roster query element inside.
     /// </summary>
-    [SVN(@"$Id: Roster.cs 639 2008-03-13 01:02:53Z hildjj $")]
+    [SVN(@"$Id: Roster.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class RosterIQ : jabber.protocol.client.TypedIQ<Roster>
     {
         /// <summary>
@@ -37,7 +37,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// A roster query element.
     /// </summary>
-    [SVN(@"$Id: Roster.cs 639 2008-03-13 01:02:53Z hildjj $")]
+    [SVN(@"$Id: Roster.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Roster : Element
     {
         /// <summary>
@@ -81,7 +81,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// The current status of the subscription related to this item.
     /// </summary>
-    [SVN(@"$Id: Roster.cs 639 2008-03-13 01:02:53Z hildjj $")]
+    [SVN(@"$Id: Roster.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public enum Subscription
     {
         /// <summary>
@@ -113,7 +113,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// An optional attribute specifying the current status of a request to this contact.
     /// </summary>
-    [SVN(@"$Id: Roster.cs 639 2008-03-13 01:02:53Z hildjj $")]
+    [SVN(@"$Id: Roster.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public enum Ask
     {
         /// <summary>
@@ -133,7 +133,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Roster items.
     /// </summary>
-    [SVN(@"$Id: Roster.cs 639 2008-03-13 01:02:53Z hildjj $")]
+    [SVN(@"$Id: Roster.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Item : Element
     {
         /// <summary>
@@ -266,7 +266,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Roster item groups.  &lt;group&gt;GroupName&lt;/group&gt;
     /// </summary>
-    [SVN(@"$Id: Roster.cs 639 2008-03-13 01:02:53Z hildjj $")]
+    [SVN(@"$Id: Roster.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Group : Element
     {
         /// <summary>

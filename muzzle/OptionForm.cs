@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -28,7 +28,7 @@ namespace muzzle
     /// <summary>
     /// Base class for forms that configure XmppStream subclasses.
     /// </summary>
-    [SVN(@"$Id: OptionForm.cs 614 2008-02-21 20:50:15Z hildjj $")]
+    [SVN(@"$Id: OptionForm.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class OptionForm : Form
     {
         private Button btnCancel;

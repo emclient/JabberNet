@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -19,7 +19,7 @@ namespace bedrock.net
     /// <summary>
     /// Lame exception, since I couldn't find one I liked.
     /// </summary>
-    [SVN(@"$Id: Exceptions.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: Exceptions.cs 724 2008-08-06 18:09:25Z hildjj $")]
     [Serializable]
     public class AsyncSocketConnectionException : System.SystemException
     {

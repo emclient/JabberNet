@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -23,7 +23,7 @@ namespace bedrock.util
     /// <summary>
     /// XML configuration file manager.
     /// </summary>
-    [SVN(@"$Id: ConfigFile.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: ConfigFile.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class ConfigFile
     {
         private string m_file;

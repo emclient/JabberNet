@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -22,7 +22,7 @@ namespace test.bedrock.net
     /// <summary>
     ///    Summary description for AsyncSocketTest.
     /// </summary>
-    [SVN(@"$Id: AsyncSocketTest.cs 614 2008-02-21 20:50:15Z hildjj $")]
+    [SVN(@"$Id: AsyncSocketTest.cs 724 2008-08-06 18:09:25Z hildjj $")]
     [TestFixture]
     public class AsyncSocketTest : ISocketEventListener
     {

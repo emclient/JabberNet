@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -24,7 +24,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// An browse IQ.
     /// </summary>
-    [SVN(@"$Id: Browse.cs 639 2008-03-13 01:02:53Z hildjj $")]
+    [SVN(@"$Id: Browse.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class BrowseIQ : jabber.protocol.client.TypedIQ<Browse>
     {
         /// <summary>
@@ -39,7 +39,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Browse IQ query.
     /// </summary>
-    [SVN(@"$Id: Browse.cs 639 2008-03-13 01:02:53Z hildjj $")]
+    [SVN(@"$Id: Browse.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Browse : Element
     {
         /// <summary>

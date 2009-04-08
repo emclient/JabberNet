@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -25,7 +25,7 @@ namespace jabber.protocol
     /// <summary>
     /// Packets that have to/from information.
     /// </summary>
-    [SVN(@"$Id: Packet.cs 652 2008-04-02 15:57:08Z hildjj $")]
+    [SVN(@"$Id: Packet.cs 733 2008-09-07 23:03:44Z hildjj $")]
     public class Packet : Element
     {
         /// <summary>
@@ -54,14 +54,8 @@ namespace jabber.protocol
         /// </summary>
         public JID To
         {
-            get { return new JID(this.GetAttribute("to")); }
-            set
-            {
-                if (value == null)
-                    this.RemoveAttribute("to");
-                else
-                    this.SetAttribute("to", value);
-            }
+            get { return (JID)this.GetAttr("to"); }
+            set { SetAttr("to", value); }
         }
 
         /// <summary>
@@ -69,14 +63,8 @@ namespace jabber.protocol
         /// </summary>
         public JID From
         {
-            get { return new JID(this.GetAttribute("from")); }
-            set
-            {
-                if (value == null)
-                    this.RemoveAttribute("from");
-                else
-                    this.SetAttribute("from", value);
-            }
+            get { return (JID)this.GetAttr("from"); }
+            set { SetAttr("from", value); }
         }
 
         /// <summary>
@@ -84,8 +72,8 @@ namespace jabber.protocol
         /// </summary>
         public string ID
         {
-            get { return this.GetAttribute("id"); }
-            set { this.SetAttribute("id", value); }
+            get { return this.GetAttr("id"); }
+            set { this.SetAttr("id", value); }
         }
 
         /// <summary>

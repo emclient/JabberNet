@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -24,7 +24,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// A GeoLoc IQ.
     /// </summary>
-    [SVN(@"$Id: GeoLoc.cs 639 2008-03-13 01:02:53Z hildjj $")]
+    [SVN(@"$Id: GeoLoc.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class GeoLocIQ : jabber.protocol.client.TypedIQ<GeoLoc>
     {
         /// <summary>
@@ -39,7 +39,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Geographic location.  See http://www.xmpp.org/extensions/xep-0080.html.
     /// </summary>
-    [SVN(@"$Id: GeoLoc.cs 639 2008-03-13 01:02:53Z hildjj $")]
+    [SVN(@"$Id: GeoLoc.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class GeoLoc : Element
     {
         /// <summary>

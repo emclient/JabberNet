@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 
@@ -21,7 +21,7 @@ using bedrock.util;
 
 namespace Example
 {
-    [SVN(@"$Id: PubSubDisplay.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubDisplay.cs 725 2008-08-06 18:14:18Z hildjj $")]
     public class PubSubDisplay : UserControl
     {
         private ListBox lbID;

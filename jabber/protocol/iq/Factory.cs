@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -22,7 +22,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// ElementFactory for all currently supported IQ namespaces.
     /// </summary>
-    [SVN(@"$Id: Factory.cs 652 2008-04-02 15:57:08Z hildjj $")]
+    [SVN(@"$Id: Factory.cs 733 2008-09-07 23:03:44Z hildjj $")]
     public class Factory : IPacketTypes
     {
         private static QnameType[] s_qnt = new QnameType[]
@@ -40,6 +40,13 @@ namespace jabber.protocol.iq
             new QnameType("query", URI.LAST,     typeof(jabber.protocol.iq.Last)),
             new QnameType("item",  URI.BROWSE,   typeof(jabber.protocol.iq.Browse)),
             new QnameType("geoloc",URI.GEOLOC,   typeof(jabber.protocol.iq.GeoLoc)),
+            
+            
+            new QnameType("query",      URI.PRIVATE,   typeof(jabber.protocol.iq.Private)),
+            new QnameType("storage",    URI.BOOKMARKS, typeof(jabber.protocol.iq.Bookmarks)),
+            new QnameType("url",        URI.BOOKMARKS, typeof(jabber.protocol.iq.BookmarkURL)),
+            new QnameType("conference", URI.BOOKMARKS, typeof(jabber.protocol.iq.BookmarkConference)),
+            new QnameType("note",       URI.BOOKMARKS, typeof(jabber.protocol.iq.BookmarkNote)),
 
             // VCard
             new QnameType("vCard", URI.VCARD, typeof(jabber.protocol.iq.VCard)),

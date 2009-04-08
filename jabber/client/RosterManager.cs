@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -75,7 +75,7 @@ namespace jabber.client
     /// <summary>
     /// Manages the roster of the client.
     /// </summary>
-    [SVN(@"$Id: RosterManager.cs 681 2008-06-12 20:42:07Z hildjj $")]
+    [SVN(@"$Id: RosterManager.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class RosterManager : jabber.connection.StreamComponent, IEnumerable
     {
         /// <summary>
@@ -284,18 +284,18 @@ namespace jabber.client
                 }
                 break;
             case PresenceType.subscribed:
+                // This is the new ack case.
                 Presence sub_ack = new Presence(m_stream.Document);
                 sub_ack.To = pres.From;
                 sub_ack.Type = PresenceType.subscribed;
-                m_stream.Write(sub_ack);                
-				
+                Write(sub_ack);                
                 break;
             case PresenceType.unsubscribe:
                 // ack.  we'll likely get an unsubscribed soon, anyway.
                 Presence un_ack = new Presence(m_stream.Document);
                 un_ack.To = pres.From;
                 un_ack.Type = PresenceType.unsubscribed;
-                m_stream.Write(un_ack);
+                Write(un_ack);
                 break;
             case PresenceType.unsubscribed:
                 bool remove = true;
@@ -364,14 +364,14 @@ namespace jabber.client
             Presence reply = new Presence(m_stream.Document);
             reply.To = pres.From;
             reply.Type = PresenceType.subscribed;
-            m_stream.Write(reply);
+            Write(reply);
 
             if (m_autoSubscribe)
             {
                 Presence sub = new Presence(m_stream.Document);
                 sub.To = pres.From;
                 sub.Type = PresenceType.subscribe;
-                m_stream.Write(sub);
+                Write(sub);
             }
         }
 
@@ -387,7 +387,7 @@ namespace jabber.client
             Presence reply = new Presence(m_stream.Document);
             reply.To = pres.From;
             reply.Type = PresenceType.unsubscribed;
-            m_stream.Write(reply);
+            Write(reply);
         }
 
         /// <summary>
@@ -409,7 +409,7 @@ C: <iq from='juliet@example.com/balcony' type='set' id='delete_1'>
             Item item = r.AddItem();
             item.JID = jid;
             item.Subscription = Subscription.remove;
-            m_stream.Write(iq);  // ignore response
+            Write(iq);  // ignore response
         }
 
         /// <summary>
@@ -424,7 +424,7 @@ C: <iq from='juliet@example.com/balcony' type='set' id='delete_1'>
             iq.Type = IQType.set;
             Roster r = iq.Instruction;
             r.AppendChild(item);
-            m_stream.Write(iq);  // ignore response
+            Write(iq);  // ignore response
         }
 
         #region Component Designer generated code

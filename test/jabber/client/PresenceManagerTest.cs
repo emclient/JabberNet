@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -31,7 +31,7 @@ namespace test.jabber.client1 // TODO: Client1 due to a bug in NUnit.
     /// <summary>
     /// Summary description for PPDP.
     /// </summary>
-    [SVN(@"$Id: PresenceManagerTest.cs 671 2008-06-03 00:46:38Z hildjj $")]
+    [SVN(@"$Id: PresenceManagerTest.cs 724 2008-08-06 18:09:25Z hildjj $")]
     [TestFixture]
     public class PresenceManagerTest
     {

@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -26,7 +26,7 @@ namespace jabber.protocol.iq
     /// entity is not on the whitelist then the service MUST return a 
     /// not-allowed error, specifying a pubsub-specific error condition of closed-node.
     /// </summary>
-    [SVN(@"$Id: PubSubErrors.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubErrors.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class ClosedNode : Element
 	{
         /// <summary>
@@ -53,7 +53,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// The node must be configured.
     /// </summary>
-    [SVN(@"$Id: PubSubErrors.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubErrors.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class ConfigurationRequired : Element
     {
         /// <summary>
@@ -79,7 +79,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// An invalid JID was specified
     /// </summary>
-    [SVN(@"$Id: PubSubErrors.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubErrors.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class InvalidJID : Element
     {
         /// <summary>
@@ -106,7 +106,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Invalid options were specified
     /// </summary>
-    [SVN(@"$Id: PubSubErrors.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubErrors.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class InvalidOptions : Element
     {
         /// <summary>
@@ -133,7 +133,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// An invalid item was specified.
     /// </summary>
-    [SVN(@"$Id: PubSubErrors.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubErrors.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class InvalidPayload : Element
     {
         /// <summary>
@@ -161,7 +161,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// An invalid ID was specified.
     /// </summary>
-    [SVN(@"$Id: PubSubErrors.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubErrors.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class InvalidSubid : Element
     {
         /// <summary>
@@ -188,7 +188,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// An item was forbidden.
     /// </summary>
-    [SVN(@"$Id: PubSubErrors.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubErrors.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class ItemForbidden : Element
     {
         /// <summary>
@@ -217,7 +217,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// An item was required, but was not specified.
     /// </summary>
-    [SVN(@"$Id: PubSubErrors.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubErrors.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class ItemRequired : Element
     {
         /// <summary>
@@ -244,7 +244,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// A JID was required, but not specified.
     /// </summary>
-    [SVN(@"$Id: PubSubErrors.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubErrors.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class JIDRequired : Element
     {
         /// <summary>
@@ -271,7 +271,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// The maximum number of items was exceeded.
     /// </summary>
-    [SVN(@"$Id: PubSubErrors.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubErrors.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class MaxItemsExceeded : Element
     {
         /// <summary>
@@ -298,7 +298,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// The maximum number of nodes was exceeded.
     /// </summary>
-    [SVN(@"$Id: PubSubErrors.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubErrors.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class MaxNodesExceeded : Element
     {
         /// <summary>
@@ -325,7 +325,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// The node was required, but not specified.
     /// </summary>
-    [SVN(@"$Id: PubSubErrors.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubErrors.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class NodeIDRequired : Element
     {
         /// <summary>
@@ -352,7 +352,7 @@ namespace jabber.protocol.iq
     /// Not allowed to subscribe, because you aren't in one of the correct roster
     /// groups of the publisher.
     /// </summary>
-    [SVN(@"$Id: PubSubErrors.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubErrors.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class NotInRosterGroup : Element
     {
         /// <summary>
@@ -379,7 +379,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// You must be subscribed to perform this function.
     /// </summary>
-    [SVN(@"$Id: PubSubErrors.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubErrors.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class NotSubscribed : Element
     {
         /// <summary>
@@ -406,7 +406,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// The item is too large.
     /// </summary>
-    [SVN(@"$Id: PubSubErrors.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubErrors.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class PayloadTooBig : Element
     {
         /// <summary>
@@ -433,7 +433,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// An item is required, but was not specified.
     /// </summary>
-    [SVN(@"$Id: PubSubErrors.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubErrors.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class PayloadRequired : Element
     {
         /// <summary>
@@ -459,7 +459,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// The subscription is pending.
     /// </summary>
-    [SVN(@"$Id: PubSubErrors.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubErrors.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class PendingSubscription : Element
     {
         /// <summary>
@@ -486,7 +486,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// You must be subscribed first.
     /// </summary>
-    [SVN(@"$Id: PubSubErrors.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubErrors.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class PresenceSubscriptionRequired : Element
     {
         /// <summary>
@@ -513,7 +513,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// An subscription ID is required, but was not specified.
     /// </summary>
-    [SVN(@"$Id: PubSubErrors.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubErrors.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class SubidRequired : Element
     {
         /// <summary>
@@ -540,7 +540,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Supported features
     /// </summary>
-    [SVN(@"$Id: PubSubErrors.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubErrors.cs 724 2008-08-06 18:09:25Z hildjj $")]
     [Dash]
     public enum PubSubFeature
     {
@@ -717,7 +717,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// An unsupported protocol was used.
     /// </summary>
-    [SVN(@"$Id: PubSubErrors.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubErrors.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Unsupported : Element
     {
         /// <summary>
@@ -753,7 +753,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// An invalid access model was specified.
     /// </summary>
-    [SVN(@"$Id: PubSubErrors.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubErrors.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class UnsupportedAccessModel : Element
     {
         /// <summary>

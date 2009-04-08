@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -25,7 +25,7 @@ namespace jabber.connection
     /// <summary>
     /// Contains the types of proxies Jabber-Net supports.  This is only for socket connections.
     /// </summary>
-    [SVN(@"$Id: SocketStanzaStream.cs 664 2008-04-16 14:41:47Z hildjj $")]
+    [SVN(@"$Id: SocketStanzaStream.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public enum ProxyType
     {
         /// <summary>
@@ -50,7 +50,7 @@ namespace jabber.connection
     /// <summary>
     /// "Standard" XMPP socket for outbound connections.
     /// </summary>
-    [SVN(@"$Id: SocketStanzaStream.cs 664 2008-04-16 14:41:47Z hildjj $")]
+    [SVN(@"$Id: SocketStanzaStream.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class SocketStanzaStream : StanzaStream, ISocketEventListener
     {
         private AsynchElementStream m_elements = null;

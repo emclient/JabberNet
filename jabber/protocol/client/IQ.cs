@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -22,7 +22,7 @@ namespace jabber.protocol.client
     /// <summary>
     /// IQ type attribute
     /// </summary>
-    [SVN(@"$Id: IQ.cs 682 2008-06-12 20:44:07Z hildjj $")]
+    [SVN(@"$Id: IQ.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public enum IQType
     {
         /// <summary>
@@ -48,7 +48,7 @@ namespace jabber.protocol.client
     /// There should usually be a convenience class next to the Query type, which
     /// creates an IQ with the appropriate type of query inside.
     /// </summary>
-    [SVN(@"$Id: IQ.cs 682 2008-06-12 20:44:07Z hildjj $")]
+    [SVN(@"$Id: IQ.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class IQ : Packet
     {
         private bool m_handled = false;
@@ -203,7 +203,7 @@ namespace jabber.protocol.client
     /// through the Instruction property.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    [SVN(@"$Id: IQ.cs 682 2008-06-12 20:44:07Z hildjj $")]
+    [SVN(@"$Id: IQ.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class TypedIQ<T> : IQ
         where T : Element
     {

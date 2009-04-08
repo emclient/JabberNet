@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -25,7 +25,7 @@ namespace jabber.protocol
     /// <summary>
     /// Qname to type mapping.
     /// </summary>
-    [SVN(@"$Id: ElementFactory.cs 663 2008-04-16 14:39:52Z hildjj $")]
+    [SVN(@"$Id: ElementFactory.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class QnameType
     {
         /// <summary>
@@ -91,7 +91,7 @@ namespace jabber.protocol
     /// <summary>
     /// Interface for packet factories to implement.
     /// </summary>
-    [SVN(@"$Id: ElementFactory.cs 663 2008-04-16 14:39:52Z hildjj $")]
+    [SVN(@"$Id: ElementFactory.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public interface IPacketTypes
     {
         /// <summary>
@@ -104,7 +104,7 @@ namespace jabber.protocol
     /// A ElementFactory is a class that knows how to create packet instances of
     /// a wide variety of different types.
     /// </summary>
-    [SVN(@"$Id: ElementFactory.cs 663 2008-04-16 14:39:52Z hildjj $")]
+    [SVN(@"$Id: ElementFactory.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class ElementFactory
     {
         private Hashtable m_types = new Hashtable();

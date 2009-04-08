@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -22,7 +22,7 @@ namespace jabber.protocol.accept
     /// <summary>
     /// A packet factory for the jabber:component:accept namespace.
     /// </summary>
-    [SVN(@"$Id: Factory.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: Factory.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Factory : IPacketTypes
     {
         private static QnameType[] s_qnt = new QnameType[]

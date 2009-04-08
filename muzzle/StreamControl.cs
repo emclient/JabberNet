@@ -8,23 +8,26 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
 using System.Text;
 using System.ComponentModel;
 using System.ComponentModel.Design;
+using System.Xml;
 
 using bedrock.util;
+using jabber;
 using jabber.connection;
+using jabber.protocol.client;
 
 namespace muzzle
 {
     /// <summary>
     /// A UserControl that references an XmppStream.
     /// </summary>
-    [SVN(@"$Id: StreamControl.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: StreamControl.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class StreamControl : System.Windows.Forms.UserControl
     {
         /// <summary>
@@ -64,6 +67,45 @@ namespace muzzle
                         OnStreamChanged(this);
                 }
             }
+        }
+
+        private JID m_overrideFrom = null;
+
+        /// <summary>
+        /// Override the from address that will be stamped on outbound packets.
+        /// Unless your server implemets XEP-193, you shouldn't use this for 
+        /// client connections.
+        /// </summary>
+        public JID OverrideFrom
+        {
+            get { return m_overrideFrom; }
+            set { m_overrideFrom = value; }
+        }
+
+        /// <summary>
+        /// Write the specified stanza to the stream.
+        /// </summary>
+        /// <param name="elem"></param>
+        public void Write(XmlElement elem)
+        {
+            if ((m_overrideFrom != null) && (elem.GetAttribute("from") == ""))
+                elem.SetAttribute("from", m_overrideFrom);
+            m_stream.Write(elem);
+        }
+
+        ///<summary>
+        /// Does an asynchronous IQ call.
+        /// If the from address hasn't been set, and an OverrideFrom has been set,
+        /// the from address will be set to the value of OverrideFrom.
+        ///</summary>
+        ///<param name="iq">IQ packet to send.</param>
+        ///<param name="cb">Callback to execute when the result comes back.</param>
+        ///<param name="cbArg">Arguments to pass to the callback.</param>
+        public void BeginIQ(IQ iq, IqCB cb, object cbArg)
+        {
+            if ((m_overrideFrom != null) && (iq.From == null))
+                iq.From = m_overrideFrom;
+            m_stream.Tracker.BeginIQ(iq, cb, cbArg);
         }
     }
 }

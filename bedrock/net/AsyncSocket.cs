@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -36,13 +36,13 @@ namespace bedrock.net
     /// An asynchronous socket, which calls a listener class when
     /// interesting things happen.
     /// </summary>
-    [SVN(@"$Id: AsyncSocket.cs 643 2008-03-17 16:24:55Z michael.wegman $")]
+    [SVN(@"$Id: AsyncSocket.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class AsyncSocket : BaseSocket, IComparable
     {
         /// <summary>
         /// Socket states.
         /// </summary>
-        [SVN(@"$Id: AsyncSocket.cs 643 2008-03-17 16:24:55Z michael.wegman $")]
+        [SVN(@"$Id: AsyncSocket.cs 724 2008-08-06 18:09:25Z hildjj $")]
             private enum SocketState
         {
             /// <summary>

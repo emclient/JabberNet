@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -26,7 +26,7 @@ namespace jabber.connection
     /// A dictionary backed into a file.  Any modification to the dictionary re-writes the file, so 
     /// writes are somewhat costly.  Reads are cached lazily.
     /// </summary>
-    [SVN(@"$Id: FileMap.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: FileMap.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class FileMap<T>
         where T : Element
 	{

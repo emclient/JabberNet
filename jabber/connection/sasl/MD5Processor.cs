@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -28,7 +28,7 @@ namespace jabber.connection.sasl
     /// <summary>
     /// RFC2831 DIGEST-MD5 SASL mechanism
     /// </summary>
-    [SVN(@"$Id: MD5Processor.cs 676 2008-06-12 17:05:11Z hildjj $")]
+    [SVN(@"$Id: MD5Processor.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class MD5Processor : SASLProcessor
     {
         /// <summary>
@@ -45,6 +45,10 @@ namespace jabber.connection.sasl
         private string  m_qop;
         private string  m_charset;
         private string  m_authzid;
+
+        private readonly MD5CryptoServiceProvider MD5 = new MD5CryptoServiceProvider();
+        private readonly Regex CSV = new Regex(@"(?<tag>[^= \t\r\n]+)=(?:(?<data>[^,"" \t\r\n]+)|(?:""(?<data>[^""]*)"")),?",
+                RegexOptions.ExplicitCapture);
 
         /// <summary>
         /// DIGEST-MD5 Realm
@@ -76,10 +80,7 @@ namespace jabber.connection.sasl
         /// </summary>
         public static readonly string[] s_requiredDirectives = {USERNAME, PASSWORD};
 
-        private static readonly MD5CryptoServiceProvider MD5 = new MD5CryptoServiceProvider();
         private static readonly Encoding ENC = System.Text.Encoding.UTF8;
-        private static readonly Regex CSV = new Regex(@"(?<tag>[^= \t\r\n]+)=(?:(?<data>[^,"" \t\r\n]+)|(?:""(?<data>[^""]*)"")),?",
-                RegexOptions.ExplicitCapture | RegexOptions.Compiled);
 
         /// <summary>
         ///

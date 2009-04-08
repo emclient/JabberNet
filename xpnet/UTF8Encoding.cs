@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  *
  * xpnet is a deriviative of James Clark's XP.  See copying.txt for more info.
@@ -20,7 +20,7 @@ namespace xpnet
     /// <summary>
     /// UTF-8 specific tokenizer.
     /// </summary>
-    [SVN(@"$Id: UTF8Encoding.cs 579 2008-02-13 21:29:33Z hildjj $")]
+    [SVN(@"$Id: UTF8Encoding.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class UTF8Encoding : Encoding
     {
         private static readonly int[] utf8HiTypeTable = new int[]

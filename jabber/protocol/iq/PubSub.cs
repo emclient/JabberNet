@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -91,7 +91,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// A PubSub IQ
     /// </summary>
-    [SVN(@"$Id: PubSub.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSub.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class PubSubIQ : jabber.protocol.client.TypedIQ<PubSub>
     {
         /// <summary>
@@ -166,7 +166,7 @@ namespace jabber.protocol.iq
     /// A type-safe PubSub IQ.
     /// </summary>
     /// <typeparam name="T">The type of command to create</typeparam>
-    [SVN(@"$Id: PubSub.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSub.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class PubSubCommandIQ<T> : jabber.protocol.client.TypedIQ<TypedPubSub<T>>
         where T : PubSubCommand
     {
@@ -204,7 +204,7 @@ namespace jabber.protocol.iq
     /// A type-safe pubsub element.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    [SVN(@"$Id: PubSub.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSub.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class TypedPubSub<T> : Element
         where T : PubSubCommand
     {
@@ -239,7 +239,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Publish/Subscribe.  See XEP-60: http://www.xmpp.org/extensions/xep-0060.html
     /// </summary>
-    [SVN(@"$Id: PubSub.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSub.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class PubSub : Element
     {
         /// <summary>
@@ -273,7 +273,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// A PubSub command
     /// </summary>
-    [SVN(@"$Id: PubSub.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSub.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public abstract class PubSubCommand : Element
     {
         /// <summary>
@@ -332,7 +332,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Retrieve the affiliations.  See: http://www.xmpp.org/extensions/xep-0060.html#entity-affiliations
     /// </summary>
-    [SVN(@"$Id: PubSub.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSub.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Affiliations : PubSubCommand
     {
         /// <summary>
@@ -390,7 +390,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// What affiliation does an entity have with respect to a node?
     /// </summary>
-    [SVN(@"$Id: PubSub.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSub.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public enum AffiliationType
     {
         /// <summary>
@@ -422,7 +422,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// The actual affiliation.
     /// </summary>
-    [SVN(@"$Id: PubSub.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSub.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Affiliation : Element
     {
         /// <summary>
@@ -479,7 +479,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Create a node. See: http://www.xmpp.org/extensions/xep-0060.html#owner-create
     /// </summary>
-    [SVN(@"$Id: PubSub.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSub.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Create : PubSubCommand
     {
         /// <summary>
@@ -576,7 +576,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Configuring a pubsub node.  If the default is desired, it will be empty.  Otherwise it will contain an x:data.
     /// </summary>
-    [SVN(@"$Id: PubSub.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSub.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Configure : PubSubCommand
     {
         /// <summary>
@@ -693,7 +693,7 @@ namespace jabber.protocol.iq
     /// Retrieve the items for a node. See http://www.xmpp.org/extensions/xep-0060.html#subscriber-retrieve
     /// Note: this same type is used for event notifications, in the pubsub#event namespace
     /// </summary>
-    [SVN(@"$Id: PubSub.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSub.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Items : PubSubItemCommand
     {
         /// <summary>
@@ -747,7 +747,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// The items in a node
     /// </summary>
-    [SVN(@"$Id: PubSub.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSub.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class PubSubItem : Element
     {
         /// <summary>
@@ -812,7 +812,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Publish to a node.  See http://www.xmpp.org/extensions/xep-0060.html#publisher-publish
     /// </summary>
-    [SVN(@"$Id: PubSub.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSub.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Publish : PubSubItemCommand
     {
         /// <summary>
@@ -847,7 +847,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Delete an item from a node.  See: http://www.xmpp.org/extensions/xep-0060.html#publisher-delete
     /// </summary>
-    [SVN(@"$Id: PubSub.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSub.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Retract : PubSubItemCommand
     {
         /// <summary>
@@ -908,7 +908,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Subscribe to a node. See: http://www.xmpp.org/extensions/xep-0060.html#subscriber-subscribe
     /// </summary>
-    [SVN(@"$Id: PubSub.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSub.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Subscribe : PubSubCommand
     {
         /// <summary>
@@ -989,7 +989,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// PubSub subscription options
     /// </summary>
-    [SVN(@"$Id: PubSub.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSub.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class PubSubOptions : Element
     {
         /// <summary>
@@ -1069,7 +1069,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Retrieve subscriptions.  See: http://www.xmpp.org/extensions/xep-0060.html#entity-subscriptions
     /// </summary>
-    [SVN(@"$Id: PubSub.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSub.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Subscriptions : PubSubCommand
     {
         /// <summary>
@@ -1134,7 +1134,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// A single subscription
     /// </summary>
-    [SVN(@"$Id: PubSub.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSub.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class PubSubSubscription : Element
     {
       /// <summary>
@@ -1224,7 +1224,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Unsubscribe from a node.  See: http://www.xmpp.org/extensions/xep-0060.html#subscriber-unsubscribe
     /// </summary>
-    [SVN(@"$Id: PubSub.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSub.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class Unsubscribe : PubSubCommand
     {
         /// <summary>

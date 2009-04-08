@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -26,7 +26,7 @@ namespace test.bedrock.net
     /// TODO: This test is known to not work.  Add one that does, please.
     /// </summary>
     [TestFixture]
-    [SVN(@"$Id: HttpUploadTest.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: HttpUploadTest.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class HttpUploadTest
     {
         private object m_lock = new object();

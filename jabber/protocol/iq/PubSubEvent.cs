@@ -8,7 +8,7 @@
  *
  * License
  *
- * Jabber-Net can be used under either JOSL or the GPL.
+ * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
@@ -23,7 +23,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Publish/Subscribe.  See XEP-60: http://www.xmpp.org/extensions/xep-0060.html
     /// </summary>
-    [SVN(@"$Id: PubSubEvent.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubEvent.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class PubSubEvent : Element
     {
         /// <summary>
@@ -58,7 +58,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Notification for item deletion.
     /// </summary>
-    [SVN(@"$Id: PubSubEvent.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubEvent.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class EventRetract : Element
     {
         /// <summary>
@@ -94,7 +94,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// 
     /// </summary>
-    [SVN(@"$Id: PubSubEvent.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubEvent.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class EventCollection : PubSubCommand
     {
         /// <summary>
@@ -146,7 +146,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Nodes added to a collection
     /// </summary>
-    [SVN(@"$Id: PubSubEvent.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubEvent.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class EventAssociate : Element
     {
         /// <summary>
@@ -191,7 +191,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Nodes removed from a collection
     /// </summary>
-    [SVN(@"$Id: PubSubEvent.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubEvent.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class EventDisassociate : Element
     {
         /// <summary>
@@ -227,7 +227,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Pubsub items notification.  This is the main reason for XEP-60 to have been written.
     /// </summary>
-    [SVN(@"$Id: PubSubEvent.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubEvent.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class EventItems : PubSubCommand
     {
         /// <summary>
@@ -310,7 +310,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// New node configuration
     /// </summary>
-    [SVN(@"$Id: PubSubEvent.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubEvent.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class EventConfiguration : PubSubCommand
     {
         /// <summary>
@@ -354,7 +354,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// All of the items in a node have been deleted.
     /// </summary>
-    [SVN(@"$Id: PubSubEvent.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubEvent.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class EventPurge : PubSubCommand
     {
         /// <summary>
@@ -389,7 +389,7 @@ namespace jabber.protocol.iq
     /// <summary>
     /// Subscription state has changed
     /// </summary>
-    [SVN(@"$Id: PubSubEvent.cs 680 2008-06-12 18:35:08Z hildjj $")]
+    [SVN(@"$Id: PubSubEvent.cs 724 2008-08-06 18:09:25Z hildjj $")]
     public class EventSubscription : PubSubCommand
     {
         /// <summary>
