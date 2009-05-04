@@ -698,7 +698,7 @@ namespace Example
 
         private void Connect()
         {
-            muzzle.ClientLogin.Login(jc, "login.xml");
+				muzzle.ClientLogin.Login(jc, "login.xml");
         }
 
         private void jc_OnAuthenticate(object sender)
@@ -707,6 +707,7 @@ namespace Example
             pnlCon.Text = "Connected";
             mnuAway.Enabled = mnuAvailable.Enabled = true;
 
+			
             if (jc.SSLon)
             {
 
