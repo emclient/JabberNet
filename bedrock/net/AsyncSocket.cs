@@ -310,6 +310,7 @@ namespace bedrock.net
         {
             // this will be called twice if the server requires a client cert.
             // Ignore the callback the first time; I think this is a .Net bug.
+			
             if (acceptableIssuers.Length == 0)
                 return m_cert;
 
@@ -321,6 +322,7 @@ namespace bedrock.net
                 ChooseClientCertificate(acceptableIssuers);
             }
             return m_cert;
+			  
         }
 
         /// <summary>
@@ -702,6 +704,10 @@ namespace bedrock.net
 
             m_stream = m_sslStream = new SslStream(m_stream, false, ValidateServerCertificate, ChooseClientCertificate);
 
+			m_stream.ReadTimeout = 30000;
+
+			
+
             if (m_server)
             {
                 if (m_cert == null)
@@ -726,7 +732,10 @@ namespace bedrock.net
                 }
                 try
                 {
+					
                     m_sslStream.AuthenticateAsClient(m_hostid, certs, m_secureProtocol, false);
+					m_stream.ReadTimeout = -1;
+					
                 }
                 catch (Exception ex)
                 {
@@ -818,7 +827,19 @@ namespace bedrock.net
                     }
 
                     State = SocketState.Connected;
-                    m_listener.OnConnect(this);
+
+					//this try has been added by eM Client team 4.5.2009
+					//it handles gTalk SSL Handshake issue
+					try
+					{
+						m_listener.OnConnect(this);
+					}
+					catch (Exception e)
+					{
+						FireError(e);
+						AsyncClose();
+						return;
+					}
                 }
                 else
                 {
