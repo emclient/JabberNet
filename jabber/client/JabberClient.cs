@@ -387,37 +387,50 @@ namespace jabber.client
         public void Presence(PresenceType t,
             string status,
             string show,
-            int priority)
+            int priority) 
         {
-            if (IsAuthenticated)
-            {
-                if ((priority < -128) || (priority > 127))
-                {
-                    throw new ArgumentException("Priority must be -128 to 127", "priority");
-                }
-
-                Presence p = new Presence(Document);
-                if (status != null)
-                    p.Status = status;
-                if (t != PresenceType.available)
-                {
-                    p.Type = t;
-                }
-                if (show != null)
-                    p.Show = show;
-                p.Priority = priority.ToString();
-
-                if (OnBeforePresenceOut != null)
-                    OnBeforePresenceOut(this, p);
-                Write(p);
-                if (OnAfterPresenceOut != null)
-                    OnAfterPresenceOut(this, p);
-            }
-            else
-            {
-                throw new InvalidOperationException("Client must be authenticated before sending presence.");
-            }
+			this.Presence(t, status, show, priority, null);
         }
+
+		public void Presence(PresenceType t,
+			string status,
+			string show,
+			int priority,
+			string avatarHash)
+		{
+			if (IsAuthenticated)
+			{
+				if ((priority < -128) || (priority > 127))
+				{
+					throw new ArgumentException("Priority must be -128 to 127", "priority");
+				}
+
+				Presence p = new Presence(Document);
+				if (status != null)
+					p.Status = status;
+				if (t != PresenceType.available)
+				{
+					p.Type = t;
+				}
+				if (show != null)
+					p.Show = show;
+				p.Priority = priority.ToString();
+
+				if (avatarHash != null)
+				{
+					p.AvatarHash = avatarHash;
+				}
+				if (OnBeforePresenceOut != null)
+					OnBeforePresenceOut(this, p);
+				Write(p);
+				if (OnAfterPresenceOut != null)
+					OnAfterPresenceOut(this, p);
+			}
+			else
+			{
+				throw new InvalidOperationException("Client must be authenticated before sending presence.");
+			}
+		}
 
         /// <summary>
         /// Sends a certain type of message packet to another user.

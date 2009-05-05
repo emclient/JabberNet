@@ -253,6 +253,50 @@ namespace jabber.protocol.client
             }
         }
 
+		/// <summary>
+		/// Priority for this resource.
+		/// </summary>
+		public string AvatarHash
+		{
+			get 
+			{
+				foreach (XmlNode node in this.ChildNodes)
+				{
+					if (node.Name.ToLower() == "x" && node.NamespaceURI == "vcard-temp:x:update")
+					{
+						XmlElement photoHash = node["photo"];
+						if (photoHash != null)
+						{
+							return photoHash.InnerText;
+						}
+					}
+				}
+				return null;
+			
+			}
+			set 
+			{
+				XmlElement photoHashElement=null;
+				foreach (XmlNode node in this.ChildNodes)
+				{
+					if (node.Name.ToLower() == "x" && node.NamespaceURI == "vcard-temp:x:update")
+					{
+						photoHashElement = node["photo"];
+					}
+				}
+				if (photoHashElement == null)
+				{
+					XmlElement xElem = this.OwnerDocument.CreateElement("x","vcard-temp:x:update");
+					photoHashElement = this.OwnerDocument.CreateElement("photo");
+					xElem.AppendChild(photoHashElement);
+					if (photoHashElement != null)
+					{
+						photoHashElement.InnerText = value;
+					}
+				}
+			}
+		}
+
         /// <summary>
         /// Compare two presences (from the same bare JID, but from
         /// different resources), to determine which is "more
