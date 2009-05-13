@@ -263,5 +263,11 @@ namespace jabber.protocol
         /// See XEP-0049 (http://www.xmpp.org/extensions/xep-0049.html)
         /// </summary>
         public const string PRIVATE = "jabber:iq:private";
+
+		/// <summary>
+		/// Invisibility.
+		/// See XEP-0126 (http://www.xmpp.org/extensions/xep-0126.html)
+		/// </summary>
+		public const string PRIVACY = "jabber:iq:privacy";
     }
 }
