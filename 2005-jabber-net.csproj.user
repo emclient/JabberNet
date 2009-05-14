@@ -52,4 +52,19 @@
     </StartWorkingDirectory>
     <StartWithIE>false</StartWithIE>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'debug_x86|AnyCPU' ">
+    <StartProgram>D:\Development\Jabber\Devel\Applications\protocert\src\ProtoCert-GUI\bin\Debug\ProtoCert-GUI.exe</StartProgram>
+    <StartWorkingDirectory>D:\Development\Jabber\Devel\Applications\protocert\src\ProtoCert-GUI\bin\Debug\</StartWorkingDirectory>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <StartProgram>D:\Development\Jabber\Devel\Applications\protocert\src\ProtoCert-GUI\bin\Debug\ProtoCert-GUI.exe</StartProgram>
+    <StartWorkingDirectory>D:\Development\Jabber\Devel\Applications\protocert\src\ProtoCert-GUI\bin\Debug\</StartWorkingDirectory>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'debug_x86|x86' ">
+    <StartProgram>D:\Development\Jabber\Devel\Applications\protocert\src\ProtoCert-GUI\bin\Debug\ProtoCert-GUI.exe</StartProgram>
+    <StartWorkingDirectory>D:\Development\Jabber\Devel\Applications\protocert\src\ProtoCert-GUI\bin\Debug\</StartWorkingDirectory>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
 </Project>
