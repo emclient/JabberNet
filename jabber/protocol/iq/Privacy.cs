@@ -16,6 +16,8 @@ using System;
 using System.Xml;
 
 using bedrock.util;
+using System.Reflection;
+using System.Diagnostics;
 
 namespace jabber.protocol.iq
 {
@@ -101,20 +103,81 @@ namespace jabber.protocol.iq
 		}
 
 		/// <summary>
+		/// Active privacy list name
+		/// </summary>
+		public string PrivacyListName
+		{
+			get
+			{
+
+				XmlElement e = this["list"];
+				if (e == null)
+					return null;
+				XmlAttribute nameAttr = e.Attributes["name"];
+				if (nameAttr == null)
+				{
+					return null;
+				}
+				else
+				{
+					return nameAttr.Value;
+				}
+
+			}
+			set
+			{
+				XmlElement e = GetOrCreateElement("list", null, null);
+				e.RemoveAll();
+
+				if (value != null)
+					e.SetAttribute("name", value);
+			}
+		}
+		/// <summary>
+		/// Create an element that is a child of this element, of the specified type.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <returns></returns>
+		protected T CreateChildElement<T>(XmlNode node)
+			where T : Element
+		{
+			// Note: It would be cool to just do new T(OwnerDocument), but you can only call
+			// parameter-less constructors in generic-land.
+			ConstructorInfo constructor = typeof(T).GetConstructor(new Type[] { typeof(XmlDocument) });
+			Debug.Assert(constructor != null, "Type " + typeof(T).ToString() + " does not have a constructor taking an XmlDocument");
+			T c = (T)constructor.Invoke(new object[] { this.OwnerDocument });
+			node.AppendChild(c);
+			return c;
+		}
+		/// <summary>
 		/// Add an privacy item that shows or hides this particular JID from list when in invisible mode
 		/// </summary>
 		/// <returns></returns>
-		public PrivacyItem AddPrivacyItem(JID jid, PrivacyItemAction action)
+		public PrivacyItem AddPrivacyItem(JID jid, PrivacyItemAction action, PrivacyItemRights right)
 		{
-			PrivacyItem p = GetPrivacyItem(jid.Bare);
-			if (p == null)
+			
+			XmlElement e = GetOrCreateElement("list", null, null);
+
+			PrivacyItem p = CreateChildElement<PrivacyItem>(e);
+
+			p.Value = jid.Bare;
+			p.Type = PrivacyItemType.jid;
+			p.Action = action;
+			p.Order = GetPrivacyItems().Length+1;
+			
+			switch (right)
 			{
-				p = CreateChildElement<PrivacyItem>();
-				p.Value = jid.Bare;
-				p.Type = PrivacyItemType.jid;
-				p.Action = action;
-				p.Order = GetPrivacyItems().Length+1;
+				case PrivacyItemRights.PresenceIn:
+					p.AllowPresenceIn = true;
+					break;
+				case PrivacyItemRights.PresenceOut:
+					p.AllowPresenceOut = true;
+					break;
+				case PrivacyItemRights.Messages:
+					p.AllowMessages = true;
+					break;
 			}
+			
 			return p;
 		}
 
@@ -122,12 +185,27 @@ namespace jabber.protocol.iq
 		/// Add an privacy item that shows or hides all other items
 		/// </summary>
 		/// <returns></returns>
-		public PrivacyItem AddPrivacyItem(PrivacyItemAction action)
+		public PrivacyItem AddPrivacyItem(PrivacyItemAction action, PrivacyItemRights right)
 		{
-			
-			PrivacyItem p = CreateChildElement<PrivacyItem>();
+
+			XmlElement e = GetOrCreateElement("list", null, null);
+			PrivacyItem p = CreateChildElement<PrivacyItem>(e);
+
 			p.Action = action;
 			p.Order = GetPrivacyItems().Length + 1;
+
+			switch (right)
+			{
+				case PrivacyItemRights.PresenceIn:
+					p.AllowPresenceIn = true;
+					break;
+				case PrivacyItemRights.PresenceOut:
+					p.AllowPresenceOut = true;
+					break;
+				case PrivacyItemRights.Messages:
+					p.AllowMessages = true;
+					break;
+			}
 		
 			return p;
 		}
@@ -154,7 +232,8 @@ namespace jabber.protocol.iq
 		/// <returns></returns>
 		public PrivacyItem[] GetPrivacyItems()
 		{
-			return GetElements<PrivacyItem>().ToArray();
+			XmlElement e = GetOrCreateElement("list", null, null);
+			return new TypedElementList<PrivacyItem>(e).ToArray();
 		}
 
 		/// <summary>
@@ -198,7 +277,6 @@ namespace jabber.protocol.iq
 		public PrivacyItem(XmlDocument doc)
 			: base("item", URI.PRIVACY, doc)
 		{
-			this.AddChild(this.OwnerDocument.CreateElement("presence-out"));
 		}
 
 		/// <summary>
@@ -210,7 +288,7 @@ namespace jabber.protocol.iq
 		public PrivacyItem(string prefix, XmlQualifiedName qname, XmlDocument doc) :
 			base(prefix, qname, doc)
 		{
-			this.AddChild(this.OwnerDocument.CreateElement("presence-out"));
+			
 		}
 		/// <summary>
 		/// Item type (jid, group or subscription)
@@ -240,6 +318,55 @@ namespace jabber.protocol.iq
 			get { return GetEnumAttr<PrivacyItemAction>("action"); }
 			set { SetEnumAttr("action", value); }
 		}
+
+		/// <summary>
+		/// Allow presence in
+		/// </summary>
+		public bool AllowPresenceIn
+		{
+			get 
+			{ 
+				return GetElementsByTagName("presence-in").Count > 0 ? true : false; 
+			}
+			set 
+			{ 
+				if (GetElementsByTagName("presence-in").Count == 0)
+					this.AddChild(this.OwnerDocument.CreateElement("presence-in")); 
+			}
+		}
+
+		/// <summary>
+		/// Allow presence in
+		/// </summary>
+		public bool AllowPresenceOut
+		{
+			get
+			{
+				return GetElementsByTagName("presence-out").Count > 0 ? true : false;
+			}
+			set
+			{
+				if (GetElementsByTagName("presence-out").Count == 0)
+					this.AddChild(this.OwnerDocument.CreateElement("presence-out"));
+			}
+		}
+		/// <summary>
+		/// Allow messages
+		/// </summary>
+		public bool AllowMessages
+		{
+			get
+			{
+				return GetElementsByTagName("message").Count > 0 ? true : false;
+			}
+			set
+			{
+				if (GetElementsByTagName("message").Count == 0)
+					this.AddChild(this.OwnerDocument.CreateElement("message"));
+			}
+		}
+
+		
 
 		/// <summary>
 		/// Order
@@ -275,6 +402,22 @@ namespace jabber.protocol.iq
 		/// Hide this item
 		/// </summary>
 		deny,
+	}
+
+	public enum PrivacyItemRights
+	{
+		/// <summary>
+		/// ignoration
+		/// </summary>
+		PresenceIn = 1,
+		/// <summary>
+		/// invisibility
+		/// </summary>
+		PresenceOut = 2,
+		/// <summary>
+		/// messages ignoration
+		/// </summary>
+		Messages = 4
 	}
 
 	
