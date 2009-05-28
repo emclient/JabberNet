@@ -158,12 +158,13 @@ namespace jabber.protocol.iq
 			
 			XmlElement e = GetOrCreateElement("list", null, null);
 
+
 			PrivacyItem p = CreateChildElement<PrivacyItem>(e);
 
 			p.Value = jid.Bare;
 			p.Type = PrivacyItemType.jid;
 			p.Action = action;
-			p.Order = GetPrivacyItems().Length+1;
+			p.Order = GetPrivacyItems().Length;
 			
 			switch (right)
 			{
@@ -192,7 +193,7 @@ namespace jabber.protocol.iq
 			PrivacyItem p = CreateChildElement<PrivacyItem>(e);
 
 			p.Action = action;
-			p.Order = GetPrivacyItems().Length + 1;
+			p.Order = GetPrivacyItems().Length ;
 
 			switch (right)
 			{
