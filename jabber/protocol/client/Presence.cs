@@ -293,6 +293,7 @@ namespace jabber.protocol.client
 					{
 						photoHashElement.InnerText = value;
 					}
+					this.AppendChild(xElem);
 				}
 			}
 		}
