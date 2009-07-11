@@ -288,7 +288,7 @@ namespace jabber.client
 					
                 Presence sub_ack = new Presence(m_stream.Document);
                 sub_ack.To = pres.From;
-                sub_ack.Type = PresenceType.subscribed;
+                sub_ack.Type = PresenceType.subscribe;
                 Write(sub_ack);                
 					 
                 break;
@@ -300,7 +300,9 @@ namespace jabber.client
                 Write(un_ack);
                 break;
             case PresenceType.unsubscribed:
-                bool remove = true;
+				//fix me, need further research, solving blinking problem between two eM Client
+				//probably merak bug
+                bool remove = false;
                 if (OnUnsubscription != null)
                     OnUnsubscription(this, pres, ref remove);
 
