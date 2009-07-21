@@ -160,7 +160,9 @@ namespace jabber
             string server = null;
             string resource = null;
 
-            int at = m_JID.IndexOf('@');
+            //int at = m_JID.IndexOf('@');
+			//workaround for user@server.com@transport.com
+			int at = m_JID.LastIndexOf('@');
             int slash = m_JID.IndexOf('/');
 
             if (at == -1)
@@ -202,7 +204,13 @@ namespace jabber
             }
             if (user != null)
             {
-                if (user.IndexOf('@') != -1) throw new JIDFormatException(m_JID);
+
+                //if (user.IndexOf('@') != -1) throw new JIDFormatException(m_JID);
+				//workaround for user@server.com@transport.com
+				if (user.IndexOf('@') != -1)
+				{
+					user=user.Replace("@","\\40");
+				}
                 if (user.IndexOf('/') != -1) throw new JIDFormatException(m_JID);
             }
 
