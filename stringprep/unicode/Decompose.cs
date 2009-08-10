@@ -13,7 +13,7 @@
  * --------------------------------------------------------------------------*/
 using System;
 
-using System.Collections;
+using System.Collections.Generic;
 
 namespace stringprep.unicode
 {
@@ -22,8 +22,6 @@ namespace stringprep.unicode
     /// </summary>
     public class Decompose
     {
-        private static IComparer s_comparer = new CharArrayComparer();
-
         /// <summary>
         /// Look up the expansion, if any, for the given character.
         /// </summary>
@@ -31,21 +29,11 @@ namespace stringprep.unicode
         /// <returns>the expansion, or null if none found.</returns>
         public static string Find(char ch)
         {
-            int offset = Array.BinarySearch(DecomposeData.Offsets, ch, s_comparer);
+            int offset = Array.BinarySearch(DecomposeData.OffsetsKey, ch);
             if (offset < 0)
                 return null;
 
-            return DecomposeData.Expansion[DecomposeData.Offsets[offset][1]];
-        }
-
-        private class CharArrayComparer : IComparer
-        {
-            #region IComparer Members
-            public int Compare(object x, object y)
-            {
-                return ((char[])x)[0].CompareTo(y);
-            }
-            #endregion
+            return DecomposeData.Expansion[DecomposeData.OffsetsValue[offset]];
         }
     }
 }
