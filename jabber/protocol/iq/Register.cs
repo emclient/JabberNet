@@ -245,6 +245,40 @@ namespace jabber.protocol.iq
             }
         }
 
+		public bool IsUsernameRequested
+		{
+			get
+			{
+				XmlElement e = this["username"];
+				if (e == null)
+					return false;
+				else
+					return true;
+			}
+		}
+
+		public bool IsPasswordRequested
+		{
+			get
+			{
+				XmlElement e = this["password"];
+				if (e == null)
+					return false;
+				else
+					return true;
+			}
+		}
+		public bool IsEmailRequested
+		{
+			get
+			{
+				XmlElement e = this["email"];
+				if (e == null)
+					return false;
+				else
+					return true;
+			}
+		}
         /// <summary>
         /// Remove the current user.
         /// </summary>
