@@ -195,10 +195,26 @@ namespace jabber
                         resource = m_JID.Substring(slash+1);
                     }
                     else
-                    { // @ in a resource, with no user.  bastards.
-                        user = null;
-                        server = m_JID.Substring(0, slash);
-                        resource = m_JID.Substring(slash+1);
+                    { 
+						
+						
+						string jidPart = m_JID.Substring(0, slash);
+						int at2 = jidPart.LastIndexOf('@');
+
+						if (at2 == -1)
+						{
+							// @ in a resource, with no user.  bastards.
+							user = null;
+							server = m_JID.Substring(0, slash);
+							resource = m_JID.Substring(slash + 1);
+						}
+						else
+						{
+							//"nette@conf.netlab.cz/Xificurk@mobil"
+							user = m_JID.Substring(0, at2);
+							server =  m_JID.Substring(at2 + 1, slash - at2 - 1);
+							resource =  m_JID.Substring(slash + 1);
+						}
                     }
                 }
             }

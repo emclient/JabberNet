@@ -268,11 +268,165 @@ namespace jabber.protocol.iq
 					return true;
 			}
 		}
+		public bool IsNickRequested
+		{
+			get
+			{
+				XmlElement e = this["nick"];
+				if (e == null)
+					return false;
+				else
+					return true;
+			}
+		}
+		public bool IsNameRequested
+		{
+			get
+			{
+				XmlElement e = this["name"];
+				if (e == null)
+					return false;
+				else
+					return true;
+			}
+		}
+		public bool IsFirstNameRequested
+		{
+			get
+			{
+				XmlElement e = this["first"];
+				if (e == null)
+					return false;
+				else
+					return true;
+			}
+		}
+		public bool IsLastNameRequested
+		{
+			get
+			{
+				XmlElement e = this["last"];
+				if (e == null)
+					return false;
+				else
+					return true;
+			}
+		}
 		public bool IsEmailRequested
 		{
 			get
 			{
 				XmlElement e = this["email"];
+				if (e == null)
+					return false;
+				else
+					return true;
+			}
+		}
+		public bool IsAddressRequested
+		{
+			get
+			{
+				XmlElement e = this["address"];
+				if (e == null)
+					return false;
+				else
+					return true;
+			}
+		}
+		public bool IsCityRequested
+		{
+			get
+			{
+				XmlElement e = this["city"];
+				if (e == null)
+					return false;
+				else
+					return true;
+			}
+		}
+		public bool IsStateRequested
+		{
+			get
+			{
+				XmlElement e = this["state"];
+				if (e == null)
+					return false;
+				else
+					return true;
+			}
+		}
+		public bool IsZipRequested
+		{
+			get
+			{
+				XmlElement e = this["zip"];
+				if (e == null)
+					return false;
+				else
+					return true;
+			}
+		}
+		public bool IsPhoneRequested
+		{
+			get
+			{
+				XmlElement e = this["phone"];
+				if (e == null)
+					return false;
+				else
+					return true;
+			}
+		}
+		public bool IsURLRequested
+		{
+			get
+			{
+				XmlElement e = this["url"];
+				if (e == null)
+					return false;
+				else
+					return true;
+			}
+		}
+		public bool IsDateRequested
+		{
+			get
+			{
+				XmlElement e = this["date"];
+				if (e == null)
+					return false;
+				else
+					return true;
+			}
+		}
+		public bool IsMiscRequested
+		{
+			get
+			{
+				XmlElement e = this["misc"];
+				if (e == null)
+					return false;
+				else
+					return true;
+			}
+		}
+		public bool IsTextRequested
+		{
+			get
+			{
+				XmlElement e = this["text"];
+				if (e == null)
+					return false;
+				else
+					return true;
+			}
+		}
+		public bool IsKeyRequested
+		{
+			get
+			{
+				XmlElement e = this["key"];
 				if (e == null)
 					return false;
 				else
