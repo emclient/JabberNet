@@ -790,7 +790,7 @@ namespace bedrock.net
                 {
                     m_sock.EndConnect(ar);
                 }
-                catch (SocketException e)
+				catch (Exception e) // SocketException, ObjectDisposedException
                 {
                     if (State != SocketState.Connecting)
                     {
