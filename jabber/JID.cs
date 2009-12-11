@@ -11,6 +11,8 @@
  * Jabber-Net is licensed under the LGPL.
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
+#define NO_STRINGPREP
+
 using System;
 
 using System.Text;
@@ -19,8 +21,11 @@ using System.Diagnostics;
 using bedrock.util;
 using System.Text.RegularExpressions;
 
+
 namespace jabber
 {
+	
+
     /// <summary>
     /// Informs the client that an invalid JID was entered.
     /// </summary>
@@ -156,6 +161,14 @@ namespace jabber
             if (m_server != null)
                 return; // already parsed
 
+			//woraround for invalid empty jids
+			if (m_JID == string.Empty)
+			{
+				m_server = string.Empty;
+				m_user = null;
+				m_resource = null;
+				return;
+			}
             string user = null;
             string server = null;
             string resource = null;
