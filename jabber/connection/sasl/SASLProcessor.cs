@@ -132,7 +132,7 @@ namespace jabber.connection.sasl
             {
                 return new ExternalProcessor();
             }
-            if ((mt & MechanismType.GSSAPI) == MechanismType.GSSAPI)
+            /*if ((mt & MechanismType.GSSAPI) == MechanismType.GSSAPI)
             {
                 string RemotePrincipal = "";
                 foreach (Mechanism mechanism in mechs.GetMechanisms())
@@ -144,7 +144,7 @@ namespace jabber.connection.sasl
                     }
                 }
                 return new KerbProcessor(RemotePrincipal);
-            }
+            }*/
             if ((mt & MechanismType.DIGEST_MD5) == MechanismType.DIGEST_MD5)
             {
                 return new MD5Processor();
