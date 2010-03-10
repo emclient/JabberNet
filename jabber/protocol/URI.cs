@@ -117,6 +117,23 @@ namespace jabber.protocol
         /// Out-of-band (file transfer)
         /// </summary>
         public const string OOB      = "jabber:iq:oob";
+		/// <summary>
+        /// SI (file transfer)
+        /// </summary>
+		public const string SI = "http://jabber.org/protocol/si";
+		/// <summary>
+        /// SIFile (file transfer)
+        /// </summary>
+		public const string SIFile = "http://jabber.org/protocol/si/profile/file-transfer";
+		/// <summary>
+		/// SIFeature (file transfer feature)
+		/// </summary>
+		public const string SIFeature = "http://jabber.org/protocol/feature-neg";
+		/// <summary>
+		/// socks bytestreams
+		/// </summary>
+		public const string SOCKSByteStreams = "http://jabber.org/protocol/bytestreams";
+
         /// <summary>
         /// Server agents
         /// </summary>

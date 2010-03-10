@@ -35,6 +35,8 @@ namespace jabber.protocol.iq
             new QnameType("query", URI.AGENTS,   typeof(jabber.protocol.iq.AgentsQuery)),
             new QnameType("agent", URI.AGENTS,   typeof(jabber.protocol.iq.Agent)),
             new QnameType("query", URI.OOB,      typeof(jabber.protocol.iq.OOB)),
+			new QnameType("si", URI.SI,      typeof(jabber.protocol.iq.SI)),
+			new QnameType("query", URI.SOCKSByteStreams,      typeof(jabber.protocol.iq.ByteStream)),
             new QnameType("query", URI.TIME,     typeof(jabber.protocol.iq.Time)),
             new QnameType("query", URI.VERSION,  typeof(jabber.protocol.iq.Version)),
             new QnameType("query", URI.LAST,     typeof(jabber.protocol.iq.Last)),
@@ -144,6 +146,13 @@ namespace jabber.protocol.iq
 
             new QnameType("query",   URI.MUC_OWNER, typeof(jabber.protocol.iq.OwnerQuery)),
             new QnameType("destroy", URI.MUC_OWNER, typeof(jabber.protocol.iq.OwnerDestroy)),
+
+			//si
+			new QnameType("file", URI.SIFile, typeof(jabber.protocol.iq.SI.SIFile)),
+			new QnameType("feature", URI.SIFeature, typeof(jabber.protocol.iq.SI.SIFeature)),
+
+			//socks bytestreams
+			new QnameType("streamhost", URI.SOCKSByteStreams, typeof(jabber.protocol.iq.ByteStream.StreamHost)),
         };
 
         QnameType[] IPacketTypes.Types { get { return s_qnt; } }

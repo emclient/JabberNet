@@ -308,6 +308,8 @@
     <Compile Include="jabber\protocol\iq\Browse.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="jabber\protocol\iq\ByteStream.cs" />
+    <Compile Include="jabber\protocol\iq\SI.cs" />
     <Compile Include="jabber\protocol\iq\Disco.cs">
       <SubType>Code</SubType>
     </Compile>
