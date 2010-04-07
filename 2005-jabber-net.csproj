@@ -440,11 +440,13 @@
     <EmbeddedResource Include="jabber\client\JabberClient.bmp" />
     <EmbeddedResource Include="jabber\client\JabberClient.resx">
       <DependentUpon>JabberClient.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="jabber\client\PresenceManager.bmp" />
     <EmbeddedResource Include="jabber\client\RosterManager.bmp" />
     <EmbeddedResource Include="jabber\client\RosterManager.resx">
       <DependentUpon>RosterManager.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="jabber\connection\XmppStream.resx">
       <DependentUpon>XmppStream.cs</DependentUpon>
@@ -453,6 +455,7 @@
     <EmbeddedResource Include="jabber\server\JabberService.bmp" />
     <EmbeddedResource Include="jabber\server\JabberService.resx">
       <DependentUpon>JabberService.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -495,6 +498,6 @@
     <OldToolsVersion>2.0</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
   </PropertyGroup>
 </Project>
