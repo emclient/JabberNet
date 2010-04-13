@@ -1,4 +1,5 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <LastOpenVersion>7.10.3077</LastOpenVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -11,6 +12,14 @@
     <CopyProjectOption>0</CopyProjectOption>
     <ProjectView>ProjectFiles</ProjectView>
     <ProjectTrust>0</ProjectTrust>
+    <PublishUrlHistory />
+    <InstallUrlHistory />
+    <SupportUrlHistory />
+    <UpdateUrlHistory />
+    <BootstrapperUrlHistory />
+    <ErrorReportUrlHistory />
+    <FallbackCulture>en-US</FallbackCulture>
+    <VerifyUploadedFiles>false</VerifyUploadedFiles>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <EnableASPDebugging>false</EnableASPDebugging>
@@ -51,5 +60,10 @@
     <StartWorkingDirectory>
     </StartWorkingDirectory>
     <StartWithIE>false</StartWithIE>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <StartProgram>D:\Development\Jabber\Devel\Applications\protocert\src\ProtoCert-GUI\bin\Debug\ProtoCert-GUI.exe</StartProgram>
+    <StartWorkingDirectory>D:\Development\Jabber\Devel\Applications\protocert\src\ProtoCert-GUI\bin\Debug\</StartWorkingDirectory>
+    <StartAction>Program</StartAction>
   </PropertyGroup>
 </Project>
