@@ -424,6 +424,9 @@ namespace jabber.connection
         [Category("Stream")]
         public event ProtocolHandler OnStreamHeader;
 
+        [Category("Stream")]
+        public event ProtocolHandler OnStreamFeatures;
+
         /// <summary>
         /// Notifies the client that the SASL handshake has started.
         /// </summary>
@@ -1269,6 +1272,14 @@ namespace jabber.connection
                 }
                 m_features = f;
                 ProcessFeatures();
+
+                if (OnStreamFeatures != null)
+                {
+                    if (InvokeRequired)
+                        CheckedInvoke(OnStreamFeatures, new object[] { this, tag });
+                    else
+                        OnStreamFeatures(this, tag);
+                }
                 return;
             }
             else if (State == SASLState.Instance)
