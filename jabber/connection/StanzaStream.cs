@@ -174,7 +174,8 @@ namespace jabber.connection
             switch (kind)
             {
             case ConnectionType.Socket:
-                return new SocketStanzaStream(listener);
+                    StanzaStream test = new SocketStanzaStream(listener);
+                return test;
             case ConnectionType.HTTP_Polling:
                 return new PollingStanzaStream(listener);
             case ConnectionType.HTTP_Binding:
