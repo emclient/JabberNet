@@ -72,6 +72,8 @@ namespace jabber.protocol.iq
         public SI(XmlDocument doc) : base("si", URI.SI, doc)
         {
 			CreateChildElement<SIFile>();
+            CreateChildElement<SIFeature>();
+            SetAttr("profile", protocol.URI.SIFile);
         }
         /// <summary>
         ///
@@ -83,6 +85,7 @@ namespace jabber.protocol.iq
             base(prefix, qname, doc)
         {
         }
+
 
         /// <summary>
         /// URL to send/receive from
@@ -103,13 +106,24 @@ namespace jabber.protocol.iq
 			}
 		}
 
+        public string ID
+        {
+            get
+            {
+                return GetAttr("id");
+            }
+            set
+            {
+                SetAttr("id", value);
+            }
+        }
 
 		public class SIFile : Element
 		{
 			public SIFile(XmlDocument doc)
 				: base("file", URI.SIFile, doc)
 			{
-
+                SetElem("range", null);
 			}
 			public SIFile(string prefix, XmlQualifiedName qname, XmlDocument doc) :
 				base(prefix, qname, doc)
@@ -175,6 +189,11 @@ namespace jabber.protocol.iq
 				: base("feature", URI.SIFeature, doc)
 			{
 				CreateChildElement<x.Data>();
+                X.Type = x.XDataType.form;
+                x.Field field = this.X.AddField("stream-method", x.FieldType.list_single, null, null, null);
+                //fix me, don't have this fixed
+                field.AddOption(protocol.URI.SOCKSByteStreams);
+                field.AddOption("http://jabber.org/protocol/ibb");
 			}
 			public SIFeature(string prefix, XmlQualifiedName qname, XmlDocument doc) :
             base(prefix, qname, doc)

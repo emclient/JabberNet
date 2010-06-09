@@ -131,12 +131,18 @@ namespace jabber.protocol.iq
 		{
 			return new TypedElementList<StreamHost>(this).ToArray();
 		}
-
-
+        public void AddStreamHost(string host, JID jid, int port)
+        {
+            StreamHost streamHost = CreateChildElement<StreamHost>();
+            streamHost.JID = jid;
+            streamHost.Host = host;
+            streamHost.Port = port;
+          
+        }
 		public class StreamHost : Element
 		{
 			public StreamHost(XmlDocument doc)
-				: base("streamhost", URI.SIFile, doc)
+				: base("streamhost", URI.SOCKSByteStreams, doc)
 			{
 
 			}
