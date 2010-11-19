@@ -95,6 +95,12 @@ namespace jabber.connection
             if ((iq.Type != IQType.result) && (iq.Type != IQType.error))
                 return;
 
+			if (iq.ID == null)
+			{
+				//System.Diagnostics.Debug.Assert(false);
+				return;
+			}
+
             string id = iq.ID;
             TrackerData td;
 
