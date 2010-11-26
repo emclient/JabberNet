@@ -51,7 +51,7 @@ namespace jabber.connection.sasl
             ms.Write(bu, 0, bu.Length);
             ms.WriteByte(0);
             string p = this[PASSWORD];
-            if ((p == null) || (p == ""))
+            if ((p == null))
                 throw new SASLException("Password required");
             byte[] pu = System.Text.Encoding.UTF8.GetBytes(p);
             ms.Write(pu, 0, pu.Length);
