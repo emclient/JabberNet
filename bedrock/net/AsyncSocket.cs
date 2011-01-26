@@ -924,6 +924,10 @@ namespace bedrock.net
             {
                 Close();
             }
+			catch (InvalidOperationException)
+			{ //Socket not connected
+				Close();
+			}
             catch (Exception e)
             {
                 Debug.WriteLine("Exception in RequestRead: " + e.ToString());
