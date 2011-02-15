@@ -986,6 +986,9 @@ namespace jabber.connection
             bool doClose = false;
             bool doStream = false;
 
+			// Stop any reconnecting!
+			if (m_reconnectTimer != null)
+				m_reconnectTimer.Dispose();
 
             lock (StateLock)
             {
