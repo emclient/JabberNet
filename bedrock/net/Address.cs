@@ -231,7 +231,7 @@ namespace bedrock.net
             }
         }
         /// <summary>
-        /// The binary IP address.  Gives IPAddress.Any if resolution hasn't occured, and
+        /// The binary IP address.  Gives IPAddress.Any if resolution hasn't occurred, and
         /// null if resolution failed.
         /// </summary>
         public IPAddress IP
