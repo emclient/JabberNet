@@ -316,6 +316,28 @@ namespace jabber.client
             }
         }
 
+		/// <summary>
+		/// Retrieves/Sets the username to connect as.
+		/// </summary>
+		[Browsable(true)]
+		[Description("Facebook Application ID for Facebook SASL authentication")]
+		[Category("Facebook")]
+		[DefaultValue("")]
+		public string FacebookApiKey
+		{
+			get { return this[Options.FACEBOOK_API_KEY] as string; }
+			set { this[Options.FACEBOOK_API_KEY] = value; }
+		}
+
+		[Browsable(true)]
+		[Description("Facebook Access Token for Facebook SASL authentication")]
+		[Category("Facebook")]
+		[DefaultValue("")]
+		public string FacebookAccessToken
+		{
+			get { return this[Options.FACEBOOK_ACCESS_TOKEN] as string; }
+			set { this[Options.FACEBOOK_ACCESS_TOKEN] = value; }
+		}
         /// <summary>
         /// Connects to the XMPP server.  This happens asynchronously, and
         /// could take a couple of seconds to get the full handshake

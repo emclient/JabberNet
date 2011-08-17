@@ -41,7 +41,7 @@ namespace jabber.connection.sasl
             MemoryStream ms = new MemoryStream();
 
             // message = [authorize-id] NUL authenticate-id NUL password
-
+			
             // Skip authzid.
             ms.WriteByte(0);
             string u = this[USERNAME];

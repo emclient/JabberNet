@@ -212,6 +212,16 @@ namespace jabber.connection
         /// Override the from address, in a component/service connection.
         /// </summary>
         public const string OVERRIDE_FROM = "override_from";
+
+
+		/// <summary>
+		/// Facebook Application ID for Facebook SASL authentication
+		/// </summary>
+		public const string FACEBOOK_API_KEY = "facebook.apikey";
+		/// <summary>
+		/// Facebook Application ID for Facebook SASL authentication
+		/// </summary>
+		public const string FACEBOOK_ACCESS_TOKEN = "facebook.accesstoken";
     }
 
     /// <summary>
@@ -242,7 +252,7 @@ namespace jabber.connection
             new object[] {Options.CERTIFICATE_GUI, true},
 #endif
             new object[] {Options.PROXY_TYPE, ProxyType.None},
-            new object[] {Options.CONNECTION_TYPE, ConnectionType.Socket},
+            new object[] {Options.CONNECTION_TYPE, ConnectionType.Socket}
         };
 
         /// <summary>
@@ -1182,7 +1192,8 @@ namespace jabber.connection
                     {
                         State = SASLState.Instance;
                     }
-                    m_saslProc = SASLProcessor.createProcessor(types, m_sslOn || (bool)this[Options.PLAINTEXT], ms);
+					
+                    m_saslProc = SASLProcessor.createProcessor(this, types, m_sslOn || (bool)this[Options.PLAINTEXT], ms);
                     if (m_saslProc == null)
                     {
                         FireOnError(new NotImplementedException("No implemented mechanisms in: " + types.ToString()));

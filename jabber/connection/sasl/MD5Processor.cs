@@ -85,6 +85,7 @@ namespace jabber.connection.sasl
         /// <summary>
         ///
         /// </summary>
+
         public MD5Processor() : base()
         {
             m_nc = 0;

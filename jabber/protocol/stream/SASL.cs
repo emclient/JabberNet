@@ -116,7 +116,11 @@ namespace jabber.protocol.stream
         /// <summary>
         /// LIMITED  [Brimhall]  Vince Brimhall &lt;vbrimhall@novell.com&gt;
         /// </summary>
-        NMAS_SAMBA_AUTH = (1 << 21)
+        NMAS_SAMBA_AUTH = (1 << 21),
+		/// <summary>
+        /// LIMITED  [Facebook]  Vince Brimhall &lt;vbrimhall@novell.com&gt;
+        /// </summary>
+        FACEBOOK = (1 << 22)
     }
 
     /// <summary>
@@ -274,6 +278,8 @@ namespace jabber.protocol.stream
                     return MechanismType.KERBEROS_V5;
                 case "NMAS-SAMBA-AUTH":
                     return MechanismType.NMAS_SAMBA_AUTH;
+				case "X-FACEBOOK-PLATFORM":
+					return MechanismType.FACEBOOK;
                 default:
                     return MechanismType.NONE;
             }
@@ -330,6 +336,8 @@ namespace jabber.protocol.stream
                     return "KERBEROS_V5";
                 case MechanismType.NMAS_SAMBA_AUTH:
                     return "NMAS-SAMBA-AUTH";
+				case MechanismType.FACEBOOK:
+					return "X-FACEBOOK-PLATFORM";
                 default:
                     return null;
             }

@@ -115,8 +115,9 @@ namespace jabber.connection.sasl
         /// <summary>
         ///
         /// </summary>
-        public SASLProcessor()
+		public SASLProcessor()
         {
+
         }
 
         /// <summary>
@@ -126,7 +127,7 @@ namespace jabber.connection.sasl
         /// <param name="plaintextOK">Is it ok to select insecure types?</param>
         /// <param name="mechs">The mechanisms supported by the server</param>
         /// <returns></returns>
-        public static SASLProcessor createProcessor(MechanismType mt, bool plaintextOK, Mechanisms mechs)
+        public static SASLProcessor createProcessor(XmppStream stream, MechanismType mt, bool plaintextOK, Mechanisms mechs)
         {
             if ((mt & MechanismType.EXTERNAL) == MechanismType.EXTERNAL)
             {
@@ -145,7 +146,12 @@ namespace jabber.connection.sasl
                 }
                 return new KerbProcessor(RemotePrincipal);
             }*/
-            if ((mt & MechanismType.DIGEST_MD5) == MechanismType.DIGEST_MD5)
+			if ((mt & MechanismType.FACEBOOK) == MechanismType.FACEBOOK)
+			{
+				return new FacebookAuthenticationProcessor((string)stream[Options.FACEBOOK_API_KEY],(string)stream[Options.FACEBOOK_ACCESS_TOKEN]);
+				//return new FacebookAuthenticationProcessor();
+			}
+            else if ((mt & MechanismType.DIGEST_MD5) == MechanismType.DIGEST_MD5)
             {
                 return new MD5Processor();
             }
