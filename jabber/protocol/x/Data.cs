@@ -332,7 +332,8 @@ namespace jabber.protocol.x
             {
                 switch (GetAttribute("type"))
                 {
-                    case "text-single":
+					case "":
+					case "text-single":
                         return FieldType.text_single;
                     case "text-private":
                         return FieldType.text_private;
