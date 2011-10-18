@@ -34,17 +34,11 @@ namespace jabber.connection.sasl
     {
 		private string applicationID;
 		private string authToken;
-		private string sessionKey;
 		public FacebookAuthenticationProcessor(string applicationID, string authToken)
 			: base()
 		{
 			this.applicationID = applicationID;
 			this.authToken = authToken;
-
-			string[] parts = this.authToken.Split(new char[]{'|'});
-			//fix me handle error
-			this.sessionKey = parts[1];
-
 		}
         /// <summary>
         /// Perform the next step
@@ -55,7 +49,8 @@ namespace jabber.connection.sasl
         public override Step step(Step s, XmlDocument doc)
         {
 			if (s == null)
-			{ // first step
+			{ 
+				// first step
 				Auth a = new Auth(doc);
 				a.Mechanism = MechanismType.FACEBOOK;
 				return a;
@@ -66,30 +61,18 @@ namespace jabber.connection.sasl
 			string nonce = qs["nonce"];
 			string method = qs["method"];
 
-			SortedDictionary<String, String> myparams;
+			Dictionary<String, String> myparams;
 			myparams = GetParams(method, nonce);
 			
-			WebClient client = new WebClient();
-			string sessionSecurity = client.DownloadString(string.Format("https://api.facebook.com/method/auth.promoteSession?access_token={0}&format=json", authToken)).Trim(new char[] { '\"' });
-
-			String sig = ComputeHash(myparams, sessionSecurity);
-			
-
 			StringBuilder sb = new StringBuilder();
 			foreach (String myKey in myparams.Keys)
 			{
 				sb.Append(String.Format("{0}={1}&", myKey, myparams[myKey]));
 			}
-			sb.Append("sig=" + sig);
-
 			
-			Byte[] myResponseByte = Encoding.UTF8.GetBytes(sb.ToString());
+			Byte[] myResponseByte = Encoding.UTF8.GetBytes(sb.ToString().TrimEnd('&'));
 
-			//String myEncodedResponseToSend = Convert.ToBase64String(myResponseByte);
-
-			
 			Response r = new Response(doc);
-			//r.InnerText = myEncodedResponseToSend;
 			r.Bytes = myResponseByte;
 			return r;
             
@@ -120,18 +103,17 @@ namespace jabber.connection.sasl
 
 			return nvc;
 		}
-		private SortedDictionary<string, string> GetParams(string method, string nonce)
+		private Dictionary<string, string> GetParams(string method, string nonce)
 		{
-
-			SortedDictionary<string, string> myparams = new SortedDictionary<string, string>();
-			myparams.Add("api_key", applicationID ); //api key
-			myparams.Add("call_id", System.DateTime.Now.Ticks.ToString());
+			Dictionary<string, string> myparams = new Dictionary<string, string>();
 			myparams.Add("method", method);
 			myparams.Add("nonce", nonce);
-			myparams.Add("session_key", sessionKey); //sessionkey
+			myparams.Add("access_token", authToken); 
+			myparams.Add("api_key", applicationID); 
+			myparams.Add("call_id", System.DateTime.Now.Ticks.ToString());
 			myparams.Add("v", "1.0");
-			return myparams;
 
+			return myparams;	 
 		}
 
 		private string ComputeHash(SortedDictionary<String, String> myparams, String AppSecretKey)
