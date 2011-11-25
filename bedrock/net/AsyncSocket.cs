@@ -649,7 +649,14 @@ namespace bedrock.net
 #if __MonoCS__
                 m_sock.Blocking = false;
 #endif
-                m_sock.BeginConnect(m_addr.Endpoint, new AsyncCallback(ExecuteConnect), null);
+				try
+				{
+					m_sock.BeginConnect(m_addr.Endpoint, new AsyncCallback(ExecuteConnect), null);
+				}
+				catch (ObjectDisposedException)
+				{
+					AsyncClose();
+				}
             }
         }
 
