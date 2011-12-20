@@ -317,26 +317,29 @@ namespace jabber.client
         }
 
 		/// <summary>
-		/// Retrieves/Sets the username to connect as.
+		/// Retrieves/Sets the OAUTH API key.
 		/// </summary>
 		[Browsable(true)]
-		[Description("Facebook Application ID for Facebook SASL authentication")]
-		[Category("Facebook")]
+		[Description("OAUTH Application ID for Facebook, MSN or other OAUTH SASL authentication")]
+		[Category("OAuth")]
 		[DefaultValue("")]
-		public string FacebookApiKey
+		public string OAuthApiKey
 		{
-			get { return this[Options.FACEBOOK_API_KEY] as string; }
-			set { this[Options.FACEBOOK_API_KEY] = value; }
+			get { return this[Options.OAUTH_API_KEY] as string; }
+			set { this[Options.OAUTH_API_KEY] = value; }
 		}
 
+		/// <summary>
+		/// Retrieves/Sets the OAUTH Access token.
+		/// </summary>
 		[Browsable(true)]
-		[Description("Facebook Access Token for Facebook SASL authentication")]
-		[Category("Facebook")]
+		[Description("OAUTH Access Token for Facebook, MSN or other OAUTH SASL authentication")]
+		[Category("OAuth")]
 		[DefaultValue("")]
-		public string FacebookAccessToken
+		public string OAuthAccessToken
 		{
-			get { return this[Options.FACEBOOK_ACCESS_TOKEN] as string; }
-			set { this[Options.FACEBOOK_ACCESS_TOKEN] = value; }
+			get { return this[Options.OAUTH_ACCESS_TOKEN] as string; }
+			set { this[Options.OAUTH_ACCESS_TOKEN] = value; }
 		}
         /// <summary>
         /// Connects to the XMPP server.  This happens asynchronously, and

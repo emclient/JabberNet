@@ -215,13 +215,14 @@ namespace jabber.connection
 
 
 		/// <summary>
-		/// Facebook Application ID for Facebook SASL authentication
+		/// OAUTH Application ID for Facebook, MSN or other oauth SASL authentication
 		/// </summary>
-		public const string FACEBOOK_API_KEY = "facebook.apikey";
+		public const string OAUTH_API_KEY = "oauth.apikey";
 		/// <summary>
-		/// Facebook Application ID for Facebook SASL authentication
+		/// OAUTH Access token for Facebook SASL authentication
 		/// </summary>
-		public const string FACEBOOK_ACCESS_TOKEN = "facebook.accesstoken";
+		public const string OAUTH_ACCESS_TOKEN = "oauth.accesstoken";
+		
     }
 
     /// <summary>
