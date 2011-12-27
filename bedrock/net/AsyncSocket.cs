@@ -653,6 +653,10 @@ namespace bedrock.net
 				{
 					m_sock.BeginConnect(m_addr.Endpoint, new AsyncCallback(ExecuteConnect), null);
 				}
+				catch (SocketException ex)
+				{
+					FireError(ex);
+				}
 				catch (ObjectDisposedException)
 				{
 					AsyncClose();
