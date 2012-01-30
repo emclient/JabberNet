@@ -159,33 +159,38 @@ namespace jabber.client
                 (t != PresenceType.unavailable))
                 return;
 
-            JID f = p.From;
-            lock (this)
-            {
-                UserPresenceManager upm = (UserPresenceManager)m_items[f.Bare];
+			System.Diagnostics.Debug.Assert(p.From != null);
+			if (p.From != null)
+			{
+				JID f = p.From;
+				lock (this)
+				{
+					UserPresenceManager upm = (UserPresenceManager)m_items[f.Bare];
 
-                if (t == PresenceType.available)
-                {
-                    if (upm == null)
-                    {
-                        upm = new UserPresenceManager(f.Bare);
-                        m_items[f.Bare] = upm;
-                    }
+					if (t == PresenceType.available)
+					{
+						if (upm == null)
+						{
+							upm = new UserPresenceManager(f.Bare);
+							m_items[f.Bare] = upm;
+						}
 
-                    upm.AddPresence(p, this);
-                }
-                else
-                {
-                    if (upm != null)
-                    {
-                        upm.RemovePresence(p, this);
-                        if (upm.Count == 0)
-                        {
-                            m_items.Remove(f.Bare);
-                        }
-                    }
-                }
-            }
+						upm.AddPresence(p, this);
+					}
+					else
+					{
+						if (upm != null)
+						{
+							upm.RemovePresence(p, this);
+							if (upm.Count == 0)
+							{
+								m_items.Remove(f.Bare);
+							}
+						}
+					}
+				}
+			}
+			
         }
 
         private void FireOnPrimarySessionChange(JID from)
