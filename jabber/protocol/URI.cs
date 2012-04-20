@@ -298,5 +298,12 @@ namespace jabber.protocol
 		/// See XEP-0221 (http://xmpp.org/extensions/xep-0221.html)
 		/// </summary>
 		public const string MEDIA = "urn:xmpp:media-element";
+
+		/// <summary>
+		/// Media Element
+		/// See XEP-0221 (http://xmpp.org/extensions/xep-0199.html)
+		/// </summary>
+		public const string PING = "urn:xmpp:ping";
+		
 	}
 }

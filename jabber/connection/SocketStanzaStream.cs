@@ -311,8 +311,19 @@ namespace jabber.connection
 
         private void DoKeepAlive(object state)
         {
-            if ((m_sock != null) && this.Connected && ((int)m_listener[Options.CURRENT_KEEP_ALIVE] > 0))
-                m_sock.Write(new byte[] { 32 });
+			if ((m_sock != null) && this.Connected && ((int)m_listener[Options.CURRENT_KEEP_ALIVE] > 0))
+			{
+				if (((KeepAliveBehavior)m_listener[Options.KEEP_ALIVE_BEHAVIOR]) == KeepAliveBehavior.SpaceCharacter)
+				{
+					m_sock.Write(new byte[] { 32 });
+				}
+				else
+				{
+					jabber.protocol.iq.PingIQ pingIQ = new protocol.iq.PingIQ(new XmlDocument());
+					pingIQ.From = (JID)m_listener[Options.JID];
+					Write(pingIQ.OuterXml);
+				}
+			}
         }
 
 #if !NO_SSL

@@ -794,7 +794,6 @@ namespace bedrock.net
         /// <param name="ar"></param>
         private void ExecuteConnect(IAsyncResult ar)
         {
-            Debug.WriteLine("ExecuteConnect");
             lock (this)
             {
                 try

@@ -36,6 +36,11 @@ namespace jabber.connection
     /// </summary>
     public delegate void StreamHandler(Object sender, ElementStream stream);
 
+	public enum KeepAliveBehavior
+	{
+		SpaceCharacter,
+		PingIQ
+	}
     /// <summary>
     /// Manages option names.  These must be well-formed XML element names.
     /// </summary>
@@ -212,8 +217,6 @@ namespace jabber.connection
         /// Override the from address, in a component/service connection.
         /// </summary>
         public const string OVERRIDE_FROM = "override_from";
-
-
 		/// <summary>
 		/// OAUTH Application ID for Facebook, MSN or other oauth SASL authentication
 		/// </summary>
@@ -222,6 +225,15 @@ namespace jabber.connection
 		/// OAUTH Access token for Facebook SASL authentication
 		/// </summary>
 		public const string OAUTH_ACCESS_TOKEN = "oauth.accesstoken";
+		/// <summary>
+		/// Enable logs or not
+		/// </summary>
+		public const string ENABLE_LOGS = "enable_logs";
+
+		/// <summary>
+		/// Enable logs or not
+		/// </summary>
+		public const string KEEP_ALIVE_BEHAVIOR = "keep_alive_behavior";
 		
     }
 
@@ -236,6 +248,7 @@ namespace jabber.connection
         private static readonly object[][] DEFAULTS = new object[][] {
             new object[] {Options.TO, "jabber.com"},
             new object[] {Options.KEEP_ALIVE, 30000},
+			new object[] {Options.KEEP_ALIVE_BEHAVIOR, KeepAliveBehavior.SpaceCharacter},
             new object[] {Options.CURRENT_KEEP_ALIVE, -1},
             new object[] {Options.PORT, 5222},
             new object[] {Options.RECONNECT_TIMEOUT, 30000},
@@ -246,6 +259,7 @@ namespace jabber.connection
             new object[] {Options.PLAINTEXT, false},
             new object[] {Options.AUTO_TLS, true},
             new object[] {Options.AUTO_COMPRESS, true},
+			new object[] {Options.ENABLE_LOGS, false},
 
 #if __MonoCS__
             new object[] {Options.CERTIFICATE_GUI, false},

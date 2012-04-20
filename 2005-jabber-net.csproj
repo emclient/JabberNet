@@ -351,6 +351,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="jabber\protocol\iq\ByteStream.cs" />
+    <Compile Include="jabber\protocol\iq\Ping.cs" />
     <Compile Include="jabber\protocol\iq\SI.cs" />
     <Compile Include="jabber\protocol\iq\Disco.cs">
       <SubType>Code</SubType>
@@ -520,6 +521,10 @@
     <EmbeddedResource Include="jabber\connection\ConferenceManager.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Newtonsoft.Json\Newtonsoft.Json.Net20.csproj">
+      <Project>{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}</Project>
+      <Name>Newtonsoft.Json.Net20</Name>
+    </ProjectReference>
     <ProjectReference Condition="'$(BuildMono)'==''" Include="netlib.Dns\netlib.Dns.csproj">
       <Project>{40AC7A7C-D3E5-46DF-B740-06BD9D2A00E1}</Project>
       <Name>netlib.Dns</Name>
@@ -556,7 +561,7 @@
     </PreBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>

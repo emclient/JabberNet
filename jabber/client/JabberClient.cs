@@ -341,6 +341,33 @@ namespace jabber.client
 			get { return this[Options.OAUTH_ACCESS_TOKEN] as string; }
 			set { this[Options.OAUTH_ACCESS_TOKEN] = value; }
 		}
+
+		/// <summary>
+		/// Enable or disable logging
+		/// </summary>
+
+		[Description("Enable or disable logging")]
+		[Category("Jabber")]
+		[DefaultValue(false)]
+		[Browsable(true)]
+		public bool EnableLogs
+		{
+			get { return (bool)this[Options.ENABLE_LOGS]; }
+			set { this[Options.ENABLE_LOGS] = value; }
+		}
+		/// <summary>
+		/// Keep alive behavior
+		/// </summary>
+
+		[Description("Enable or disable logging")]
+		[Category("Jabber")]
+		[DefaultValue(KeepAliveBehavior.SpaceCharacter)]
+		[Browsable(true)]
+		public KeepAliveBehavior KeepAliveBehavior
+		{
+			get { return (KeepAliveBehavior)this[Options.KEEP_ALIVE_BEHAVIOR]; }
+			set { this[Options.KEEP_ALIVE_BEHAVIOR] = value; }
+		}
         /// <summary>
         /// Connects to the XMPP server.  This happens asynchronously, and
         /// could take a couple of seconds to get the full handshake
@@ -812,10 +839,22 @@ namespace jabber.client
             IQ i = tag as IQ;
             if (i != null)
             {
-                if (InvokeRequired)
-                    CheckedInvoke(new IQHandler(FireOnIQ) , new object[] { this, i });
-                else
-                    FireOnIQ(this, i);
+				if (i.Query != null && i.Query.NamespaceURI == URI.PING && i.Type == IQType.get)
+				{
+					PingIQ pingIQ = new PingIQ(Document);
+					pingIQ.ID = i.ID;
+					pingIQ.Type = IQType.result;
+					pingIQ.From = JID;
+					pingIQ.To = i.From;
+					Write(pingIQ);
+				}
+				else
+				{
+					if (InvokeRequired)
+						CheckedInvoke(new IQHandler(FireOnIQ), new object[] { this, i });
+					else
+						FireOnIQ(this, i);
+				}
                 return;
             }
         }
