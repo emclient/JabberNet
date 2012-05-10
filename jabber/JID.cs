@@ -87,17 +87,30 @@ namespace jabber
         private string m_resource = null;
         private string m_JID      = null;
 
+		private bool ignoreErrors;
+
         /// <summary>
         /// Creates a JID from a string.
         /// This will parse and perform the stringprep (RFC 3454) process.
         /// </summary>
         /// <param name="jid">Jabber ID, in string form</param>
-        public JID(string jid)
+        public JID(string jid) : this(jid, false)
         {
-            Debug.Assert(jid != null, "jid must be non-null");
-            m_JID = jid;
-            parse();
+           
         }
+		/// <summary>
+		/// Creates a JID from a string.
+		/// This will parse and perform the stringprep (RFC 3454) process.
+		/// </summary>
+		/// <param name="jid">Jabber ID, in string form</param>
+		/// <param name="ignoreErrors">Don't throw parse exceptions if true</param>
+		public JID(string jid, bool ignoreErrors)
+		{
+			Debug.Assert(jid != null, "jid must be non-null");
+			m_JID = jid;
+			this.ignoreErrors = ignoreErrors;
+			parse();
+		}
 
         /// <summary>
         /// Builds a new JID from the given components.
@@ -138,6 +151,7 @@ namespace jabber
             m_JID = full;
         }
 
+		
         private static string build(string user, string server, string resource)
         {
             Debug.Assert(server != null, "Server must be non-null");
@@ -240,13 +254,14 @@ namespace jabber
 				{
 					user=user.Replace("@","\\40");
 				}
-                if (user.IndexOf('/') != -1) throw new JIDFormatException(m_JID);
+                if (user.IndexOf('/') != -1 && !ignoreErrors) 
+					throw new JIDFormatException(m_JID);
             }
 
-            if ((server == null) || (server.Length == 0)) throw new JIDFormatException(m_JID);
-            if (server.IndexOf('@') != -1) throw new JIDFormatException(m_JID);
-            if (server.IndexOf('/') != -1) throw new JIDFormatException(m_JID);
-            if ((resource != null) && (resource.Length == 0)) // null is ok, but "" is not.
+			if (((server == null) || (server.Length == 0)) && !ignoreErrors) throw new JIDFormatException(m_JID);
+			if (server.IndexOf('@') != -1 && !ignoreErrors) throw new JIDFormatException(m_JID);
+			if (server.IndexOf('/') != -1 && !ignoreErrors) throw new JIDFormatException(m_JID);
+			if (((resource != null) && (resource.Length == 0)) && !ignoreErrors) // null is ok, but "" is not.
                 throw new JIDFormatException(m_JID);
 
 #if !NO_STRINGPREP
@@ -500,7 +515,22 @@ namespace jabber
                 return new JID(m_user, m_server, null, build(m_user, m_server, null)); 
             }
         }
-
+		/// <summary>
+		/// Tests JID string for validity.
+		/// </summary>
+		/// <param name="jid"></param>
+		public static bool IsValid(string jid)
+		{
+			try
+			{
+				JID testJID = new JID(jid);
+				return true;
+			}
+			catch (JIDFormatException)
+			{
+				return false;
+			}
+		}
 
         /// <summary>
         /// XEP-0106 escaping.
@@ -757,5 +787,6 @@ namespace jabber
                 return value;
             return base.ConvertTo(context, culture, value, destinationType);
         }
+		
     }
 }
