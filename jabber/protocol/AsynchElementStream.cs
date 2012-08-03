@@ -239,6 +239,13 @@ namespace jabber.protocol
             }
 
             XmlQualifiedName q = new XmlQualifiedName(name, ns);
+
+			//workaround for iTeleport bug, that sends xmlns prefix
+			//and exception is thrown in .NET Framework 2.0
+			//replace prefix for unsupported, which is then ignored
+			if (prefix == "xmlns")
+				prefix = "unsupported";
+
             XmlElement elem = m_factory.GetElement(prefix, q, m_doc);
 
 
@@ -303,6 +310,12 @@ namespace jabber.protocol
                                      ct.NameEnd - offset -
                                      m_enc.MinBytesPerChar*2);
 
+			//workaround for iTeleport bug, that sends xmlns prefix
+			//and exception is thrown in .NET Framework 2.0
+			//replace prefix for unsupported, which is then ignored
+			//here end tag is workarounded to match replaced start and end tag
+			if (name.StartsWith("xmlns"))
+				name = string.Format("unsupported:{0}",name.Substring("xmlns:".Length));
 
             if (m_elem.Name != name)
                 throw new XmlException("Invalid end tag: " + name +
