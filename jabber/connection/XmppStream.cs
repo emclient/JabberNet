@@ -1322,11 +1322,11 @@ namespace jabber.connection
                 {
                     m_saslProc = null;
 
-                    lock (m_stateLock)
-                    {
-                        State = SASLFailedState.Instance;
-                    }
-                    SASLFailure sf = tag as SASLFailure;
+					lock (m_stateLock)
+					{
+						State = SASLFailedState.Instance;
+					}
+					SASLFailure sf = tag as SASLFailure;
                     // TODO: I18N
                     if (OnSASLError != null)
                     {
@@ -1354,7 +1354,11 @@ namespace jabber.connection
                 else
                 {
                     m_saslProc = null;
-                    FireOnError(new SASLException("Invalid SASL protocol"));
+					lock (m_stateLock)
+					{
+						State = SASLFailedState.Instance;
+					}
+					FireOnError(new SASLException("Invalid SASL protocol"));
                     return;
                 }
             }
