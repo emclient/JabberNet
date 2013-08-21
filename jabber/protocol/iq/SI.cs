@@ -193,7 +193,7 @@ namespace jabber.protocol.iq
                 x.Field field = this.X.AddField("stream-method", x.FieldType.list_single, null, null, null);
                 //fix me, don't have this fixed
                 field.AddOption(protocol.URI.SOCKSByteStreams);
-                field.AddOption("http://jabber.org/protocol/ibb");
+                //field.AddOption("http://jabber.org/protocol/ibb");
 			}
 			public SIFeature(string prefix, XmlQualifiedName qname, XmlDocument doc) :
             base(prefix, qname, doc)
