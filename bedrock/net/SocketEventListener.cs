@@ -18,7 +18,7 @@ namespace bedrock.net
 {
     /// <summary>
     /// Interface class for Socket events. Any object which
-    /// implements these interfaces is eligible to recieve Socket
+    /// implements these interfaces is eligible to receive Socket
     /// events.  This is an interface instead of events in order
     /// to preserve symmetry with libbedrock.
     /// </summary>
