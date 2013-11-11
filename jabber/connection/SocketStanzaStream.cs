@@ -72,7 +72,13 @@ namespace jabber.connection
         /// </summary>
         public override bool Connected
         {
-            get { return ASock.Connected;  }
+            get 
+			{
+				if (ASock == null)
+					return false;
+				else
+					return ASock.Connected;  
+			}
         }
 
         /// <summary>
