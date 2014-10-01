@@ -523,7 +523,7 @@ namespace jabber
 		{
 			try
 			{
-				JID testJID = new JID(jid);
+				new JID(jid);
 				return true;
 			}
 			catch (JIDFormatException)
