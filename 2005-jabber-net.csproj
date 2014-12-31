@@ -193,10 +193,10 @@
     <Compile Include="jabber\connection\PubSubManager.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="jabber\connection\sasl\LiveMessengerProcessor.cs" />
     <Compile Include="jabber\connection\sasl\FacebookAuthenticationProcessor.cs" />
     <Compile Include="jabber\connection\sasl\ExternalProcessor.cs" />
     <Compile Include="jabber\connection\sasl\KerbProcessor.cs" />
+    <Compile Include="jabber\connection\sasl\XOAuth2Processor.cs" />
     <Compile Include="jabber\connection\sasl\MD5Processor.cs">
       <SubType>Code</SubType>
     </Compile>

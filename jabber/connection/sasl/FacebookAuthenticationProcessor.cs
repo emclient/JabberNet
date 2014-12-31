@@ -34,12 +34,14 @@ namespace jabber.connection.sasl
     {
 		private string applicationID;
 		private string authToken;
+
 		public FacebookAuthenticationProcessor(string applicationID, string authToken)
 			: base()
 		{
 			this.applicationID = applicationID;
 			this.authToken = authToken;
 		}
+
         /// <summary>
         /// Perform the next step
         /// </summary>
@@ -103,6 +105,7 @@ namespace jabber.connection.sasl
 
 			return nvc;
 		}
+
 		private Dictionary<string, string> GetParams(string method, string nonce)
 		{
 			Dictionary<string, string> myparams = new Dictionary<string, string>();
