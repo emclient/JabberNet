@@ -135,6 +135,11 @@ namespace jabber.protocol
 		public const string SOCKSByteStreams = "http://jabber.org/protocol/bytestreams";
 
 		/// <summary>
+		/// chat states
+		/// </summary>
+		public const string ChatStates = "http://jabber.org/protocol/chatstates";
+
+		/// <summary>
 		/// Server agents
 		/// </summary>
 		public const string AGENTS = "jabber:iq:agents";

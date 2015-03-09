@@ -46,6 +46,34 @@ namespace jabber.protocol.client
         /// </summary>
         headline
     }
+	public enum ChatStateType
+	{
+		/// <summary>
+		/// User is active
+		/// </summary>
+		active,
+		/// <summary>
+		/// User is composing a message
+		/// </summary>
+		composing,
+		/// <summary>
+		/// User is gone (closed chat window)
+		/// </summary>
+		gone,
+		/// <summary>
+		/// User is inactive (minimized chat window)
+		/// </summary>
+		inactive,
+		/// <summary>
+		/// User paused composing (paused for a bit longer period)
+		/// </summary>
+		paused,
+		/// <summary>
+		/// There is no chat state filled in
+		/// </summary>
+		none
+
+	}
     /// <summary>
     /// A client-to-client message.
     /// TODO: Some XHTML is supported by setting the .Html property,
@@ -181,5 +209,58 @@ namespace jabber.protocol.client
                 ReplaceChild<Error>(value);
             }
         }
+
+		public ChatStateType ChatState
+		{
+			get
+			{
+				if (this["active"] != null)
+					return client.ChatStateType.active;
+				else if (this["composing"] != null)
+					return client.ChatStateType.composing;
+				else if (this["gone"] != null)
+					return client.ChatStateType.gone;
+				else if (this["inactive"] != null)
+					return client.ChatStateType.inactive;
+				else if (this["paused"] != null)
+					return client.ChatStateType.paused;
+				else
+					return client.ChatStateType.none;
+			}
+			set
+			{
+				this.RemoveElem("active");
+				this.RemoveElem("composing");
+				this.RemoveElem("gone");
+				this.RemoveElem("inactive");
+				this.RemoveElem("paused");
+
+				if (value!= client.ChatStateType.none)
+				{
+					string xmlTagName;
+					switch (value)
+					{
+						case client.ChatStateType.composing:
+							xmlTagName = "composing";
+							break;
+						case client.ChatStateType.gone:
+							xmlTagName = "gone";
+							break;
+						case client.ChatStateType.inactive:
+							xmlTagName = "inactive";
+							break;
+						case client.ChatStateType.paused:
+							xmlTagName = "paused";
+							break;
+						case client.ChatStateType.active:
+						default:
+							xmlTagName = "active";
+							break;
+					}
+					XmlElement newElement = this.OwnerDocument.CreateElement(null, xmlTagName, URI.ChatStates);
+					this.AddChild(newElement);
+				}
+			}
+		}
     }
 }
