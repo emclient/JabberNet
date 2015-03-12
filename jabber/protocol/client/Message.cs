@@ -214,26 +214,27 @@ namespace jabber.protocol.client
 		{
 			get
 			{
-				if (this["active"] != null)
+				if (this["active"] != null || this["cha:active"] != null)
 					return client.ChatStateType.active;
-				else if (this["composing"] != null)
+				else if (this["composing"] != null || this["cha:composing"] != null)
 					return client.ChatStateType.composing;
-				else if (this["gone"] != null)
+				else if (this["gone"] != null || this["cha:gone"] != null)
 					return client.ChatStateType.gone;
-				else if (this["inactive"] != null)
+				else if (this["inactive"] != null || this["cha:inactive"] != null)
 					return client.ChatStateType.inactive;
-				else if (this["paused"] != null)
+				else if (this["paused"] != null || this["cha:paused"] != null)
 					return client.ChatStateType.paused;
 				else
 					return client.ChatStateType.none;
 			}
 			set
 			{
-				this.RemoveElem("active");
-				this.RemoveElem("composing");
-				this.RemoveElem("gone");
-				this.RemoveElem("inactive");
-				this.RemoveElem("paused");
+				this.RemoveElemByLocalName("active");
+				this.RemoveElemByLocalName("composing");
+				this.RemoveElemByLocalName("gone");
+				this.RemoveElemByLocalName("inactive");
+				this.RemoveElemByLocalName("paused");
+				
 
 				if (value!= client.ChatStateType.none)
 				{

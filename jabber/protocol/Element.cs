@@ -415,6 +415,21 @@ namespace jabber.protocol
                 this.RemoveChild(e);
             return e;
         }
+		/// <summary>
+		/// Remove a child element
+		/// </summary>
+		/// <param name="name"></param>
+		/// <returns>The old element, or null if it didn't exist.</returns>
+		protected XmlElement RemoveElemByLocalName(string localName)
+		{
+			foreach (XmlElement e in this.ChildNodes)
+			{
+				if (e != null && e.LocalName == localName)
+					this.RemoveChild(e);
+				return e;
+			}
+			return null;
+		}
 
         /// <summary>
         /// Remove each of the child elements with the specified type.
