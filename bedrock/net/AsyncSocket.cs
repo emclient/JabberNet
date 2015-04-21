@@ -1043,7 +1043,7 @@ namespace bedrock.net
 
                             m_stream.BeginWrite(ret, 0, ret.Length,
                                                 new AsyncCallback(WroteData),
-                                                ret);
+                                                new object[] { m_stream, ret });
                         }
                     }
                 }
@@ -1073,9 +1073,11 @@ namespace bedrock.net
         /// <param name="ar"></param>
         private void WroteData(IAsyncResult ar)
         {
+			var state = (object[])ar.AsyncState;
+            var stream = (Stream)state[0];
             try
-            {
-                m_stream.EndWrite(ar);
+            {	
+                stream.EndWrite(ar);
             }
             catch (SocketException)
             {
@@ -1094,11 +1096,11 @@ namespace bedrock.net
                 return;
             }
 
-            lock (this)
+			lock (this)
             {
                 m_writing = false;
             }
-            byte[] buf = (byte[])ar.AsyncState;
+            byte[] buf = (byte[])state[1];
             m_listener.OnWrite(this, buf, 0, buf.Length);
 
             if (m_pending.Length > 0)
