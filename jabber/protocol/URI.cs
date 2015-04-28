@@ -133,7 +133,10 @@ namespace jabber.protocol
 		/// socks bytestreams
 		/// </summary>
 		public const string SOCKSByteStreams = "http://jabber.org/protocol/bytestreams";
-
+		/// <summary>
+		/// socks bytestreams
+		/// </summary>
+		public const string IBB = "http://jabber.org/protocol/ibb";
 		/// <summary>
 		/// chat states
 		/// </summary>
