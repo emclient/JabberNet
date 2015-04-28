@@ -191,9 +191,7 @@ namespace jabber.protocol.iq
 				CreateChildElement<x.Data>();
                 X.Type = x.XDataType.form;
                 x.Field field = this.X.AddField("stream-method", x.FieldType.list_single, null, null, null);
-                //fix me, don't have this fixed
-                field.AddOption(protocol.URI.SOCKSByteStreams);
-                field.AddOption(protocol.URI.IBB);
+                
 			}
 			public SIFeature(string prefix, XmlQualifiedName qname, XmlDocument doc) :
             base(prefix, qname, doc)
@@ -238,6 +236,17 @@ namespace jabber.protocol.iq
 				set
 				{
 					SetAttr("date", value.ToUniversalTime().ToString("o"));
+				}
+			}
+			public x.Field StreamMethod
+			{
+				get
+				{
+					x.Field field = this.X.GetField("stream-method");
+					if (field != null)
+						return field;
+					else
+						return this.X.AddField("stream-method", x.FieldType.list_single, null, null, null);
 				}
 			}
 		}
