@@ -148,7 +148,7 @@ namespace jabber.protocol.client
         {
             this.Type = IQType.error;
             Error e = Error.GetStanzaError(doc, condition);
-            this.AppendChild(e);
+			this.Error = e;
         }
     }
 

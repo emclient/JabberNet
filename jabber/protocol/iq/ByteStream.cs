@@ -173,8 +173,7 @@ namespace jabber.protocol.iq
 			{
 				get
 				{
-					//fix me, handle error
-					return Convert.ToInt32(GetAttr("port"));
+					return int.Parse(GetAttr("port"));
 				}
 				set
 				{

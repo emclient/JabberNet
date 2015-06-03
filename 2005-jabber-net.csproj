@@ -174,7 +174,9 @@
     <Compile Include="jabber\connection\ConferenceManager.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="jabber\connection\DiscoManager.cs" />
+    <Compile Include="jabber\connection\DiscoManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="jabber\client\JabberClient.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -209,7 +211,9 @@
     <Compile Include="jabber\connection\StreamComponent.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="jabber\connection\XmppStream.cs" />
+    <Compile Include="jabber\connection\XmppStream.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="jabber\connection\SocketStanzaStream.cs" />
     <Compile Include="jabber\connection\StanzaStream.cs" />
     <Compile Include="jabber\connection\States.cs">
@@ -277,6 +281,7 @@
     <Compile Include="jabber\protocol\iq\Browse.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="jabber\protocol\iq\IBB.cs" />
     <Compile Include="jabber\protocol\iq\ByteStream.cs" />
     <Compile Include="jabber\protocol\iq\Ping.cs" />
     <Compile Include="jabber\protocol\iq\SI.cs" />
