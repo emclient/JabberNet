@@ -1776,12 +1776,10 @@ namespace jabber.connection
             System.Security.Cryptography.X509Certificates.X509Chain chain,
             System.Net.Security.SslPolicyErrors sslPolicyErrors)
         {
-#if !__MonoCS__
-            CertificatePrompt cp = new CertificatePrompt((X509Certificate2)certificate, chain, sslPolicyErrors);
-            return (cp.ShowDialog() == System.Windows.Forms.DialogResult.OK);
-#else
-            return false;
-#endif
+			var validationCallback = System.Net.ServicePointManager.ServerCertificateValidationCallback;
+			if (validationCallback != null)
+				return validationCallback(this.NetworkHost, certificate, chain, sslPolicyErrors);
+			return false;
         }
 
         bool IStanzaEventListener.OnInvalidCertificate(bedrock.net.BaseSocket sock,

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -179,9 +179,6 @@
     <Compile Include="jabber\connection\BindingStanzaStream.cs" />
     <Compile Include="jabber\connection\CapsManager.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="jabber\connection\CertificatePrompt.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="jabber\connection\ConferenceManager.cs">
       <SubType>Component</SubType>
@@ -454,10 +451,6 @@
     <EmbeddedResource Include="jabber\connection\PubSubManager.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="jabber\connection\CertificatePrompt.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>CertificatePrompt.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="jabber\connection\ConferenceManager.bmp" />
   </ItemGroup>
   <ItemGroup>
