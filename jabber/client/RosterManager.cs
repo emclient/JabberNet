@@ -214,6 +214,13 @@ namespace jabber.client
                     return (Item) m_items[jid];
             }
         }
+		/// <summary>
+		/// Return whether the roster contains a specific JID
+		/// </summary>
+		public bool Contains(JID jid)
+		{
+			return m_items.Contains(jid);
+		}
 
         /// <summary>
         /// Gets the number of items currently in the roster.
