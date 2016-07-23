@@ -19,6 +19,7 @@ using System.Xml;
 using bedrock.net;
 using bedrock.util;
 using jabber.protocol;
+using System.Reflection;
 
 namespace jabber.connection
 {
@@ -58,13 +59,16 @@ namespace jabber.connection
         private BaseSocket          m_accept   = null;
         private Timer               m_timer    = null;
 
-        /// <summary>
-        /// Create a new one.
-        /// </summary>
-        /// <param name="listener"></param>
-        internal SocketStanzaStream(IStanzaEventListener listener) : base(listener)
+		private System.Text.StringBuilder logger = null;
+
+		/// <summary>
+		/// Create a new one.
+		/// </summary>
+		/// <param name="listener"></param>
+		internal SocketStanzaStream(IStanzaEventListener listener, System.Text.StringBuilder logger) : base(listener)
         {
             m_timer = new Timer(new TimerCallback(DoKeepAlive), null, Timeout.Infinite, Timeout.Infinite);
+			this.logger = logger;
         }
 
         /// <summary>
@@ -319,6 +323,11 @@ namespace jabber.connection
         {
 			if ((m_sock != null) && this.Connected && ((int)m_listener[Options.CURRENT_KEEP_ALIVE] > 0))
 			{
+				LoggingHelper.AppendWithLimit(this.logger,
+					MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name,
+					m_sock?.Connected.ToString());
+
+
 				if (((KeepAliveBehavior)m_listener[Options.KEEP_ALIVE_BEHAVIOR]) == KeepAliveBehavior.SpaceCharacter)
 				{
 					m_sock.Write(new byte[] { 32 });

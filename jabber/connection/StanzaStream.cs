@@ -168,13 +168,14 @@ namespace jabber.connection
         /// </summary>
         /// <param name="kind">Connection type, such as socket, polling, and so on.</param>
         /// <param name="listener">Connection event listeners.</param>
+		/// <param name="logger">In-memory logger which is attached to an unhandled exception in some cases. May be null.</param>
         /// <returns>StanzaStream used to connect to an XMPP server and send stanzas.</returns>
-        public static StanzaStream Create(ConnectionType kind, IStanzaEventListener listener)
+        public static StanzaStream Create(ConnectionType kind, IStanzaEventListener listener, StringBuilder logger)
         {
             switch (kind)
             {
             case ConnectionType.Socket:
-                    StanzaStream test = new SocketStanzaStream(listener);
+                    StanzaStream test = new SocketStanzaStream(listener, logger);
                 return test;
             case ConnectionType.HTTP_Polling:
                 return new PollingStanzaStream(listener);

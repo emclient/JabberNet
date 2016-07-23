@@ -1182,6 +1182,8 @@ namespace bedrock.net
         /// <param name="e"></param>
         protected void FireError(Exception e)
         {
+			SocketState previousState = State;
+
             lock (this)
             {
                 State = SocketState.Error;
@@ -1192,8 +1194,18 @@ namespace bedrock.net
             }
             if (m_watcher != null)
                 m_watcher.CleanupSocket(this);
-            m_listener.OnError(this, e);
+
+			try
+			{
+				m_listener.OnError(this, e);
+			}
+			catch(ObjectDisposedException ex)
+			{
+				ex.Data["AsyncSocket.PreviousState"] = previousState.ToString();
+				throw;
+			}
         }
+
 
 
         /// <summary>

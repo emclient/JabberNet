@@ -126,6 +126,7 @@
     <Compile Include="bedrock\io\BufferAggregate.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="bedrock\util\LoggingHelper.cs" />
     <Compile Include="jabber\client\BookmarkManager.cs">
       <SubType>Component</SubType>
     </Compile>

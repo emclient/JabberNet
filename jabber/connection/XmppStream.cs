@@ -276,6 +276,8 @@ namespace jabber.connection
         /// </summary>
         protected static readonly System.Text.Encoding ENC = System.Text.Encoding.UTF8;
 
+		protected System.Text.StringBuilder diagnosticLog;
+
         private StanzaStream m_stanzas = null;
         private IQTracker m_tracker = null;
 
@@ -316,6 +318,12 @@ namespace jabber.connection
         {
             container.Add(this);
         }
+
+		public void SetDiagnosticLog(System.Text.StringBuilder builder)
+		{
+			this.diagnosticLog = builder;
+		}
+
 
         /// <summary>
         /// Sets defaults in bulk.
@@ -951,7 +959,7 @@ namespace jabber.connection
         public virtual void Connect()
         {
             this[Options.CURRENT_KEEP_ALIVE] = -1;
-            m_stanzas = StanzaStream.Create(this.Connection, this);
+            m_stanzas = StanzaStream.Create(this.Connection, this, this.diagnosticLog);
             lock (StateLock)
             {
                 State = ConnectingState.Instance;
@@ -966,7 +974,7 @@ namespace jabber.connection
         protected virtual void Accept()
         {
             if ((m_stanzas == null) || (!m_stanzas.Acceptable))
-                m_stanzas = StanzaStream.Create(this.Connection, this);
+                m_stanzas = StanzaStream.Create(this.Connection, this, this.diagnosticLog);
             lock (StateLock)
             {
                 this.State = AcceptingState.Instance;
@@ -1038,8 +1046,10 @@ namespace jabber.connection
             else
             {
                 Debug.WriteLine("Cannot close a socket before it is open");
-                //FireOnError(new InvalidOperationException("Cannot close a socket before it is open"));
-            }
+				LoggingHelper.AppendWithLimit(this.diagnosticLog, "XmppStream.Close(bool)", 
+					$"Cannot close a socket before it is open. m_stanzas==null? {(m_stanzas == null).ToString()} m_stanzas.Connected? {m_stanzas?.Connected} State {m_state?.GetType().Name}");
+				//FireOnError(new InvalidOperationException("Cannot close a socket before it is open"));
+			}
         }
 
         /// <summary>
@@ -1700,6 +1710,8 @@ namespace jabber.connection
         {
             m_reconnect = false;
 
+			string previousState = State.GetType().Name;
+
             lock (m_stateLock)
             {
                 State = ClosedState.Instance;
@@ -1709,10 +1721,18 @@ namespace jabber.connection
 
             if (OnError != null)
             {
-                if (InvokeRequired)
-                    CheckedInvoke(OnError, new object[] { this, ex });
-                else
-                    OnError(this, ex);
+				try
+				{
+					if (InvokeRequired)
+						CheckedInvoke(OnError, new object[] { this, ex });
+					else
+						OnError(this, ex);
+				}
+				catch(ObjectDisposedException e)
+				{
+					e.Data["XmppStream.previousState"] = previousState;
+					throw;
+				}
             }
 
             // TODO: Figure out what the "good" errors are, and try to
