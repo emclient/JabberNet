@@ -20,6 +20,8 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <!--<SignAssembly>true</SignAssembly>-->
+    <BaseIntermediateOutputPath>obj5</BaseIntermediateOutputPath>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
