@@ -118,10 +118,6 @@ namespace jabber.protocol.stream
         /// </summary>
         NMAS_SAMBA_AUTH = (1 << 21),
 		/// <summary>
-        /// LIMITED  [Facebook]
-        /// </summary>
-        FACEBOOK = (1 << 22),
-		/// <summary>
 		/// LIMITED  [Live Messenger (MSN)]
 		/// </summary>
 		XOAUTH2 = (1 << 23)
@@ -282,8 +278,6 @@ namespace jabber.protocol.stream
                     return MechanismType.KERBEROS_V5;
                 case "NMAS-SAMBA-AUTH":
                     return MechanismType.NMAS_SAMBA_AUTH;
-				case "X-FACEBOOK-PLATFORM":
-					return MechanismType.FACEBOOK;
 				case "X-OAUTH2":
 					return MechanismType.XOAUTH2;
                 default:
@@ -342,8 +336,6 @@ namespace jabber.protocol.stream
                     return "KERBEROS_V5";
                 case MechanismType.NMAS_SAMBA_AUTH:
                     return "NMAS-SAMBA-AUTH";
-				case MechanismType.FACEBOOK:
-					return "X-FACEBOOK-PLATFORM";
 				case MechanismType.XOAUTH2:
 					return "X-OAUTH2";
                 default:

@@ -146,10 +146,6 @@ namespace jabber.connection.sasl
                 }
                 return new KerbProcessor(RemotePrincipal);
             }*/
-			if ((mt & MechanismType.FACEBOOK) == MechanismType.FACEBOOK && !string.IsNullOrEmpty((string)stream[Options.OAUTH_API_KEY]) && !string.IsNullOrEmpty((string)stream[Options.OAUTH_ACCESS_TOKEN]))
-			{
-				return new FacebookAuthenticationProcessor((string)stream[Options.OAUTH_API_KEY],(string)stream[Options.OAUTH_ACCESS_TOKEN]);
-			}
 			else if ((mt & MechanismType.XOAUTH2) == MechanismType.XOAUTH2 && !string.IsNullOrEmpty((string)stream[Options.OAUTH_ACCESS_TOKEN]))
 			{
 				return new XOAuth2Processor((string)stream[Options.OAUTH_API_KEY], (string)stream[Options.OAUTH_ACCESS_TOKEN]);
