@@ -77,7 +77,7 @@ namespace jabber.server
         {
             SetDefaults(DEFAULTS);
             this.OnStreamInit += new jabber.connection.StreamHandler(JabberService_OnStreamInit);
-            this.OnSASLStart += new jabber.connection.sasl.SASLProcessorHandler(JabberService_OnSASLStart);
+            this.OnSASLStart += new jabber.connection.SASLProcessorHandler(JabberService_OnSASLStart);
         }
 
         /// <summary>
@@ -410,7 +410,7 @@ namespace jabber.server
             }
         }
 
-        private void JabberService_OnSASLStart(object sender, jabber.connection.sasl.SASLProcessor proc)
+        private void JabberService_OnSASLStart(object sender, ref Sasl.IClientCredential credential)
         {
             jabber.connection.BaseState s = null;
             lock (StateLock)

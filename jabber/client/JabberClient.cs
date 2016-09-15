@@ -34,7 +34,7 @@ namespace jabber.client
     /// </summary>
     public delegate void PresenceHandler(Object sender, Presence pres);
     /// <summary>
-    /// Informst the client that a message has been received.
+    /// Informst the client that a messa has been received.
     /// </summary>
     public delegate void MessageHandler(Object sender, Message msg);
     /// <summary>
@@ -69,7 +69,7 @@ namespace jabber.client
         {
             SetDefaults(DEFAULTS);
 
-            this.OnSASLStart += new jabber.connection.sasl.SASLProcessorHandler(JabberClient_OnSASLStart);
+            this.OnSASLStart += new jabber.connection.SASLProcessorHandler(JabberClient_OnSASLStart);
             this.OnSASLEnd += new jabber.protocol.stream.FeaturesHandler(JabberClient_OnSASLEnd);
             this.OnSASLError += new ProtocolHandler(JabberClient_OnSASLError);
             this.OnStreamInit += new StreamHandler(JabberClient_OnStreamInit);
@@ -221,10 +221,21 @@ namespace jabber.client
             set { this[Options.PASSWORD] = value; }
         }
 
-        /// <summary>
-        /// Allows auto-login to be used for the connection to the XMPP server if set to true.
-        /// </summary>
-        [Description("Automatically log in on connection.")]
+		/// <summary>
+		/// Whether the credentials of the logged on user are used.
+		/// </summary>
+		[Category("Jabber")]
+        [DefaultValue(false)]
+		public bool UseDefaultCredentials
+		{
+			get { return this[Options.USE_WINDOWS_CREDS] == null ? false : (bool)this[Options.USE_WINDOWS_CREDS]; }
+			set { this[Options.USE_WINDOWS_CREDS] = value; }
+		}
+
+		/// <summary>
+		/// Allows auto-login to be used for the connection to the XMPP server if set to true.
+		/// </summary>
+		[Description("Automatically log in on connection.")]
         [DefaultValue(true)]
         [Category("Automation")]
         public bool AutoLogin
@@ -771,11 +782,6 @@ namespace jabber.client
             }
             else if (res["password"] != null)
             {
-                if (!SSLon && !this.PlaintextAuth)
-                {
-                    FireOnError(new AuthenticationFailedException("Plaintext authentication forbidden."));
-                    return;
-                }
                 a.SetAuth(User, Password);
             }
             else
@@ -926,7 +932,7 @@ namespace jabber.client
             }
         }
 
-        private void JabberClient_OnSASLStart(Object sender, jabber.connection.sasl.SASLProcessor proc)
+        private void JabberClient_OnSASLStart(Object sender, ref Sasl.IClientCredential credential)
         {
             BaseState s = null;
             lock (StateLock)
@@ -946,14 +952,10 @@ namespace jabber.client
             {
                 if ((bool)this[Options.AUTO_LOGIN_THISPASS])
                 {
-                    // TODO: integrate SASL params into XmppStream params
-                    proc[SASLProcessor.USERNAME] = User;
-                    proc[SASLProcessor.PASSWORD] = Password;
-                    proc[MD5Processor.REALM] = this.Server;
-                    object creds = this[KerbProcessor.USE_WINDOWS_CREDS];
-                    if (creds == null)
-                        creds = false;
-                    proc[KerbProcessor.USE_WINDOWS_CREDS] = creds.ToString();
+					if (UseDefaultCredentials)
+						credential = new Sasl.DefaultClientCredential();
+					else
+						credential = new Sasl.ClientCredential() { AuthenticationId = User, AuthorizationId = User, Password = Password, Domain = this.Server };
                 }
                 else
                 {

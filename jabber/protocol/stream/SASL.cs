@@ -19,111 +19,6 @@ using bedrock.util;
 namespace jabber.protocol.stream
 {
     /// <summary>
-    /// SASL mechanisms registered with IANA as of 5/16/2004.
-    /// </summary>
-    [SVN(@"$Id: SASL.cs 724 2008-08-06 18:09:25Z hildjj $")]
-    [Flags]
-    public enum MechanismType
-    {
-        /// <summary>
-        ///
-        /// </summary>
-        NONE = 0,
-        /// <summary>
-        /// LIMITED  [RFC2222]   IESG &lt;iesg@ietf.org&gt;
-        /// </summary>
-        KERBEROS_V4 = (1 << 0),
-        /// <summary>
-        /// COMMON   [RFC2222]   IESG &lt;iesg@ietf.org&gt;
-        /// </summary>
-        GSSAPI = (1 << 1),
-        /// <summary>
-        /// OBSOLETE [RFC2444]   IESG &lt;iesg@ietf.org&gt;
-        /// </summary>
-        SKEY  = (1 << 2),
-        /// <summary>
-        /// COMMON   [RFC2222]   IESG &lt;iesg@ietf.org&gt;
-        /// </summary>
-        EXTERNAL = (1 << 3),
-        /// <summary>
-        /// LIMITED  [RFC2195]   IESG &lt;iesg@ietf.org&gt;
-        /// </summary>
-        CRAM_MD5 = (1 << 4),
-        /// <summary>
-        /// COMMON   [RFC2245]   IESG &lt;iesg@ietf.org&gt;
-        /// </summary>
-        ANONYMOUS = (1 << 5),
-        /// <summary>
-        /// COMMON   [RFC2444]   IESG &lt;iesg@ietf.org&gt;
-        /// </summary>
-        OTP = (1 << 6),
-        /// <summary>
-        /// LIMITED  [Leach]     Paul Leach &lt;paulle@microsoft.com&gt;
-        /// </summary>
-        GSS_SPNEGO = (1 << 7),
-        /// <summary>
-        /// COMMON   [RFC2595]   IESG &lt;iesg@ietf.org&gt;
-        /// </summary>
-        PLAIN = (1 << 8),
-        /// <summary>
-        /// COMMON   [RFC2808]   Magnus Nystrom &lt;magnus@rsasecurity.com&gt;
-        /// </summary>
-        SECURID = (1 << 9),
-        /// <summary>
-        /// LIMITED  [Leach]     Paul Leach &lt;paulle@microsoft.com&gt;
-        /// </summary>
-        NTLM = (1 << 10),
-        /// <summary>
-        /// LIMITED  [Gayman]    Mark G. Gayman &lt;mgayman@novell.com&gt;
-        /// </summary>
-        NMAS_LOGIN = (1 << 11),
-        /// <summary>
-        /// LIMITED  [Gayman]    Mark G. Gayman &lt;mgayman@novell.com&gt;
-        /// </summary>
-        NMAS_AUTHEN = (1 << 12),
-        /// <summary>
-        /// COMMON   [RFC2831]   IESG &lt;iesg@ietf.org&gt;
-        /// </summary>
-        DIGEST_MD5 = (1 << 13),
-        /// <summary>
-        /// [RFC3163]  robert.zuccherato@entrust.com
-        /// </summary>
-        ISO_9798_U_RSA_SHA1_ENC = (1 << 14),
-        /// <summary>
-        /// COMMON   [RFC3163]   robert.zuccherato@entrust.com
-        /// </summary>
-        ISO_9798_M_RSA_SHA1_ENC = (1 << 15),
-        /// <summary>
-        /// COMMON   [RFC3163]   robert.zuccherato@entrust.com
-        /// </summary>
-        ISO_9798_U_DSA_SHA1 = (1 << 16),
-        /// <summary>
-        /// COMMON   [RFC3163]   robert.zuccherato@entrust.com
-        /// </summary>
-        ISO_9798_M_DSA_SHA1 = (1 << 17),
-        /// <summary>
-        /// COMMON   [RFC3163]   robert.zuccherato@entrust.com
-        /// </summary>
-        ISO_9798_U_ECDSA_SHA1 = (1 << 18),
-        /// <summary>
-        /// COMMON   [RFC3163]   robert.zuccherato@entrust.com
-        /// </summary>
-        ISO_9798_M_ECDSA_SHA1 = (1 << 19),
-        /// <summary>
-        /// COMMON   [Josefsson] Simon Josefsson &lt;simon@josefsson.org&gt;
-        /// </summary>
-        KERBEROS_V5 = (1 << 20),
-        /// <summary>
-        /// LIMITED  [Brimhall]  Vince Brimhall &lt;vbrimhall@novell.com&gt;
-        /// </summary>
-        NMAS_SAMBA_AUTH = (1 << 21),
-		/// <summary>
-		/// LIMITED  [Live Messenger (MSN)]
-		/// </summary>
-		XOAUTH2 = (1 << 23)
-    }
-
-    /// <summary>
     /// SASL mechanisms in stream features.
     /// </summary>
     [SVN(@"$Id: SASL.cs 724 2008-08-06 18:09:25Z hildjj $")]
@@ -165,22 +60,6 @@ namespace jabber.protocol.stream
             }
             return items;
         }
-
-        /// <summary>
-        /// A bitmap of all of the implemented types.
-        /// </summary>
-        public MechanismType Types
-        {
-            get
-            {
-                MechanismType ret = MechanismType.NONE;
-                foreach (Mechanism m in GetMechanisms())
-                {
-                    ret |= m.MechanismType;
-                }
-                return ret;
-            }
-        }
     }
 
     /// <summary>
@@ -216,131 +95,6 @@ namespace jabber.protocol.stream
         {
             get { return this.InnerText; }
             set { this.InnerText = value; }
-        }
-
-        /// <summary>
-        /// SASL mechanism, as an enum
-        /// </summary>
-        public MechanismType MechanismType
-        {
-            get { return GetMechanismType(MechanismName); }
-            set { MechanismName = GetMechanism(value); }
-        }
-
-        /// <summary>
-        /// The SASL mechanism, as an enum.
-        /// </summary>
-        public static MechanismType GetMechanismType(string name)
-        {
-            switch (name)
-            {
-                case "KERBEROS_V4":
-                    return MechanismType.KERBEROS_V4;
-                case "GSSAPI":
-                    return MechanismType.GSSAPI;
-                case "SKEY":
-                    return MechanismType.SKEY;
-                case "EXTERNAL":
-                    return MechanismType.EXTERNAL;
-                case "CRAM-MD5":
-                    return MechanismType.CRAM_MD5;
-                case "ANONYMOUS":
-                    return MechanismType.ANONYMOUS;
-                case "OTP":
-                    return MechanismType.OTP;
-                case "GSS-SPNEGO":
-                    return MechanismType.GSS_SPNEGO;
-                case "PLAIN":
-                    return MechanismType.PLAIN;
-                case "SECURID":
-                    return MechanismType.SECURID;
-                case "NTLM":
-                    return MechanismType.NTLM;
-                case "NMAS_LOGIN":
-                    return MechanismType.NMAS_LOGIN;
-                case "NMAS_AUTHEN":
-                    return MechanismType.NMAS_AUTHEN;
-                case "DIGEST-MD5":
-                    return MechanismType.DIGEST_MD5;
-                case "9798-U-RSA-SHA1-ENC":
-                    return MechanismType.ISO_9798_U_RSA_SHA1_ENC;
-                case "9798-M-RSA-SHA1-ENC":
-                    return MechanismType.ISO_9798_M_RSA_SHA1_ENC;
-                case "9798-U-DSA-SHA1":
-                    return MechanismType.ISO_9798_U_DSA_SHA1;
-                case "9798-M-DSA-SHA1":
-                    return MechanismType.ISO_9798_M_DSA_SHA1;
-                case "9798-U-ECDSA-SHA1":
-                    return MechanismType.ISO_9798_U_ECDSA_SHA1;
-                case "9798-M-ECDSA-SHA1":
-                    return MechanismType.ISO_9798_M_ECDSA_SHA1;
-                case "KERBEROS_V5":
-                    return MechanismType.KERBEROS_V5;
-                case "NMAS-SAMBA-AUTH":
-                    return MechanismType.NMAS_SAMBA_AUTH;
-				case "X-OAUTH2":
-					return MechanismType.XOAUTH2;
-                default:
-                    return MechanismType.NONE;
-            }
-        }
-
-        /// <summary>
-        /// The SASL mechanism, as a string.
-        /// </summary>
-        public static string GetMechanism(MechanismType type)
-        {
-            switch (type)
-            {
-                case MechanismType.KERBEROS_V4:
-                    return "KERBEROS_V4";
-                case MechanismType.GSSAPI:
-                    return "GSSAPI";
-                case MechanismType.SKEY:
-                    return "SKEY";
-                case MechanismType.EXTERNAL:
-                    return "EXTERNAL";
-                case MechanismType.CRAM_MD5:
-                    return "CRAM-MD5";
-                case MechanismType.ANONYMOUS:
-                    return "ANONYMOUS";
-                case MechanismType.OTP:
-                    return "OTP";
-                case MechanismType.GSS_SPNEGO:
-                    return "GSS-SPNEGO";
-                case MechanismType.PLAIN:
-                    return "PLAIN";
-                case MechanismType.SECURID:
-                    return "SECURID";
-                case MechanismType.NTLM:
-                    return "NTLM";
-                case MechanismType.NMAS_LOGIN:
-                    return "NMAS_LOGIN";
-                case MechanismType.NMAS_AUTHEN:
-                    return "NMAS_AUTHEN";
-                case MechanismType.DIGEST_MD5:
-                    return "DIGEST-MD5";
-                case MechanismType.ISO_9798_U_RSA_SHA1_ENC:
-                    return "9798-U-RSA-SHA1-ENC";
-                case MechanismType.ISO_9798_M_RSA_SHA1_ENC:
-                    return "9798-M-RSA-SHA1-ENC";
-                case MechanismType.ISO_9798_U_DSA_SHA1:
-                    return "9798-U-DSA-SHA1";
-                case MechanismType.ISO_9798_M_DSA_SHA1:
-                    return "9798-M-DSA-SHA1";
-                case MechanismType.ISO_9798_U_ECDSA_SHA1:
-                    return "9798-U-ECDSA-SHA1";
-                case MechanismType.ISO_9798_M_ECDSA_SHA1:
-                    return "9798-M-ECDSA-SHA1";
-                case MechanismType.KERBEROS_V5:
-                    return "KERBEROS_V5";
-                case MechanismType.NMAS_SAMBA_AUTH:
-                    return "NMAS-SAMBA-AUTH";
-				case MechanismType.XOAUTH2:
-					return "X-OAUTH2";
-                default:
-                    return null;
-            }
         }
     }
 
@@ -416,17 +170,15 @@ namespace jabber.protocol.stream
         /// <summary>
         /// The chosen mechanism
         /// </summary>
-        public MechanismType Mechanism
+        public string MechanismName
         {
             get
             {
-                string m = GetAttribute("mechanism");
-                return jabber.protocol.stream.Mechanism.GetMechanismType(m);
+                return GetAttribute("mechanism");
             }
             set
             {
-                string m = jabber.protocol.stream.Mechanism.GetMechanism(value);
-                SetAttribute("mechanism", m);
+                SetAttribute("mechanism", value);
             }
         }
     }

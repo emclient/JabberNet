@@ -17,10 +17,9 @@ using System.Collections;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Diagnostics;
-using System.IO;
 using System.Threading;
-using System.Security.Cryptography;
 using System.Xml;
+using System.Linq;
 using bedrock.util;
 
 using jabber.protocol;
@@ -28,6 +27,7 @@ using jabber.protocol.stream;
 using jabber.connection.sasl;
 
 using System.Security.Cryptography.X509Certificates;
+using Sasl;
 
 namespace jabber.connection
 {
@@ -35,6 +35,11 @@ namespace jabber.connection
     /// Informs the client about events that happen on an ElementStream.
     /// </summary>
     public delegate void StreamHandler(Object sender, ElementStream stream);
+
+	/// <summary>
+	/// A SASL processor instance has been created.  Fill it with information, like USERNAME and PASSWORD.
+	/// </summary>
+	public delegate void SASLProcessorHandler(Object sender, ref Sasl.IClientCredential credential);
 
 	public enum KeepAliveBehavior
 	{
@@ -93,10 +98,6 @@ namespace jabber.connection
         /// </summary>
         public const string AUTO_COMPRESS = "compress.auto";
         /// <summary>
-        /// Allows plaintext authentication for connecting to the XMPP server.
-        /// </summary>
-        public const string PLAINTEXT    = "plaintext";
-        /// <summary>
         /// Attempts a SASL connection if set to true and the feature is available
         /// from the XMPP server. If the server doesn't support SASL, the connection
         /// will move to a fallback mechanism.
@@ -121,10 +122,14 @@ namespace jabber.connection
         /// Contains the password for the user, or secret for the component.
         /// </summary>
         public const string PASSWORD = "password";
-        /// <summary>
-        /// Contains the connecting resource which is used to identify a unique connection.
-        /// </summary>
-        public const string RESOURCE = "resource";
+		/// <summary>
+		/// Whether the credentials of the logged on user are used.
+		/// </summary>
+		public const string USE_WINDOWS_CREDS = "use_windows_creds";
+		/// <summary>
+		/// Contains the connecting resource which is used to identify a unique connection.
+		/// </summary>
+		public const string RESOURCE = "resource";
         /// <summary>
         /// Contains the presence default priority for this connection.
         /// </summary>
@@ -256,7 +261,6 @@ namespace jabber.connection
             new object[] {Options.SSL, false},
             new object[] {Options.SASL, true},
             new object[] {Options.REQUIRE_SASL, false},
-            new object[] {Options.PLAINTEXT, false},
             new object[] {Options.AUTO_TLS, true},
             new object[] {Options.AUTO_COMPRESS, true},
 			new object[] {Options.ENABLE_LOGS, false},
@@ -299,7 +303,8 @@ namespace jabber.connection
 
         // XMPP v1 stuff
         private string m_serverVersion = null;
-        private SASLProcessor m_saslProc = null;
+        private SaslMechanism m_saslMechanism = null;
+        private SaslClient m_saslClient = null;
         private Features m_features = null; // the last features tag received.
 
 
@@ -554,19 +559,6 @@ namespace jabber.connection
         {
             get { return (int)this[Options.PORT]; }
             set { this[Options.PORT] = value; }
-        }
-
-        /// <summary>
-        /// Specifies whether plaintext authentication is used for connecting
-        /// to the XMPP server.
-        /// </summary>
-        [Description("Allow plaintext authentication?")]
-        [DefaultValue(false)]
-        [Category("Jabber")]
-        public bool PlaintextAuth
-        {
-            get { return (bool)this[Options.PLAINTEXT]; }
-            set { this[Options.PLAINTEXT] = value; }
         }
 
         /// <summary>
@@ -1142,7 +1134,8 @@ namespace jabber.connection
 
                 if (hack && (OnSASLStart != null))
                 {
-                    OnSASLStart(this, null); // Hack.  Old-style auth for jabberclient.
+					IClientCredential credential = null;
+                    OnSASLStart(this, ref credential); // Hack.  Old-style auth for jabberclient.
                 }
             }
         }
@@ -1194,71 +1187,88 @@ namespace jabber.connection
             if (!IsAuthenticated)
             {
                 Mechanisms ms = m_features.Mechanisms;
-                m_saslProc = null;
+                m_saslMechanism = null;
+				m_saslClient = null;
 
-                MechanismType types = MechanismType.NONE;
+				// If we're doing SASL, and there are mechanisms implemented by both
+				// client and server.
+				if (ms.GetMechanisms().Length > 0 && (bool)this[Options.SASL])
+				{
+					lock (m_stateLock)
+					{
+						State = SASLState.Instance;
+					}
 
-                if (ms != null)
-                {
-                    // if SASL_MECHANISMS is set in the options, it is the limited set
-                    // of mechanisms we're willing to try.  Mask them off of the offered set.
-                    object smt = this[Options.SASL_MECHANISMS];
-                    if (smt != null)
-                        types = (MechanismType)smt & ms.Types;
-                    else
-                        types = ms.Types;
+					IClientCredential saslCredential = null;
+					if (OnSASLStart != null)
+						OnSASLStart(this, ref saslCredential);
+					lock (m_stateLock)
+					{
+						// probably manual authentication
+						if (State != SASLState.Instance)
+							return;
+					}
+
+					if (ms.GetMechanisms().Any(m => m.MechanismName == "X-OAUTH2") && !string.IsNullOrEmpty(this[Options.OAUTH_ACCESS_TOKEN] as string))
+					{
+						try
+						{
+							Auth a = new Auth(this.Document);
+							a.MechanismName = "X-OAUTH2";
+							a.SetAttribute("service", "http://www.google.com/talk/protocol/auth", "oauth2");
+							a.Bytes = System.Text.Encoding.UTF8.GetBytes("\u0000" + saslCredential.AuthenticationId + "\u0000" + this[Options.OAUTH_ACCESS_TOKEN]);
+							this.Write(a);
+							return;
+						}
+						catch (Exception e)
+						{
+							FireOnError(new SaslException(e.Message));
+							return;
+						}
+					}
+					else
+					{
+						m_saslMechanism = SaslFactory.GetMechanism(
+							ms.GetMechanisms().Select(m => m.MechanismName),
+							saslCredential);
+						if (m_saslMechanism == null)
+						{
+							FireOnError(new NotImplementedException("No implemented mechanisms in: " + String.Join(" ", ms.GetMechanisms().Select(m => m.MechanismName).ToArray())));
+							return;
+						}
+						m_saslClient = m_saslMechanism.CreateClient(saslCredential, "XMPP", this.Server);
+
+						try
+						{
+							Auth a = new Auth(this.Document);
+							a.MechanismName = m_saslMechanism.Name;
+							a.Bytes = m_saslClient.HasInitialResponse ? m_saslClient.EvaluateChallenge(new byte[0]) : new byte[0];
+							Step s = a;
+							if (s != null)
+								this.Write(s);
+						}
+						catch (Exception e)
+						{
+							FireOnError(new SaslException(e.Message));
+							return;
+						}
+					}
                 }
 
-                // If we're doing SASL, and there are mechanisms implemented by both
-                // client and server.
-                if ((types != MechanismType.NONE) && ((bool)this[Options.SASL]))
-                {
-                    lock (m_stateLock)
-                    {
-                        State = SASLState.Instance;
-                    }
-					
-                    m_saslProc = SASLProcessor.createProcessor(this, types, m_sslOn || (bool)this[Options.PLAINTEXT], ms);
-                    if (m_saslProc == null)
-                    {
-                        FireOnError(new NotImplementedException("No implemented mechanisms in: " + types.ToString()));
-                        return;
-                    }
-                    if (OnSASLStart != null)
-                        OnSASLStart(this, m_saslProc);
-                    lock (m_stateLock)
-                    {
-                        // probably manual authentication
-                        if (State != SASLState.Instance)
-                            return;
-                    }
-
-                    try
-                    {
-                        Step s = m_saslProc.step(null, this.Document);
-                        if (s != null)
-                            this.Write(s);
-                    }
-                    catch (Exception e)
-                    {
-                        FireOnError(new SASLException(e.Message));
-                        return;
-                    }
-                }
-
-                if (m_saslProc == null)
+                if (m_saslMechanism == null)
                 { // no SASL mechanisms.  Try iq:auth.
                     if ((bool)this[Options.REQUIRE_SASL])
                     {
-                        FireOnError(new SASLException("No SASL mechanisms available"));
+                        FireOnError(new SaslException("No SASL mechanisms available"));
                         return;
                     }
                     lock (m_stateLock)
                     {
                         State = NonSASLAuthState.Instance;
                     }
-                    if (OnSASLStart != null)
-                        OnSASLStart(this, null); // HACK: old-style auth for jabberclient.
+					IClientCredential credential = null;
+                    if (OnSASLStart != null)					
+                        OnSASLStart(this, ref credential); // HACK: old-style auth for jabberclient.
                 }
             }
         }
@@ -1330,7 +1340,8 @@ namespace jabber.connection
                 }
                 else if (tag is SASLFailure)
                 {
-                    m_saslProc = null;
+					m_saslMechanism = null;
+					m_saslClient = null;
 
 					lock (m_stateLock)
 					{
@@ -1344,31 +1355,34 @@ namespace jabber.connection
                         OnSASLError(this, sf);
                     }
                     else
-                        FireOnError(new SASLException("SASL failure: " + sf.InnerXml));
+                        FireOnError(new SaslException("SASL failure: " + sf.InnerXml));
                     return;
                 }
                 else if (tag is Step)
                 {
                     try
                     {
-                        Step s = m_saslProc.step(tag as Step, this.Document);
+						Response r = new Response(this.Document);
+						r.Bytes = m_saslClient.EvaluateChallenge((tag as Step).Bytes);
+						Step s = r;
                         if (s != null)
                             Write(s);
                     }
                     catch (Exception e)
                     {
-                        FireOnError(new SASLException(e.Message));
+                        FireOnError(new SaslException(e.Message));
                         return;
                     }
                 }
                 else
                 {
-                    m_saslProc = null;
+                    m_saslMechanism = null;
+					m_saslClient = null;
 					lock (m_stateLock)
 					{
 						State = SASLFailedState.Instance;
 					}
-					FireOnError(new SASLException("Invalid SASL protocol"));
+					FireOnError(new SaslException("Invalid SASL protocol"));
                     return;
                 }
             }
@@ -1412,7 +1426,8 @@ namespace jabber.connection
                 }
                 if (OnSASLEnd != null)
                     OnSASLEnd(this, f);
-                m_saslProc = null;
+                m_saslMechanism = null;
+				m_saslClient = null;
             }
             else
             {
