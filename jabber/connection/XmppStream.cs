@@ -12,7 +12,6 @@
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
-
 using System.Collections;
 using System.ComponentModel;
 using System.ComponentModel.Design;
@@ -21,11 +20,8 @@ using System.Threading;
 using System.Xml;
 using System.Linq;
 using bedrock.util;
-
 using jabber.protocol;
 using jabber.protocol.stream;
-using jabber.connection.sasl;
-
 using System.Security.Cryptography.X509Certificates;
 using Sasl;
 
@@ -1396,7 +1392,7 @@ namespace jabber.connection
                     SendNewStreamHeader();
                     break;
                 case "failure":
-                    FireOnError(new AuthenticationFailedException());
+                    FireOnError(new Sasl.AuthenticationException());
                     return;
                 }
             }

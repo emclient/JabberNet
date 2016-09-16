@@ -12,20 +12,14 @@
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
-
 using System.ComponentModel;
-using System.Collections;
 using System.Diagnostics;
 using System.Xml;
-
 using bedrock.util;
-using bedrock.net;
-
 using jabber.connection;
 using jabber.protocol;
 using jabber.protocol.client;
 using jabber.protocol.iq;
-using jabber.connection.sasl;
 
 namespace jabber.client
 {
@@ -903,7 +897,7 @@ namespace jabber.client
                 if (iq != null)
                     FireOnError(new IQException(iq));
                 else
-                    FireOnError(new AuthenticationFailedException(i.OuterXml));
+                    FireOnError(new Sasl.AuthenticationException(i.OuterXml));
             }
         }
 
@@ -1001,29 +995,29 @@ namespace jabber.client
 
             if (iq == null)
             {
-                FireOnError(new AuthenticationFailedException("Timeout authenticating"));
+                FireOnError(new Sasl.AuthenticationException("Timeout authenticating"));
                 return;
             }
             if (iq.Type != IQType.result)
             {
                 Error err = iq.Error;
                 if (err == null)
-                    FireOnError(new AuthenticationFailedException("Unknown error binding resource"));
+                    FireOnError(new Sasl.AuthenticationException("Unknown error binding resource"));
                 else
-                    FireOnError(new AuthenticationFailedException("Error binding resource: " + err.OuterXml));
+                    FireOnError(new Sasl.AuthenticationException("Error binding resource: " + err.OuterXml));
                 return;
             }
 
             XmlElement bind = iq["bind", URI.BIND];
             if (bind == null)
             {
-                FireOnError(new AuthenticationFailedException("No binding returned.  Server implementation error."));
+                FireOnError(new Sasl.AuthenticationException("No binding returned.  Server implementation error."));
                 return;
             }
             XmlElement jid = bind["jid"];
             if (jid == null)
             {
-                FireOnError(new AuthenticationFailedException("No jid returned from binding.  Server implementation error."));
+                FireOnError(new Sasl.AuthenticationException("No jid returned from binding.  Server implementation error."));
                 return;
             }
             this[Options.JID] = new JID(jid.InnerText);
@@ -1044,7 +1038,7 @@ namespace jabber.client
             if ((iq != null) && (iq.Type == IQType.result))
                 IsAuthenticated = true;
             else
-                FireOnError(new AuthenticationFailedException());
+                FireOnError(new Sasl.AuthenticationException());
         }
 
         private void JabberClient_OnStreamInit(Object sender, ElementStream stream)

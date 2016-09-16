@@ -223,9 +223,6 @@
     <Compile Include="jabber\connection\PubSubManager.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="jabber\connection\AuthenticationFailedException.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="jabber\connection\StreamComponent.cs">
       <SubType>Component</SubType>
     </Compile>
