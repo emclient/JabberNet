@@ -1232,7 +1232,7 @@ namespace jabber.connection
 							FireOnError(new NotImplementedException("No implemented mechanisms in: " + String.Join(" ", ms.GetMechanisms().Select(m => m.MechanismName).ToArray())));
 							return;
 						}
-						m_saslClient = m_saslMechanism.CreateClient(saslCredential, "XMPP", this.Server);
+						m_saslClient = m_saslMechanism.CreateClient(saslCredential, "XMPP", this.NetworkHost);
 
 						try
 						{
