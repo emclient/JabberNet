@@ -1723,15 +1723,10 @@ namespace jabber.connection
 
 			string previousState = State.GetType().Name;
 
-            lock (m_stateLock)
-            {
-                State = ClosedState.Instance;
-                if ((m_stanzas != null) && (!m_stanzas.Acceptable))
-                    m_stanzas = null;
-            }
+			Debug.Assert(State != ClosedState.Instance);
 
-            if (OnError != null)
-            {
+			if (OnError != null)
+			{
 				try
 				{
 					if (InvokeRequired)
@@ -1739,17 +1734,28 @@ namespace jabber.connection
 					else
 						OnError(this, ex);
 				}
-				catch(ObjectDisposedException e)
+				catch (ObjectDisposedException e)
 				{
 					e.Data["XmppStream.previousState"] = previousState;
 					throw;
 				}
-            }
+			}
 
-            // TODO: Figure out what the "good" errors are, and try to
-            // reconnect.  There are too many "bad" errors to just let this fly.
-            //TryReconnect();
-        }
+
+			lock (m_stateLock)
+			{
+				State = ClosedState.Instance;
+				if ((m_stanzas != null) && (!m_stanzas.Acceptable))
+				{
+					m_stanzas.Close(false);					
+					m_stanzas = null;
+				}
+			}
+
+			// TODO: Figure out what the "good" errors are, and try to
+			// reconnect.  There are too many "bad" errors to just let this fly.
+			//TryReconnect();
+		}
 
         void IStanzaEventListener.Closed()
         {
