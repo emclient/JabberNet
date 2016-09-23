@@ -949,7 +949,7 @@ namespace jabber.client
 					if (UseDefaultCredentials)
 						credential = new Sasl.DefaultClientCredential();
 					else
-						credential = new Sasl.ClientCredential() { AuthenticationId = User, AuthorizationId = User, Password = Password, Domain = this.Server };
+						credential = new Sasl.ClientCredential() { AuthenticationId = User, Password = Password, Domain = this.Server };
                 }
                 else
                 {
