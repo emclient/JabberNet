@@ -111,17 +111,13 @@ namespace jabber.connection
         public const string SASL_MECHANISMS = "sasl.mechanisms";
 
         /// <summary>
-        /// Contains the username to connect as.
+        /// Contains the authentication credential to connect as.
         /// </summary>
-        public const string USER     = "user";
+        public const string CREDENTIAL = "credential";
         /// <summary>
-        /// Contains the password for the user, or secret for the component.
+        /// Contains the authentication password.
         /// </summary>
         public const string PASSWORD = "password";
-		/// <summary>
-		/// Whether the credentials of the logged on user are used.
-		/// </summary>
-		public const string USE_WINDOWS_CREDS = "use_windows_creds";
 		/// <summary>
 		/// Contains the connecting resource which is used to identify a unique connection.
 		/// </summary>
@@ -1232,7 +1228,11 @@ namespace jabber.connection
 							FireOnError(new NotImplementedException("No implemented mechanisms in: " + String.Join(" ", ms.GetMechanisms().Select(m => m.MechanismName).ToArray())));
 							return;
 						}
-						m_saslClient = m_saslMechanism.CreateClient(saslCredential, "XMPP", this.NetworkHost);
+						m_saslClient = m_saslMechanism.CreateClient(
+							saslCredential,
+							"XMPP",
+							this.NetworkHost,
+							null);
 
 						try
 						{

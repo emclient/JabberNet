@@ -176,14 +176,14 @@ namespace jabber.client
         public event RegisterInfoHandler OnRegisterInfo;
 
         /// <summary>
-        /// Retrieves/Sets the username to connect as.
+        /// Retrieves/Sets the authentication credential to connect as.
         /// </summary>
-        [Description("The username to connect as.")]
+        [Description("The authentication credential to connect as.")]
         [Category("Jabber")]
-        public string User
+		public Sasl.IClientCredential Credential
         {
-            get { return this[Options.USER] as string; }
-            set { this[Options.USER] = value; }
+            get { return this[Options.CREDENTIAL] as Sasl.IClientCredential; }
+            set { this[Options.CREDENTIAL] = value; }
         }
 
         /// <summary>
@@ -197,34 +197,6 @@ namespace jabber.client
             get { return (int)this[Options.PRIORITY]; }
             set { this[Options.PRIORITY] = value; }
         }
-
-        /// <summary>
-        /// Gets or sets the password to use for connecting to the XMPP server.
-        /// This may be sent across the wire plaintext if the XMPP
-        /// server doesn't support digest and PlaintextAuth is set to true.
-        /// </summary>
-        [Description("The password to use for connecting.  " +
-             "This may be sent across the wire plaintext, " +
-             "if the server doesn't support digest, " +
-             "and PlaintextAuth is true")]
-        [Category("Jabber")]
-        [PasswordPropertyText]
-        public string Password
-        {
-            get { return this[Options.PASSWORD] as string; }
-            set { this[Options.PASSWORD] = value; }
-        }
-
-		/// <summary>
-		/// Whether the credentials of the logged on user are used.
-		/// </summary>
-		[Category("Jabber")]
-        [DefaultValue(false)]
-		public bool UseDefaultCredentials
-		{
-			get { return this[Options.USE_WINDOWS_CREDS] == null ? false : (bool)this[Options.USE_WINDOWS_CREDS]; }
-			set { this[Options.USE_WINDOWS_CREDS] = value; }
-		}
 
 		/// <summary>
 		/// Allows auto-login to be used for the connection to the XMPP server if set to true.
@@ -406,8 +378,7 @@ namespace jabber.client
         /// </summary>
         public void Login()
         {
-            Debug.Assert(User != null, "Username must not be null for XEP-78 authentication");
-            Debug.Assert(Password != null, "Password must not be null for XEP-78 authentication");
+            Debug.Assert(Credential != null, "Credential must not be null for XEP-78 authentication");
             Debug.Assert(Resource != null, "Resource must not be null for XEP-78 authentication");
 
             this[Options.AUTO_LOGIN_THISPASS] = true;
@@ -418,12 +389,12 @@ namespace jabber.client
                 return;
             }
 
-            this[Options.JID] = new JID(User, Server, Resource);
+			this[Options.JID] = new JID(Credential.AuthenticationId, Server, Resource);
 
             AuthIQ aiq = new AuthIQ(Document);
             aiq.Type = IQType.get;
             Auth a = aiq.Instruction;
-            a.Username = User;
+			a.Username = Credential.AuthenticationId;
 
             lock (StateLock)
             {
@@ -692,12 +663,12 @@ namespace jabber.client
                         f.Val = jid.User;
                     f = xdata.GetField("password");
                     if (f != null)
-                        f.Val = this.Password;
+                        f.Val = this.Credential.Password;
                 }
                 else
                 {
                     r.Username = jid.User;
-                    r.Password = this.Password;
+                    r.Password = this.Credential.Password;
                 }
 
                 bool res = true;
@@ -710,19 +681,20 @@ namespace jabber.client
                         res = OnRegisterInfo(this, r);
                     if (xdata != null)
                     {
-                        f = xdata.GetField("username");
+						var newCredential = new Sasl.ClientCredential();
+						this.Credential = newCredential;
+						f = xdata.GetField("username");
                         if (f != null)
                         {
-                            this.User = f.Val;
+							newCredential.AuthenticationId = f.Val;
                         }
                         f = xdata.GetField("password");
                         if (f != null)
-                            this.Password = f.Val;
+                            newCredential.Password = f.Val;
                     }
                     else
                     {
-                        this.User = r.Username;
-                        this.Password = r.Password;
+						this.Credential = new Sasl.ClientCredential { AuthenticationId = r.Username, Password = r.Password };
                     }
                 }
                 if (!res)
@@ -768,15 +740,15 @@ namespace jabber.client
 
             if ((res["sequence"] != null) && (res["token"] != null))
             {
-                a.SetZeroK(User, Password, res.Token, res.Sequence);
+				a.SetZeroK(Credential.AuthenticationId, Credential.Password, res.Token, res.Sequence);
             }
             else if (res["digest"] != null)
             {
-                a.SetDigest(User, Password, StreamID);
+                a.SetDigest(Credential.AuthenticationId, Credential.Password, StreamID);
             }
             else if (res["password"] != null)
             {
-                a.SetAuth(User, Password);
+                a.SetAuth(Credential.AuthenticationId, Credential.Password);
             }
             else
             {
@@ -785,7 +757,7 @@ namespace jabber.client
             }
             if (res["resource"] != null)
                 a.Resource = Resource;
-            a.Username = User;
+            a.Username = Credential.AuthenticationId;
 
             lock (StateLock)
             {
@@ -946,10 +918,7 @@ namespace jabber.client
             {
                 if ((bool)this[Options.AUTO_LOGIN_THISPASS])
                 {
-					if (UseDefaultCredentials)
-						credential = new Sasl.DefaultClientCredential();
-					else
-						credential = new Sasl.ClientCredential() { AuthenticationId = User, Password = Password, Domain = this.Server };
+					credential = this.Credential;
                 }
                 else
                 {
