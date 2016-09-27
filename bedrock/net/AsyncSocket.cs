@@ -1133,7 +1133,7 @@ namespace bedrock.net
 
 				SocketState oldState = State;
 
-				if (m_sock.Connected)
+				if (m_sock != null && m_sock.Connected)
 				{
 					State = SocketState.Closing;
 				}
@@ -1143,7 +1143,7 @@ namespace bedrock.net
 					if (m_stream != null)
 						m_stream.Close();
 					else
-						m_sock.Close();
+						m_sock?.Close();
 				}
 				catch { }
 
