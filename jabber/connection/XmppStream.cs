@@ -215,14 +215,6 @@ namespace jabber.connection
         /// </summary>
         public const string OVERRIDE_FROM = "override_from";
 		/// <summary>
-		/// OAUTH Application ID for Facebook, MSN or other oauth SASL authentication
-		/// </summary>
-		public const string OAUTH_API_KEY = "oauth.apikey";
-		/// <summary>
-		/// OAUTH Access token for Facebook SASL authentication
-		/// </summary>
-		public const string OAUTH_ACCESS_TOKEN = "oauth.accesstoken";
-		/// <summary>
 		/// Enable logs or not
 		/// </summary>
 		public const string ENABLE_LOGS = "enable_logs";
@@ -1201,14 +1193,14 @@ namespace jabber.connection
 							return;
 					}
 
-					if (ms.GetMechanisms().Any(m => m.MechanismName == "X-OAUTH2") && !string.IsNullOrEmpty(this[Options.OAUTH_ACCESS_TOKEN] as string))
+					if (ms.GetMechanisms().Any(m => m.MechanismName == "X-OAUTH2") && !string.IsNullOrEmpty(saslCredential.Password))
 					{
 						try
 						{
 							Auth a = new Auth(this.Document);
 							a.MechanismName = "X-OAUTH2";
 							a.SetAttribute("service", "http://www.google.com/talk/protocol/auth", "oauth2");
-							a.Bytes = System.Text.Encoding.UTF8.GetBytes("\u0000" + saslCredential.AuthenticationId + "\u0000" + this[Options.OAUTH_ACCESS_TOKEN]);
+							a.Bytes = System.Text.Encoding.UTF8.GetBytes("\u0000" + saslCredential.AuthenticationId + "\u0000" + saslCredential.Password);
 							this.Write(a);
 							return;
 						}

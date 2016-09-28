@@ -294,32 +294,6 @@ namespace jabber.client
         }
 
 		/// <summary>
-		/// Retrieves/Sets the OAUTH API key.
-		/// </summary>
-		[Browsable(true)]
-		[Description("OAUTH Application ID for Facebook, MSN or other OAUTH SASL authentication")]
-		[Category("OAuth")]
-		[DefaultValue("")]
-		public string OAuthApiKey
-		{
-			get { return this[Options.OAUTH_API_KEY] as string; }
-			set { this[Options.OAUTH_API_KEY] = value; }
-		}
-
-		/// <summary>
-		/// Retrieves/Sets the OAUTH Access token.
-		/// </summary>
-		[Browsable(true)]
-		[Description("OAUTH Access Token for Facebook, MSN or other OAUTH SASL authentication")]
-		[Category("OAuth")]
-		[DefaultValue("")]
-		public string OAuthAccessToken
-		{
-			get { return this[Options.OAUTH_ACCESS_TOKEN] as string; }
-			set { this[Options.OAUTH_ACCESS_TOKEN] = value; }
-		}
-
-		/// <summary>
 		/// Enable or disable logging
 		/// </summary>
 
