@@ -20,6 +20,7 @@ using jabber.connection;
 using jabber.protocol;
 using jabber.protocol.client;
 using jabber.protocol.iq;
+using MailClient.Authentication;
 
 namespace jabber.client
 {
@@ -180,9 +181,9 @@ namespace jabber.client
         /// </summary>
         [Description("The authentication credential to connect as.")]
         [Category("Jabber")]
-		public Sasl.IClientCredential Credential
+		public ClientCredential Credential
         {
-            get { return this[Options.CREDENTIAL] as Sasl.IClientCredential; }
+            get { return this[Options.CREDENTIAL] as ClientCredential; }
             set { this[Options.CREDENTIAL] = value; }
         }
 
@@ -655,20 +656,19 @@ namespace jabber.client
                         res = OnRegisterInfo(this, r);
                     if (xdata != null)
                     {
-						var newCredential = new Sasl.ClientCredential();
-						this.Credential = newCredential;
+						string authenticationId = null, password = null;
 						f = xdata.GetField("username");
                         if (f != null)
-                        {
-							newCredential.AuthenticationId = f.Val;
-                        }
+							authenticationId = f.Val;
                         f = xdata.GetField("password");
                         if (f != null)
-                            newCredential.Password = f.Val;
-                    }
-                    else
+                            password = f.Val;
+						var newCredential = new ClientCredential(authenticationId, null, password);
+						this.Credential = newCredential;
+					}
+					else
                     {
-						this.Credential = new Sasl.ClientCredential { AuthenticationId = r.Username, Password = r.Password };
+						this.Credential = new ClientCredential(r.Username, null, r.Password);
                     }
                 }
                 if (!res)
@@ -843,7 +843,7 @@ namespace jabber.client
                 if (iq != null)
                     FireOnError(new IQException(iq));
                 else
-                    FireOnError(new Sasl.AuthenticationException(i.OuterXml));
+                    FireOnError(new AuthenticationException(i.OuterXml));
             }
         }
 
@@ -872,7 +872,7 @@ namespace jabber.client
             }
         }
 
-        private void JabberClient_OnSASLStart(Object sender, ref Sasl.IClientCredential credential)
+        private void JabberClient_OnSASLStart(Object sender, ref ClientCredential credential)
         {
             BaseState s = null;
             lock (StateLock)
@@ -938,29 +938,29 @@ namespace jabber.client
 
             if (iq == null)
             {
-                FireOnError(new Sasl.AuthenticationException("Timeout authenticating"));
+                FireOnError(new AuthenticationException("Timeout authenticating"));
                 return;
             }
             if (iq.Type != IQType.result)
             {
                 Error err = iq.Error;
                 if (err == null)
-                    FireOnError(new Sasl.AuthenticationException("Unknown error binding resource"));
+                    FireOnError(new AuthenticationException("Unknown error binding resource"));
                 else
-                    FireOnError(new Sasl.AuthenticationException("Error binding resource: " + err.OuterXml));
+                    FireOnError(new AuthenticationException("Error binding resource: " + err.OuterXml));
                 return;
             }
 
             XmlElement bind = iq["bind", URI.BIND];
             if (bind == null)
             {
-                FireOnError(new Sasl.AuthenticationException("No binding returned.  Server implementation error."));
+                FireOnError(new AuthenticationException("No binding returned.  Server implementation error."));
                 return;
             }
             XmlElement jid = bind["jid"];
             if (jid == null)
             {
-                FireOnError(new Sasl.AuthenticationException("No jid returned from binding.  Server implementation error."));
+                FireOnError(new AuthenticationException("No jid returned from binding.  Server implementation error."));
                 return;
             }
             this[Options.JID] = new JID(jid.InnerText);
@@ -981,7 +981,7 @@ namespace jabber.client
             if ((iq != null) && (iq.Type == IQType.result))
                 IsAuthenticated = true;
             else
-                FireOnError(new Sasl.AuthenticationException());
+                FireOnError(new AuthenticationException());
         }
 
         private void JabberClient_OnStreamInit(Object sender, ElementStream stream)

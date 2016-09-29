@@ -23,7 +23,7 @@ using bedrock.util;
 using jabber.protocol;
 using jabber.protocol.stream;
 using System.Security.Cryptography.X509Certificates;
-using Sasl;
+using MailClient.Authentication;
 
 namespace jabber.connection
 {
@@ -35,7 +35,7 @@ namespace jabber.connection
 	/// <summary>
 	/// A SASL processor instance has been created.  Fill it with information, like USERNAME and PASSWORD.
 	/// </summary>
-	public delegate void SASLProcessorHandler(Object sender, ref Sasl.IClientCredential credential);
+	public delegate void SASLProcessorHandler(Object sender, ref ClientCredential credential);
 
 	public enum KeepAliveBehavior
 	{
@@ -1118,7 +1118,7 @@ namespace jabber.connection
 
                 if (hack && (OnSASLStart != null))
                 {
-					IClientCredential credential = null;
+					ClientCredential credential = null;
                     OnSASLStart(this, ref credential); // Hack.  Old-style auth for jabberclient.
                 }
             }
@@ -1183,7 +1183,7 @@ namespace jabber.connection
 						State = SASLState.Instance;
 					}
 
-					IClientCredential saslCredential = null;
+					ClientCredential saslCredential = null;
 					if (OnSASLStart != null)
 						OnSASLStart(this, ref saslCredential);
 					lock (m_stateLock)
@@ -1254,7 +1254,7 @@ namespace jabber.connection
                     {
                         State = NonSASLAuthState.Instance;
                     }
-					IClientCredential credential = null;
+					ClientCredential credential = null;
                     if (OnSASLStart != null)					
                         OnSASLStart(this, ref credential); // HACK: old-style auth for jabberclient.
                 }
@@ -1384,7 +1384,7 @@ namespace jabber.connection
                     SendNewStreamHeader();
                     break;
                 case "failure":
-                    FireOnError(new Sasl.AuthenticationException());
+                    FireOnError(new AuthenticationException());
                     return;
                 }
             }

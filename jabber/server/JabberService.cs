@@ -25,6 +25,7 @@ using jabber.connection;
 using jabber.protocol;
 using jabber.protocol.accept;
 using jabber.protocol.stream;
+using MailClient.Authentication;
 
 namespace jabber.server
 {
@@ -410,7 +411,7 @@ namespace jabber.server
             }
         }
 
-        private void JabberService_OnSASLStart(object sender, ref Sasl.IClientCredential credential)
+        private void JabberService_OnSASLStart(object sender, ref ClientCredential credential)
         {
             jabber.connection.BaseState s = null;
             lock (StateLock)

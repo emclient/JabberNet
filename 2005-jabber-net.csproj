@@ -462,9 +462,9 @@
     <EmbeddedResource Include="jabber\connection\ConferenceManager.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MailClient.Sasl\MailClient.Sasl.csproj">
+    <ProjectReference Include="..\..\MailClient.Sasl\MailClient.Authentication.csproj">
       <Project>{521b05c4-3957-48e6-b970-22d51b46ad12}</Project>
-      <Name>MailClient.Sasl</Name>
+      <Name>MailClient.Authentication</Name>
     </ProjectReference>
     <ProjectReference Condition="'$(BuildMono)'==''" Include="netlib.Dns\netlib.Dns.csproj">
       <Project>{40AC7A7C-D3E5-46DF-B740-06BD9D2A00E1}</Project>
