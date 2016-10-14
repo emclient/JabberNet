@@ -1143,12 +1143,15 @@ namespace bedrock.net
 					if (m_stream != null)
 						m_stream.Close();
 					else
-						m_sock?.Close();
+					{
+						if(m_sock != null)
+							m_sock.Close();
+					}
 				}
 				catch { }
 
 
-				if (oldState <= SocketState.Connected)
+				if (m_listener != null && oldState <= SocketState.Connected)
 					m_listener.OnClose(this);
 
 				if (m_watcher != null)
