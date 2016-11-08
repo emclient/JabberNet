@@ -18,7 +18,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCompany("Cursive Systems, Inc.")]
 [assembly: AssemblyProduct("jabber-net")]
 [assembly: AssemblyCopyright("Copyright (c) Cursive, Inc. 2000-2008")]
-[assembly: AssemblyVersion("7.1.0.3")]
+[assembly: AssemblyVersion("7.1.0.0")]
+[assembly: AssemblyFileVersion("7.1.0.0")]
 [assembly: AssemblyDelaySign(false)]
 [assembly: CLSCompliant(true)]
 

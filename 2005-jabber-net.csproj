@@ -107,6 +107,7 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <None Include="AssemblyInfoTemplate.cs" />
     <Compile Include="bedrock\collections\ByteStack.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -494,6 +495,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="..\..\Tools\BuildTasks\Unified.targets" />
+  <Import Project="..\..\Tools\BuildTasks\MailClient.BuildTasks.targets" />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
