@@ -312,6 +312,12 @@ namespace jabber.protocol
 		/// See XEP-0221 (http://xmpp.org/extensions/xep-0199.html)
 		/// </summary>
 		public const string PING = "urn:xmpp:ping";
-		
+
+		/// <summary>
+		/// Web Dav Stream
+		/// IceWarp specific file transfer extension (http://icewarp.com/protocol/webdavstream)
+		/// </summary>
+		public const string WEBDAVSTREAM = "http://icewarp.com/protocol/webdavstream";
+
 	}
 }

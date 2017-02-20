@@ -65,11 +65,20 @@ namespace jabber.protocol.iq
             base(prefix, qname, doc)
         {
         }
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="prefix"></param>
+		/// <param name="doc"></param>
+		public OOB(string prefix, XmlDocument doc) :
+			base(prefix, URI.XOOB, doc)
+		{
+		}
 
-        /// <summary>
-        /// URL to send/receive from
-        /// </summary>
-        public string Url
+		/// <summary>
+		/// URL to send/receive from
+		/// </summary>
+		public string Url
         {
             get { return GetElem("url"); }
             set { SetElem("url", value); }

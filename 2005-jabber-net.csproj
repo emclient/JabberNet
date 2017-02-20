@@ -337,6 +337,7 @@
     <Compile Include="jabber\protocol\iq\Version.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="jabber\protocol\iq\WebDAVStream.cs" />
     <Compile Include="jabber\protocol\NS.cs">
       <SubType>Code</SubType>
     </Compile>

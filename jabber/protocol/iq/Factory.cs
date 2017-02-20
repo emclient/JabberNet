@@ -156,7 +156,10 @@ namespace jabber.protocol.iq
 
 			//socks bytestreams
 			new QnameType("streamhost", URI.SOCKSByteStreams, typeof(jabber.protocol.iq.ByteStream.StreamHost)),
-        };
+
+			//WebDAVStream
+			new QnameType("webdavstream", URI.WEBDAVSTREAM, typeof(jabber.protocol.iq.WebDAVStream))
+		};
 
         QnameType[] IPacketTypes.Types { get { return s_qnt; } }
     }
