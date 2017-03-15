@@ -12,13 +12,13 @@
  * See LICENSE.txt for details.
  * --------------------------------------------------------------------------*/
 using System;
-
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.ComponentModel;
 using System.Globalization;
-
+using System.Linq;
 using bedrock.util;
 
 #if !__MonoCS__
@@ -141,10 +141,9 @@ namespace bedrock.net
                 throw new ArgumentOutOfRangeException("Prefix must end in '.'", "prefix");
             try
             {
-                DnsRequest request = new DnsRequest(prefix + domain);
-                DnsResponse response = request.GetResponse(DnsRecordType.SRV);
+	            IList<SRVRecord> srvRecords = DnsServiceFactory.Create().GetSrvRecords(prefix + domain); 
 
-                SRVRecord record = PickSRV(response.SRVRecords);
+                SRVRecord record = PickSRV(srvRecords.ToArray());
                 host = record.NameNext;
                 port = record.Port;
                 Debug.WriteLine(string.Format("SRV found: {0}:{1}", host, port));
@@ -175,10 +174,9 @@ namespace bedrock.net
 
             try
             {
-                DnsRequest request = new DnsRequest(prefix + domain);
-                DnsResponse response = request.GetResponse(DnsRecordType.TEXT);
+				IList<TXTRecord> txtRecords = DnsServiceFactory.Create().GetTxtRecords(prefix + domain);				
                 string attr = attribute + "=";
-                foreach (TXTRecord txt in response.TXTRecords)
+                foreach (TXTRecord txt in txtRecords)
                 {
                     if (txt.StringArray.StartsWith(attr))
                     {
