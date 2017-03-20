@@ -21,10 +21,8 @@ using System.Globalization;
 using System.Linq;
 using bedrock.util;
 
-#if !__MonoCS__
 using netlib.Dns;
 using netlib.Dns.Records;
-#endif
 
 namespace bedrock.net
 {
@@ -72,7 +70,6 @@ namespace bedrock.net
         }
 
 
-#if !__MonoCS__
         private static SRVRecord PickSRV(SRVRecord[] srv)
         {
             // TODO: keep track of connection failures, and try the next priority down.
@@ -190,7 +187,6 @@ namespace bedrock.net
             }
             return null;
         }
-#endif
 
         /// <summary>
         /// The host name.  When set, checks for dotted-quad representation, to avoid
