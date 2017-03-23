@@ -43,7 +43,7 @@ namespace bedrock.net
 		/// Socket states.
 		/// </summary>
 		[SVN(@"$Id: AsyncSocket.cs 724 2008-08-06 18:09:25Z hildjj $")]
-			private enum SocketState
+		private enum SocketState
 		{
 			/// <summary>
 			/// Socket has been created.
@@ -128,24 +128,24 @@ namespace bedrock.net
 		/// hard-coded to start with.  Note: when doing start-tls,
 		/// this is overridden to just be TLS.
 		/// </summary>
-		public static SslProtocols   SSLProtocols        = SslProtocols.Ssl3 | SslProtocols.Tls;
-		private SslProtocols         m_secureProtocol    = SslProtocols.None;
-		private Socket               m_sock              = null;
-		private X509Certificate2     m_cert              = null;
-		private Stream               m_stream            = null;
-		private SslStream            m_sslStream         = null;  // hold on to the SSL stream as it goes by, since compression might happen later.
-		private MemoryStream         m_pending           = new MemoryStream();
-		private bool                 m_writing           = false;
-		private bool                 m_requireClientCert = false;
-		private bool                 m_cert_gui          = true;
-		private bool                 m_server            = false;
-		private byte[]               m_buf               = new byte[BUFSIZE];
-		private SocketState          m_state             = SocketState.Created;
-		private SocketWatcher        m_watcher           = null;
-		private Guid                 m_id                = Guid.NewGuid();
-		private bool                 m_reading           = false;
-		private bool                 m_synch             = false;
-		private Address              m_addr;
+		public static SslProtocols SSLProtocols = (SslProtocols)(48 | 192 | 768 | 3072);
+		private SslProtocols m_secureProtocol = SslProtocols.None;
+		private Socket m_sock = null;
+		private X509Certificate2 m_cert = null;
+		private Stream m_stream = null;
+		private SslStream m_sslStream = null;  // hold on to the SSL stream as it goes by, since compression might happen later.
+		private MemoryStream m_pending = new MemoryStream();
+		private bool m_writing = false;
+		private bool m_requireClientCert = false;
+		private bool m_cert_gui = true;
+		private bool m_server = false;
+		private byte[] m_buf = new byte[BUFSIZE];
+		private SocketState m_state = SocketState.Created;
+		private SocketWatcher m_watcher = null;
+		private Guid m_id = Guid.NewGuid();
+		private bool m_reading = false;
+		private bool m_synch = false;
+		private Address m_addr;
 
 
 		/// <summary>
@@ -202,8 +202,8 @@ namespace bedrock.net
 			get { return m_state; }
 			set
 			{
-// useful for finding unexpected socket closes.
-//                Debug.WriteLine("socket state: " + m_state.ToString() + "->" + value.ToString());
+				// useful for finding unexpected socket closes.
+				//                Debug.WriteLine("socket state: " + m_state.ToString() + "->" + value.ToString());
 				m_state = value;
 			}
 		}
@@ -250,7 +250,7 @@ namespace bedrock.net
 		/// If there is exactly one, uses it.
 		/// Otherwise, prompts.
 		/// TODO: figure out something for server certs, too.
-			/// </summary>
+		/// </summary>
 		/// <param name="acceptableIssuers">A list of DNs of CAs that are trusted by the other party</param>
 		public void ChooseClientCertificate(string[] acceptableIssuers)
 		{
@@ -283,9 +283,9 @@ namespace bedrock.net
 					m_cert = coll[0];
 					return;
 				default:
-					#if __MonoCS__
+#if __MonoCS__
 						m_cert = null;
-					#else
+#else
 					X509Certificate2Collection certs = X509Certificate2UI.SelectFromCollection(
 						coll,
 						"Select certificate",
@@ -293,7 +293,7 @@ namespace bedrock.net
 						X509SelectionFlag.SingleSelection);
 					if (certs.Count > 0)
 						m_cert = certs[0];
-					#endif
+#endif
 					break;
 			}
 		}
@@ -310,7 +310,7 @@ namespace bedrock.net
 		{
 			// this will be called twice if the server requires a client cert.
 			// Ignore the callback the first time; I think this is a .Net bug.
-			
+
 			if (acceptableIssuers.Length == 0)
 				return m_cert;
 
@@ -322,7 +322,7 @@ namespace bedrock.net
 				ChooseClientCertificate(acceptableIssuers);
 			}
 			return m_cert;
-			  
+
 		}
 
 		/// <summary>
@@ -480,7 +480,7 @@ namespace bedrock.net
 		/// <param name="ar"></param>
 		private void ExecuteAccept(IAsyncResult ar)
 		{
-			Socket cli = (Socket) m_sock.EndAccept(ar);
+			Socket cli = (Socket)m_sock.EndAccept(ar);
 			AsyncSocket cliCon = new AsyncSocket(m_watcher);
 			cliCon.m_sock = cli;
 			AcceptDone(cliCon);
@@ -489,7 +489,7 @@ namespace bedrock.net
 		private void AcceptDone(AsyncSocket cliCon)
 		{
 			cliCon.m_addr = m_addr;
-			cliCon.Address.IP = ((IPEndPoint) cliCon.m_sock.RemoteEndPoint).Address;
+			cliCon.Address.IP = ((IPEndPoint)cliCon.m_sock.RemoteEndPoint).Address;
 			cliCon.State = SocketState.Connected;
 
 			cliCon.m_stream = new NetworkStream(cliCon.m_sock);
@@ -711,13 +711,22 @@ namespace bedrock.net
 		{
 			// we're really doing start-tls.
 			if (m_secureProtocol == SslProtocols.None)
+			{
 				m_secureProtocol = SslProtocols.Tls;
+				foreach (var enumValue in Enum.GetValues(typeof(SslProtocols)))
+				{
+					if ((int)enumValue == 768) // TLS 1.1
+						m_secureProtocol |= (SslProtocols)768;
+					else if ((int)enumValue == 3072) // TLS 1.2
+						m_secureProtocol |= (SslProtocols)3072;
+				}
+			}
 
 			m_stream = m_sslStream = new SslStream(m_stream, false, ValidateServerCertificate, ChooseClientCertificate);
 
 			m_stream.ReadTimeout = 30000;
 
-			
+
 
 			if (m_server)
 			{
@@ -743,10 +752,10 @@ namespace bedrock.net
 				}
 				try
 				{
-					
+
 					m_sslStream.AuthenticateAsClient(m_hostid, certs, m_secureProtocol, false);
 					m_stream.ReadTimeout = -1;
-					
+
 				}
 				catch (Exception ex)
 				{
@@ -974,13 +983,13 @@ namespace bedrock.net
 
 				return;
 			}
-			catch(ObjectDisposedException)
+			catch (ObjectDisposedException)
 			{
 				//object already disposed, just exit
 				return;
 			}
 			catch (Exception e)
-			{				
+			{
 				FireError(e);
 				AsyncClose();
 				return;
@@ -1059,7 +1068,7 @@ namespace bedrock.net
 					return;
 				}
 				catch (Exception e)
-				{					
+				{
 					FireError(e);
 					Close();
 					return;
@@ -1076,7 +1085,7 @@ namespace bedrock.net
 			var state = (object[])ar.AsyncState;
 			var stream = (Stream)state[0];
 			try
-			{	
+			{
 				stream.EndWrite(ar);
 			}
 			catch (SocketException)
@@ -1092,7 +1101,7 @@ namespace bedrock.net
 			catch (Exception e)
 			{
 				FireError(e);
-				AsyncClose();				
+				AsyncClose();
 				return;
 			}
 
@@ -1144,7 +1153,7 @@ namespace bedrock.net
 						m_stream.Close();
 					else
 					{
-						if(m_sock != null)
+						if (m_sock != null)
 							m_sock.Close();
 					}
 				}
@@ -1172,7 +1181,7 @@ namespace bedrock.net
 			{
 				Close();
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
 				FireError(e);
 			}
@@ -1209,7 +1218,7 @@ namespace bedrock.net
 
 				}
 			}
-			catch(ObjectDisposedException ex)
+			catch (ObjectDisposedException ex)
 			{
 				ex.Data["AsyncSocket.PreviousState"] = previousState.ToString();
 				throw;
@@ -1270,7 +1279,7 @@ namespace bedrock.net
 		/// <param name="one">First socket to compare</param>
 		/// <param name="two">Second socket to compare</param>
 		/// <returns></returns>
-		public static bool operator==(AsyncSocket one, AsyncSocket two)
+		public static bool operator ==(AsyncSocket one, AsyncSocket two)
 		{
 			if ((object)one == null)
 				return ((object)two == null);
@@ -1287,7 +1296,7 @@ namespace bedrock.net
 		/// <param name="one">First socket to compare</param>
 		/// <param name="two">Second socket to compare</param>
 		/// <returns></returns>
-		public static bool operator!=(AsyncSocket one, AsyncSocket two)
+		public static bool operator !=(AsyncSocket one, AsyncSocket two)
 		{
 			if ((object)one == null)
 				return ((object)two != null);
@@ -1303,7 +1312,7 @@ namespace bedrock.net
 		/// <param name="one">First socket to compare</param>
 		/// <param name="two">Second socket to compare</param>
 		/// <returns></returns>
-		public static bool operator<(AsyncSocket one, AsyncSocket two)
+		public static bool operator <(AsyncSocket one, AsyncSocket two)
 		{
 			if ((object)one == null)
 			{
@@ -1318,7 +1327,7 @@ namespace bedrock.net
 		/// <param name="one">First socket to compare</param>
 		/// <param name="two">Second socket to compare</param>
 		/// <returns></returns>
-		public static bool operator<=(AsyncSocket one, AsyncSocket two)
+		public static bool operator <=(AsyncSocket one, AsyncSocket two)
 		{
 			if ((object)one == null)
 				return true;
@@ -1332,7 +1341,7 @@ namespace bedrock.net
 		/// <param name="one">First socket to compare</param>
 		/// <param name="two">Second socket to compare</param>
 		/// <returns></returns>
-		public static bool operator>(AsyncSocket one, AsyncSocket two)
+		public static bool operator >(AsyncSocket one, AsyncSocket two)
 		{
 			if ((object)one == null)
 				return false;
@@ -1344,7 +1353,7 @@ namespace bedrock.net
 		/// <param name="one">First socket to compare</param>
 		/// <param name="two">Second socket to compare</param>
 		/// <returns></returns>
-		public static bool operator>=(AsyncSocket one, AsyncSocket two)
+		public static bool operator >=(AsyncSocket one, AsyncSocket two)
 		{
 			if ((object)one == null)
 			{
