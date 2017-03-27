@@ -283,7 +283,7 @@ namespace bedrock.net
 					m_cert = coll[0];
 					return;
 				default:
-#if __MonoCS__
+#if MAC
 						m_cert = null;
 #else
 					X509Certificate2Collection certs = X509Certificate2UI.SelectFromCollection(
@@ -621,14 +621,7 @@ namespace bedrock.net
 
 				if (m_sock.Connected)
 				{
-					// TODO: check to see if this Mono bug is still valid
-#if __MonoCS__
-					m_sock.Blocking = true;
 					m_stream = new NetworkStream(m_sock);
-					m_sock.Blocking = false;
-#else
-					m_stream = new NetworkStream(m_sock);
-#endif
 					if (m_secureProtocol != SslProtocols.None)
 						StartTLS();
 
@@ -646,9 +639,6 @@ namespace bedrock.net
 			}
 			else
 			{
-#if __MonoCS__
-				m_sock.Blocking = false;
-#endif
 				try
 				{
 					m_sock.BeginConnect(m_addr.Endpoint, new AsyncCallback(ExecuteConnect), null);
@@ -724,10 +714,6 @@ namespace bedrock.net
 
 			m_stream = m_sslStream = new SslStream(m_stream, false, ValidateServerCertificate, ChooseClientCertificate);
 
-			m_stream.ReadTimeout = 30000;
-
-
-
 			if (m_server)
 			{
 				if (m_cert == null)
@@ -752,10 +738,7 @@ namespace bedrock.net
 				}
 				try
 				{
-
 					m_sslStream.AuthenticateAsClient(m_hostid, certs, m_secureProtocol, false);
-					m_stream.ReadTimeout = -1;
-
 				}
 				catch (Exception ex)
 				{
@@ -821,16 +804,7 @@ namespace bedrock.net
 				}
 				if (m_sock.Connected)
 				{
-					// TODO: Check to see if this Mono bug is still valid.
-					// TODO: check to see if blocking should be turned back on after StartTLS.
-#if __MonoCS__
-					m_sock.Blocking = true;
 					m_stream = new NetworkStream(m_sock);
-					m_sock.Blocking = false;
-#else
-					m_stream = new NetworkStream(m_sock);
-#endif
-
 					if (m_secureProtocol != SslProtocols.None)
 					{
 						try
