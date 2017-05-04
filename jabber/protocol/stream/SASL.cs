@@ -15,6 +15,7 @@ using System;
 using System.Xml;
 
 using bedrock.util;
+using System.Collections.Generic;
 
 namespace jabber.protocol.stream
 {
@@ -51,14 +52,19 @@ namespace jabber.protocol.stream
         public Mechanism[] GetMechanisms()
         {
             XmlNodeList nl = GetElementsByTagName("mechanism", URI.SASL);
-            Mechanism[] items = new Mechanism[nl.Count];
-            int i=0;
+			Dictionary<string, Mechanism> items = new Dictionary<string, Mechanism>();
+			
             foreach (XmlNode n in nl)
             {
-                items[i] = (Mechanism) n;
-                i++;
+				string name = ((Mechanism)n).MechanismName;
+
+				if (!items.ContainsKey(name))
+					items.Add(name, (Mechanism)n);
             }
-            return items;
+			Mechanism[] array = new Mechanism[items.Count];
+
+			items.Values.CopyTo(array, 0);
+			return array;
         }
     }
 
