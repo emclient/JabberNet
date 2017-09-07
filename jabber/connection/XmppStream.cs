@@ -1176,7 +1176,7 @@ namespace jabber.connection
 
 				// If we're doing SASL, and there are mechanisms implemented by both
 				// client and server.
-				if (ms.GetMechanisms().Length > 0 && (bool)this[Options.SASL])
+				if (ms != null && ms.GetMechanisms().Length > 0 && (bool)this[Options.SASL])
 				{
 					lock (m_stateLock)
 					{
