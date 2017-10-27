@@ -24,6 +24,7 @@ using jabber.protocol;
 using jabber.protocol.stream;
 using System.Security.Cryptography.X509Certificates;
 using MailClient.Authentication;
+using bedrock.net;
 
 namespace jabber.connection
 {
@@ -992,17 +993,28 @@ namespace jabber.connection
         /// <param name="clean">True for graceful shutdown</param>
         public virtual void Close(bool clean)
         {
+            Close(clean, false);
+        }
+
+        /// <summary>
+        /// Closes down the connection.
+        /// </summary>
+        /// <param name="clean">True for graceful shutdown</param>
+        /// <param name="tryToReconnect">True for start a reconnection timer</param>
+        public virtual void Close(bool clean, bool tryToReconnect)
+        {
             bool doClose = false;
             bool doStream = false;
 
-			// Stop any reconnecting!
-			if (m_reconnectTimer != null)
-				m_reconnectTimer.Dispose();
+            // Stop any reconnecting!
+            if (m_reconnectTimer != null)
+                m_reconnectTimer.Dispose();
 
             lock (StateLock)
             {
                 // if close is called, never try to reconnect.
-                m_reconnect = false;
+                if (!tryToReconnect)
+                    m_reconnect = false;
 
                 if ((State == RunningState.Instance) && (clean))
                 {
@@ -1022,10 +1034,12 @@ namespace jabber.connection
             else
             {
                 Debug.WriteLine("Cannot close a socket before it is open");
-				LoggingHelper.AppendWithLimit(this.diagnosticLog, "XmppStream.Close(bool)", 
-					$"Cannot close a socket before it is open. m_stanzas==null? {(m_stanzas == null).ToString()} m_stanzas.Connected? {m_stanzas?.Connected} State {m_state?.GetType().Name}");
-				//FireOnError(new InvalidOperationException("Cannot close a socket before it is open"));
-			}
+                LoggingHelper.AppendWithLimit(this.diagnosticLog, "XmppStream.Close(bool)",
+                    $"Cannot close a socket before it is open. m_stanzas==null? {(m_stanzas == null).ToString()} m_stanzas.Connected? {m_stanzas?.Connected} State {m_state?.GetType().Name}");
+                //FireOnError(new InvalidOperationException("Cannot close a socket before it is open"));
+            }
+            if (tryToReconnect)
+                TryReconnect();
         }
 
         /// <summary>
@@ -1744,9 +1758,13 @@ namespace jabber.connection
 				}
 			}
 
-			// TODO: Figure out what the "good" errors are, and try to
-			// reconnect.  There are too many "bad" errors to just let this fly.
-			//TryReconnect();
+            // TODO: Figure out what the "good" errors are, and try to
+            // reconnect.  There are too many "bad" errors to just let this fly.
+            if (ex is AsyncSocketConnectionException)
+            {
+                m_reconnect = true;
+                TryReconnect();
+            }
 		}
 
         void IStanzaEventListener.Closed()
