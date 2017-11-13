@@ -338,14 +338,6 @@ namespace jabber.client
         /// </summary>
         public override void Close()
         {
-            Close(false);
-        }
-
-        /// <summary>
-        /// Closes down the connection.
-        /// </summary>
-        public override void Close(bool tryToReconnect)
-        {
             if (IsAuthenticated)
             {
                 Presence p = new Presence(Document);
@@ -353,7 +345,7 @@ namespace jabber.client
                 p.Status = "offline";
                 Write(p);
             }
-            base.Close(true,tryToReconnect);
+            base.Close();
         }
 
         /// <summary>
