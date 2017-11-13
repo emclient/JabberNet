@@ -21,6 +21,7 @@ using jabber.protocol;
 using jabber.protocol.client;
 using jabber.protocol.iq;
 using MailClient.Authentication;
+using System.IO;
 
 namespace jabber.client
 {
@@ -75,8 +76,8 @@ namespace jabber.client
         /// Required for Windows.Forms Class Composition Designer support
         /// </summary>
         /// <param name="container">Parent container.</param>
-        public JabberClient(System.ComponentModel.IContainer container) :
-            base(container)
+        public JabberClient(System.ComponentModel.IContainer container, StreamWriter loggingStream) :
+            base(container, loggingStream)
         {
             init();
         }
@@ -85,7 +86,7 @@ namespace jabber.client
         /// Creates a new JabberClient.
         /// Required for Windows.Forms Class Composition Designer support.
         /// </summary>
-        public JabberClient() : base()
+        public JabberClient(StreamWriter loggingStream) : base(loggingStream)
         {
             init();
         }

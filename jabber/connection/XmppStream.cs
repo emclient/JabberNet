@@ -24,6 +24,7 @@ using jabber.protocol;
 using jabber.protocol.stream;
 using System.Security.Cryptography.X509Certificates;
 using MailClient.Authentication;
+using bedrock.net;
 
 namespace jabber.connection
 {
@@ -269,6 +270,8 @@ namespace jabber.connection
         private StanzaStream m_stanzas = null;
         private IQTracker m_tracker = null;
 
+		private readonly System.IO.TextWriter loggingStream;
+
         private XmlDocument m_doc        = new XmlDocument();
         private BaseState   m_state      = ClosedState.Instance;
         private IDictionary m_properties = new Hashtable();
@@ -303,7 +306,7 @@ namespace jabber.connection
         /// Creates a new XMPP stream and associates it with the parent control.
         /// </summary>
         /// <param name="container">Parent control.</param>
-        public XmppStream(System.ComponentModel.IContainer container) : this()
+        public XmppStream(System.ComponentModel.IContainer container, System.IO.StreamWriter loggingStream) : this(loggingStream)
         {
             container.Add(this);
         }
@@ -329,10 +332,11 @@ namespace jabber.connection
         /// <summary>
         /// Creates a new SocketElementStream.
         /// </summary>
-        public XmppStream()
+        public XmppStream(System.IO.StreamWriter loggingStream)
         {
             m_ns = new XmlNamespaceManager(m_doc.NameTable);
             m_tracker = new IQTracker(this);
+			this.loggingStream = loggingStream;
 
             SetDefaults(DEFAULTS);
         }
@@ -962,7 +966,7 @@ namespace jabber.connection
         /// <summary>
         /// If autoReconnect is on, start the timer for reconnect now.
         /// </summary>
-        private void TryReconnect()
+        private void TryReconnect(int? timeout = null)
         {
             // close was not requested, or autoreconnect turned on.
             if (m_reconnect)
@@ -973,7 +977,7 @@ namespace jabber.connection
                 m_reconnectTimer = new System.Threading.Timer(
                         new System.Threading.TimerCallback(Reconnect),
                         null,
-                        (int)this[Options.RECONNECT_TIMEOUT],
+                        timeout ?? (int)this[Options.RECONNECT_TIMEOUT],
                         System.Threading.Timeout.Infinite);
             }
         }
@@ -995,14 +999,14 @@ namespace jabber.connection
             bool doClose = false;
             bool doStream = false;
 
-			// Stop any reconnecting!
-			if (m_reconnectTimer != null)
-				m_reconnectTimer.Dispose();
+            // Stop any reconnecting!
+            if (m_reconnectTimer != null)
+                m_reconnectTimer.Dispose();
 
             lock (StateLock)
             {
                 // if close is called, never try to reconnect.
-                m_reconnect = false;
+                    m_reconnect = false;
 
                 if ((State == RunningState.Instance) && (clean))
                 {
@@ -1021,11 +1025,19 @@ namespace jabber.connection
             }
             else
             {
-                Debug.WriteLine("Cannot close a socket before it is open");
-				LoggingHelper.AppendWithLimit(this.diagnosticLog, "XmppStream.Close(bool)", 
-					$"Cannot close a socket before it is open. m_stanzas==null? {(m_stanzas == null).ToString()} m_stanzas.Connected? {m_stanzas?.Connected} State {m_state?.GetType().Name}");
-				//FireOnError(new InvalidOperationException("Cannot close a socket before it is open"));
-			}
+				string msg = $"Cannot close a socket before it is open. m_stanzas==null? {(m_stanzas == null).ToString()} m_stanzas.Connected? {m_stanzas?.Connected} State {m_state?.GetType().Name}";
+
+				try
+				{
+					loggingStream?.WriteLine(msg + Environment.NewLine + Environment.StackTrace);
+				}
+				catch { } // can be disposed
+				
+
+				Debug.WriteLine(msg);				
+                LoggingHelper.AppendWithLimit(this.diagnosticLog, "XmppStream.Close(bool)", msg);
+                //FireOnError(new InvalidOperationException("Cannot close a socket before it is open"));
+            }
         }
 
         /// <summary>
@@ -1713,7 +1725,7 @@ namespace jabber.connection
         {
             m_reconnect = false;
 
-			string previousState = State.GetType().Name;
+			string previousStateName = State.GetType().Name;
 
 			Debug.Assert(State != ClosedState.Instance);
 
@@ -1728,14 +1740,16 @@ namespace jabber.connection
 				}
 				catch (ObjectDisposedException e)
 				{
-					e.Data["XmppStream.previousState"] = previousState;
+					e.Data["XmppStream.previousState"] = previousStateName;
 					throw;
 				}
 			}
 
 
+			BaseState previousState;
 			lock (m_stateLock)
 			{
+				previousState = State;
 				State = ClosedState.Instance;
 				if ((m_stanzas != null) && (!m_stanzas.Acceptable))
 				{
@@ -1744,9 +1758,21 @@ namespace jabber.connection
 				}
 			}
 
-			// TODO: Figure out what the "good" errors are, and try to
-			// reconnect.  There are too many "bad" errors to just let this fly.
-			//TryReconnect();
+            // TODO: Figure out what the "good" errors are, and try to
+            // reconnect.  There are too many "bad" errors to just let this fly.
+            if ((ex is AsyncSocketConnectionException || ex is System.IO.IOException)
+				&& (previousState == ConnectedState.Instance || previousState == RunningState.Instance))
+            {
+				try
+				{
+					loggingStream?.WriteLine(
+						$"{this.GetType().Name}.{nameof(IStanzaEventListener.Errored)} : reconnecting due to exception {ex.GetType().Name}, previous state {previousState.GetType().Name}");
+				}
+				catch { } // can be disposed
+
+                m_reconnect = true;
+                TryReconnect(1000);
+            }
 		}
 
         void IStanzaEventListener.Closed()

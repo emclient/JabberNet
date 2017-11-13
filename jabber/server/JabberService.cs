@@ -84,7 +84,7 @@ namespace jabber.server
         /// <summary>
         /// Create a a connect component.
         /// </summary>
-        public JabberService() : base()
+        public JabberService(System.IO.StreamWriter loggingStream) : base(loggingStream)
         {
             init();
         }
@@ -96,10 +96,12 @@ namespace jabber.server
         /// <param name="port">Jabberd port to connect to</param>
         /// <param name="name">Component name</param>
         /// <param name="secret">Component secret</param>
+		/// <param name="loggingStream">Optional logging stream</param>
         public JabberService(string host,
             int port,
             string name,
-            string secret) : base()
+            string secret,
+			System.IO.StreamWriter loggingStream) : base(loggingStream)
         {
             init();
             this.ComponentID = name;
@@ -110,14 +112,15 @@ namespace jabber.server
             this[Options.COMPONENT_DIRECTION] = ComponentType.Accept;
         }
 
-        /// <summary>
-        /// Create a connect component. (Server connects to component)
-        /// </summary>
-        /// <param name="port">Port jabberd will connect to</param>
-        /// <param name="name">Component name</param>
-        /// <param name="secret">Component secret</param>
-        public JabberService(int port, string name, string secret) : base()
-        {
+		/// <summary>
+		/// Create a connect component. (Server connects to component)
+		/// </summary>
+		/// <param name="port">Port jabberd will connect to</param>
+		/// <param name="name">Component name</param>
+		/// <param name="secret">Component secret</param>
+		/// <param name="loggingStream">Optional logging stream</param>
+		public JabberService(int port, string name, string secret, System.IO.StreamWriter loggingStream) : base(loggingStream)
+		{
             init();
             this.ComponentID = name;
             this.Port = port;
