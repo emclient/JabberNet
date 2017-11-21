@@ -1,3 +1,4 @@
+#define STATUS_LOGGING
 /* --------------------------------------------------------------------------
  * Copyrights
  *
@@ -25,6 +26,7 @@ using jabber.protocol.stream;
 using System.Security.Cryptography.X509Certificates;
 using MailClient.Authentication;
 using bedrock.net;
+using System.Reflection;
 
 namespace jabber.connection
 {
@@ -822,6 +824,9 @@ namespace jabber.connection
         {
             get { return m_state; }
             set { m_state = value;
+
+				WriteLogSafe($"XmppStream.State change to {value.GetType().Name}, thread {Thread.CurrentThread.ManagedThreadId}");
+
             // Debug.WriteLine("New state: " + m_state.ToString());
             }
         }
@@ -874,10 +879,19 @@ namespace jabber.connection
             }
         }
 
-        /// <summary>
-        /// Returns the namespace for this connection.
-        /// </summary>
-        [Browsable(false)]
+		[Conditional("STATUS_LOGGING")]
+		private void WriteLogSafe(string method)
+		{
+			try
+			{
+				this.loggingStream?.WriteLine(method);
+			}
+			catch { } // to be safe: stream can be disposed when race condition occurs on going offline
+		}
+		/// <summary>
+		/// Returns the namespace for this connection.
+		/// </summary>
+		[Browsable(false)]
         protected abstract string NS
         {
             get;
@@ -1753,6 +1767,7 @@ namespace jabber.connection
 				State = ClosedState.Instance;
 				if ((m_stanzas != null) && (!m_stanzas.Acceptable))
 				{
+					WriteLogSafe($"XmppStream.{MethodBase.GetCurrentMethod().Name} : closing m_stanzas");
 					m_stanzas.Close(false);					
 					m_stanzas = null;
 				}
@@ -1763,16 +1778,17 @@ namespace jabber.connection
             if ((ex is AsyncSocketConnectionException || ex is System.IO.IOException)
 				&& (previousState == ConnectedState.Instance || previousState == RunningState.Instance))
             {
-				try
-				{
-					loggingStream?.WriteLine(
-						$"{this.GetType().Name}.{nameof(IStanzaEventListener.Errored)} : reconnecting due to exception {ex.GetType().Name}, previous state {previousState.GetType().Name}");
-				}
-				catch { } // can be disposed
+					WriteLogSafe(
+						$"XmppStream.{MethodBase.GetCurrentMethod().Name} : reconnecting due to exception {ex.GetType().Name}, previous state {previousState.GetType().Name}");
 
                 m_reconnect = true;
                 TryReconnect(1000);
             }
+			else
+			{
+				WriteLogSafe(
+					$"{this.GetType().Name}.{nameof(IStanzaEventListener.Errored)} : not reconnecting because exception is {ex.GetType().Name}, previous state {previousState.GetType().Name}");
+			}
 		}
 
         void IStanzaEventListener.Closed()
