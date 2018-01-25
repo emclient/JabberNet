@@ -588,17 +588,33 @@ namespace bedrock.net
 
 				if (Socket.OSSupportsIPv6 && (m_addr.Endpoint.AddressFamily == AddressFamily.InterNetworkV6))
 				{
-					// Debug.WriteLine("ipv6");
-					m_sock = new Socket(AddressFamily.InterNetworkV6,
-						SocketType.Stream,
-						ProtocolType.Tcp);
+					try
+					{
+						// Debug.WriteLine("ipv6");
+						m_sock = new Socket(AddressFamily.InterNetworkV6,
+							SocketType.Stream,
+							ProtocolType.Tcp);
+					}
+					catch (SocketException ex)
+					{
+						FireError(ex);
+						return;
+					}
 				}
 				else
 				{
-					// Debug.WriteLine("ipv4");
-					m_sock = new Socket(AddressFamily.InterNetwork,
-						SocketType.Stream,
-						ProtocolType.Tcp);
+					try
+					{
+						// Debug.WriteLine("ipv4");
+						m_sock = new Socket(AddressFamily.InterNetwork,
+							SocketType.Stream,
+							ProtocolType.Tcp);
+					}
+					catch (SocketException ex)
+					{
+						FireError(ex);
+						return;
+					}
 				}
 
 				// well, of course this isn't right.
