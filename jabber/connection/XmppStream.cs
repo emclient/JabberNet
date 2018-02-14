@@ -1219,55 +1219,35 @@ namespace jabber.connection
 							return;
 					}
 
-					if (ms.GetMechanisms().Any(m => m.MechanismName == "X-OAUTH2") && !string.IsNullOrEmpty(saslCredential.Password))
+					m_saslMechanism = SaslFactory.GetMechanism(
+						ms.GetMechanisms().Select(m => m.MechanismName),
+						saslCredential);
+					if (m_saslMechanism == null)
 					{
-						try
-						{
-							Auth a = new Auth(this.Document);
-							a.MechanismName = "X-OAUTH2";
-							a.SetAttribute("service", "http://www.google.com/talk/protocol/auth", "oauth2");
-							a.Bytes = System.Text.Encoding.UTF8.GetBytes("\u0000" + saslCredential.AuthenticationId + "\u0000" + saslCredential.Password);
-							this.Write(a);
-							return;
-						}
-						catch (Exception e)
-						{
-							FireOnError(new SaslException(e.Message));
-							return;
-						}
+						FireOnError(new NotImplementedException("No implemented mechanisms in: " + String.Join(" ", ms.GetMechanisms().Select(m => m.MechanismName).ToArray())));
+						return;
 					}
-					else
-					{
-						m_saslMechanism = SaslFactory.GetMechanism(
-							ms.GetMechanisms().Select(m => m.MechanismName),
-							saslCredential);
-						if (m_saslMechanism == null)
-						{
-							FireOnError(new NotImplementedException("No implemented mechanisms in: " + String.Join(" ", ms.GetMechanisms().Select(m => m.MechanismName).ToArray())));
-							return;
-						}
-						m_saslClient = m_saslMechanism.CreateClient(
-							saslCredential,
-							"XMPP",
-							this.NetworkHost,
-							null);
+					m_saslClient = m_saslMechanism.CreateClient(
+						saslCredential,
+						"XMPP",
+						this.NetworkHost,
+						null);
 
-						try
-						{
-							Auth a = new Auth(this.Document);
-							a.MechanismName = m_saslMechanism.Name;
-							a.Bytes = m_saslClient.HasInitialResponse ? m_saslClient.EvaluateChallenge(new byte[0]) : new byte[0];
-							Step s = a;
-							if (s != null)
-								this.Write(s);
-						}
-						catch (Exception e)
-						{
-							FireOnError(new SaslException(e.Message));
-							return;
-						}
+					try
+					{
+						Auth a = new Auth(this.Document);
+						a.MechanismName = m_saslMechanism.Name;
+						if (a.MechanismName == "X-OAUTH2")
+							a.SetAttribute("service", "http://www.google.com/talk/protocol/auth", "oauth2");
+						a.Bytes = m_saslClient.HasInitialResponse ? m_saslClient.EvaluateChallenge(new byte[0]) : new byte[0];
+						this.Write(a);
 					}
-                }
+					catch (Exception e)
+					{
+						FireOnError(new SaslException(e.Message));
+						return;
+					}
+				}
 
                 if (m_saslMechanism == null)
                 { // no SASL mechanisms.  Try iq:auth.
