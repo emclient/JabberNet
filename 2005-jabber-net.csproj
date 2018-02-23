@@ -118,6 +118,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="lib20\zlib.net.dll">
+      <Link>zlib.net.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>false</Visible>
+    </None>
+  </ItemGroup>  
+  <ItemGroup>
     <None Include="Properties\AssemblyInfoTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
