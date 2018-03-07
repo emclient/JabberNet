@@ -5,8 +5,7 @@
     <ProjectGuid>{6CAE854A-F202-4D2B-B10E-E8D8E81E5EF5}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <AssemblyKeyContainerName>
-    </AssemblyKeyContainerName>
+    <AssemblyKeyContainerName></AssemblyKeyContainerName>
     <AssemblyName>jabber-net</AssemblyName>
     <AssemblyOriginatorKeyFile>jabbernet.key</AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
@@ -14,10 +13,8 @@
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <OutputType>Library</OutputType>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <FileUpgradeFlags></FileUpgradeFlags>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <!--<SignAssembly>true</SignAssembly>-->
     <BaseIntermediateOutputPath>obj5</BaseIntermediateOutputPath>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
@@ -28,8 +25,7 @@
     <BaseIntermediateOutputPath>obj5\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>obj5\Debug\</IntermediateOutputPath>
     <BaseAddress>285212672</BaseAddress>
-    <ConfigurationOverrideFile>
-    </ConfigurationOverrideFile>
+    <ConfigurationOverrideFile></ConfigurationOverrideFile>
     <DefineConstants>TRACE;DEBUG;NET20 NO_SRV</DefineConstants>
     <DocumentationFile>2005-jabber-net.xml</DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
@@ -48,8 +44,7 @@
     <BaseIntermediateOutputPath>obj5\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>obj5\Debug\</IntermediateOutputPath>
     <BaseAddress>285212672</BaseAddress>
-    <ConfigurationOverrideFile>
-    </ConfigurationOverrideFile>
+    <ConfigurationOverrideFile></ConfigurationOverrideFile>
     <DefineConstants>TRACE;NET20 NO_SRV</DefineConstants>
     <DocumentationFile>2005-jabber-net.xml</DocumentationFile>
     <FileAlignment>4096</FileAlignment>
@@ -117,13 +112,6 @@
       <HintPath>lib20\zlib.net.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="lib20\zlib.net.dll">
-      <Link>zlib.net.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Visible>false</Visible>
-    </None>
-  </ItemGroup>  
   <ItemGroup>
     <None Include="Properties\AssemblyInfoTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -332,8 +320,7 @@
     <Compile Include="jabber\protocol\iq\Last.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="jabber\protocol\iq\MUC.cs">
-    </Compile>
+    <Compile Include="jabber\protocol\iq\MUC.cs"></Compile>
     <Compile Include="jabber\protocol\iq\OOB.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -488,10 +475,12 @@
     <ProjectReference Include="..\..\MailClient.Authentication\MailClient.Authentication.csproj">
       <Project>{521b05c4-3957-48e6-b970-22d51b46ad12}</Project>
       <Name>MailClient.Authentication</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\netlib.Dns\netlib.Dns.csproj">
       <Project>{40ac7a7c-d3e5-46df-b740-06bd9d2a00e1}</Project>
       <Name>netlib.Dns</Name>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -519,15 +508,11 @@
   <Import Project="..\..\Tools\BuildTasks\Unified.targets" />
   <Import Project="..\..\Tools\BuildTasks\MailClient.BuildTasks.targets" />
   <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-    <PostBuildEvent>
-    </PostBuildEvent>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <PreBuildEvent></PreBuildEvent>
+    <PostBuildEvent></PostBuildEvent>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
