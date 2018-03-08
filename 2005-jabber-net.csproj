@@ -475,12 +475,12 @@
     <ProjectReference Include="..\..\MailClient.Authentication\MailClient.Authentication.csproj">
       <Project>{521b05c4-3957-48e6-b970-22d51b46ad12}</Project>
       <Name>MailClient.Authentication</Name>
-      <Private>True</Private>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\netlib.Dns\netlib.Dns.csproj">
       <Project>{40ac7a7c-d3e5-46df-b740-06bd9d2a00e1}</Project>
       <Name>netlib.Dns</Name>
-      <Private>True</Private>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
