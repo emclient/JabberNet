@@ -107,7 +107,10 @@ namespace jabber.connection
         {
             get
             {
-                try
+#if NETSTANDARD
+				return false;
+#else
+				try
                 {
                     return bedrock.io.ZlibStream.Supported;
                 }
@@ -116,6 +119,7 @@ namespace jabber.connection
                     Debug.WriteLine("WARNING: zlib.net.dll missing!");
                     return false;
                 }
+#endif
             }
         }
 
@@ -359,7 +363,7 @@ namespace jabber.connection
             m_sock.StartCompression();
         }
 
-        #region ElementStream handlers
+#region ElementStream handlers
         private void m_elements_OnDocumentStart(object sender, XmlElement rp)
         {
             m_listener.DocumentStarted(rp);
@@ -381,9 +385,9 @@ namespace jabber.connection
             m_timer.Change(Timeout.Infinite, Timeout.Infinite);
             m_listener.Errored(ex);
         }
-        #endregion
+#endregion
 
-        #region ISocketEventListener Members
+#region ISocketEventListener Members
 
         void ISocketEventListener.OnInit(BaseSocket newSock)
         {
@@ -480,6 +484,6 @@ namespace jabber.connection
         {
             return m_listener.OnInvalidCertificate(sock, certificate, chain, sslPolicyErrors);
         }
-        #endregion
+#endregion
     }
 }

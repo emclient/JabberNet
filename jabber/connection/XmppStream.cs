@@ -1405,7 +1405,11 @@ namespace jabber.connection
                     break;
                 case "failure":
                     CompressionFailure fail = tag as CompressionFailure;
-                    FireOnError(new bedrock.io.CompressionFailedException(fail.Error));
+#if NETSTANDARD
+						FireOnError(new ApplicationException(fail.Error));
+#else
+						FireOnError(new bedrock.io.CompressionFailedException(fail.Error));
+#endif
                     return;
                 }
 
@@ -1635,7 +1639,7 @@ namespace jabber.connection
             }
         }
 
-        #region IStanzaEventListener Members
+#region IStanzaEventListener Members
 
         void IStanzaEventListener.Connected()
         {
@@ -1859,6 +1863,6 @@ namespace jabber.connection
             return (bool)m_invoker.Invoke(new System.Net.Security.RemoteCertificateValidationCallback(ShowCertificatePrompt), new object[]{ sock, certificate, chain, sslPolicyErrors });
         }
 
-        #endregion
+#endregion
     }
 }

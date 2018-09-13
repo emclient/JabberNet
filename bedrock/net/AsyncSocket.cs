@@ -283,7 +283,7 @@ namespace bedrock.net
 					m_cert = coll[0];
 					return;
 				default:
-#if MAC
+#if MAC || NETSTANDARD
 						m_cert = null;
 #else
 					X509Certificate2Collection certs = X509Certificate2UI.SelectFromCollection(
@@ -792,7 +792,11 @@ namespace bedrock.net
 		/// </summary>
 		public override void StartCompression()
 		{
+#if NETSTANDARD
+			throw new NotSupportedException();
+#else
 			m_stream = new bedrock.io.ZlibStream(m_stream, ComponentAce.Compression.Libs.zlib.zlibConst.Z_FULL_FLUSH);
+#endif
 		}
 
 		/// <summary>
@@ -1236,7 +1240,7 @@ namespace bedrock.net
 			return m_id.GetHashCode();
 		}
 
-		#region IComparable
+#region IComparable
 		int IComparable.CompareTo(object val)
 		{
 			if (val == null)
@@ -1352,7 +1356,7 @@ namespace bedrock.net
 			return (((IComparable)one).CompareTo(two) >= 0);
 		}
 
-		#endregion
+#endregion
 
 		/// <summary>
 		/// Retrieve the socketwatcher used by this instance of AsyncSocket
