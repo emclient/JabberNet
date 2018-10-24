@@ -95,41 +95,37 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'IceWarp Desktop Client - Release|AnyCPU' ">
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <OutputPath>bin5\Debug\</OutputPath>
+    <OutputPath>bin5\Release\</OutputPath>
     <BaseIntermediateOutputPath>obj5\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>obj5\Debug\</IntermediateOutputPath>
     <BaseAddress>285212672</BaseAddress>
     <ConfigurationOverrideFile></ConfigurationOverrideFile>
-    <DefineConstants>TRACE;DEBUG;NET20 NO_SRV</DefineConstants>
+    <DefineConstants>TRACE;NET20 NO_SRV</DefineConstants>
     <DocumentationFile>2005-jabber-net.xml</DocumentationFile>
-    <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
     <WarningLevel>4</WarningLevel>
-    <DebugType>full</DebugType>
+    <DebugType>none</DebugType>
     <ErrorReport>prompt</ErrorReport>
-    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Open-Xchange - Release|AnyCPU' ">
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <OutputPath>bin5\Debug\</OutputPath>
+    <OutputPath>bin5\Release\</OutputPath>
     <BaseIntermediateOutputPath>obj5\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>obj5\Debug\</IntermediateOutputPath>
     <BaseAddress>285212672</BaseAddress>
     <ConfigurationOverrideFile></ConfigurationOverrideFile>
-    <DefineConstants>TRACE;DEBUG;NET20 NO_SRV</DefineConstants>
+    <DefineConstants>TRACE;NET20 NO_SRV</DefineConstants>
     <DocumentationFile>2005-jabber-net.xml</DocumentationFile>
-    <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
     <WarningLevel>4</WarningLevel>
-    <DebugType>full</DebugType>
+    <DebugType>none</DebugType>
     <ErrorReport>prompt</ErrorReport>
-    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Mono - Debug|AnyCPU'">
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
