@@ -161,7 +161,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <DebugSymbols>false</DebugSymbols>
     <OutputPath>bin\Xamarin-Release\</OutputPath>
-    <DefineConstants>NET20 NO_SRV;XAMARINMAC;__UNIFIED__;MAC</DefineConstants>
+    <DefineConstants>NET20 NO_SRV;XAMARINMAC;__UNIFIED__;MAC;TRACE</DefineConstants>
     <BaseAddress>285212672</BaseAddress>
     <DocumentationFile>2005-jabber-net.xml</DocumentationFile>
     <FileAlignment>4096</FileAlignment>
