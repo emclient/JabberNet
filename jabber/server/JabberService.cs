@@ -166,24 +166,26 @@ namespace jabber.server
             }
         }
 
-        /// <summary>
-        /// Should not be used for components.  Set NetworkHost instead.
-        /// </summary>
-        [Description("The name of the Jabber server.")]
+#pragma warning disable 0809
+		/// <summary>
+		/// Should not be used for components.  Set NetworkHost instead.
+		/// </summary>
+		[Description("The name of the Jabber server.")]
         [DefaultValue("jabber.com")]
         [Category("Jabber")]
         [Browsable(false)]
-        [Obsolete]
-        public override string Server
+        [Obsolete]			 
+        public override string Server 
         {
             get { return base.NetworkHost; }
             set { base.NetworkHost = value; }
         }
+#pragma warning restore 0809
 
-        /// <summary>
-        /// Component secret.
-        /// </summary>
-        [Description("Component secret.")]
+		/// <summary>
+		/// Component secret.
+		/// </summary>
+		[Description("Component secret.")]
         [DefaultValue(null)]
         [Category("Component")]
         [PasswordPropertyText]

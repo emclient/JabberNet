@@ -418,7 +418,7 @@ namespace jabber.protocol
 		/// <summary>
 		/// Remove a child element
 		/// </summary>
-		/// <param name="name"></param>
+		/// <param name="localName"></param>
 		/// <returns>The old element, or null if it didn't exist.</returns>
 		protected XmlElement RemoveElemByLocalName(string localName)
 		{

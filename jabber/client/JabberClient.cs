@@ -71,12 +71,13 @@ namespace jabber.client
             this.OnStreamInit += new StreamHandler(JabberClient_OnStreamInit);
         }
 
-        /// <summary>
-        /// Creates a new Jabber client and associates it with the parent window.
-        /// Required for Windows.Forms Class Composition Designer support
-        /// </summary>
-        /// <param name="container">Parent container.</param>
-        public JabberClient(System.ComponentModel.IContainer container, StreamWriter loggingStream) :
+		/// <summary>
+		/// Creates a new Jabber client and associates it with the parent window.
+		/// Required for Windows.Forms Class Composition Designer support
+		/// </summary>
+		/// <param name="container">Parent container.</param>
+		/// <param name="loggingStream">Logging stream</param>
+		public JabberClient(System.ComponentModel.IContainer container, StreamWriter loggingStream) :
             base(container, loggingStream)
         {
             init();

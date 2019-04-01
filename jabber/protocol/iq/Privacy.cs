@@ -1,4 +1,4 @@
-﻿/* --------------------------------------------------------------------------
+/* --------------------------------------------------------------------------
  * Copyrights
  *
  * Portions created by or assigned to Cursive Systems, Inc. are
@@ -214,7 +214,7 @@ namespace jabber.protocol.iq
 		/// <summary>
 		/// Remove a privacy item of the given name.  Does nothing if that group is not found.
 		/// </summary>
-		/// <param name="name"></param>
+		/// <param name="jid"></param>
 		public void RemovePrivacyItem(JID jid)
 		{
 			foreach (PrivacyItem p in GetElements<PrivacyItem>())
@@ -240,7 +240,7 @@ namespace jabber.protocol.iq
 		/// <summary>
 		/// Is this jid in the list?
 		/// </summary>
-		/// <param name="name">The name of the group to check</param>
+		/// <param name="jid">The name of the group to check</param>
 		/// <returns></returns>
 		public bool HasJID(JID jid)
 		{
@@ -303,7 +303,7 @@ namespace jabber.protocol.iq
 		/// <summary>
 		/// Item Value
 		/// </summary>
-		public string Value
+		public new string Value
 		{
 			get { return GetAttr("value"); }
 			set { this.SetAttr("value", value); }

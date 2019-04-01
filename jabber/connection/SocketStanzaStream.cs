@@ -65,6 +65,7 @@ namespace jabber.connection
 		/// Create a new one.
 		/// </summary>
 		/// <param name="listener"></param>
+		/// <param name="logger"></param>
 		internal SocketStanzaStream(IStanzaEventListener listener, System.Text.StringBuilder logger) : base(listener)
         {
             m_timer = new Timer(new TimerCallback(DoKeepAlive), null, Timeout.Infinite, Timeout.Infinite);

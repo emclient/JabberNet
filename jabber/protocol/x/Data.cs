@@ -698,7 +698,7 @@ namespace jabber.protocol.x
 			set { SetAttribute("type", value); }
 		}
 
-		public string Value
+		public new string Value
 		{
 			get { return InnerText; }
 			set { InnerText = value; }
