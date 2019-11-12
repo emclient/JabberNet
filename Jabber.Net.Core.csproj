@@ -3,6 +3,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace />
     <AssemblyName>Jabber-Net</AssemblyName>
+    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="build\**" />
@@ -60,6 +61,9 @@
     <EmbeddedResource Remove="jabber\client\PresenceManager.resx" />
     <EmbeddedResource Remove="stringprep\unicode/Unicode.resx" />
     <EmbeddedResource Remove="stringprep\steps\RFC3454.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Resources.Extensions" Version="4.6.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\MailClient.Authentication\MailClient.Authentication.Core.csproj" />
