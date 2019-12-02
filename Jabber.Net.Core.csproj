@@ -4,6 +4,7 @@
     <RootNamespace />
     <AssemblyName>Jabber-Net</AssemblyName>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+    <Configurations>Debug;Release;WinForms</Configurations>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="build\**" />
