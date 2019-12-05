@@ -667,6 +667,13 @@ namespace bedrock.net
 				{
 					AsyncClose();
 				}
+#if MAC
+				// Can't handle more than 1024 handles on Mac: https://github.com/mono/mono/issues/15931
+				catch (NotSupportedException ex)
+				{
+					FireError(ex);
+				}
+#endif
 			}
 		}
 
