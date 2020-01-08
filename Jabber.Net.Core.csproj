@@ -63,7 +63,7 @@
     <EmbeddedResource Remove="stringprep\steps\RFC3454.resx" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.Resources.Extensions" Version="4.6.0" />
+    <PackageReference Include="System.Resources.Extensions" Version="4.7.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\MailClient.Authentication\MailClient.Authentication.Core.csproj" />
