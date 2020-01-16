@@ -1,0 +1,72 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace />
+    <AssemblyName>Jabber-Net</AssemblyName>
+    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="build\**" />
+    <Compile Remove="ConsoleClient\**" />
+    <Compile Remove="Example\**" />
+    <Compile Remove="Help\**" />
+    <Compile Remove="JabberNetInstaller\**" />
+    <Compile Remove="lib11\**" />
+    <Compile Remove="lib20\**" />
+    <Compile Remove="muzzle\**" />
+    <Compile Remove="Rhino.Mocks\**" />
+    <Compile Remove="Setup\**" />
+    <Compile Remove="stringprep\ResTool\**" />
+    <Compile Remove="test\**" />
+    <Compile Remove="VB.Example\**" />
+    <Compile Remove="vsi\**" />
+    <EmbeddedResource Remove="build\**" />
+    <EmbeddedResource Remove="ConsoleClient\**" />
+    <EmbeddedResource Remove="Example\**" />
+    <EmbeddedResource Remove="Help\**" />
+    <EmbeddedResource Remove="JabberNetInstaller\**" />
+    <EmbeddedResource Remove="lib11\**" />
+    <EmbeddedResource Remove="lib20\**" />
+    <EmbeddedResource Remove="muzzle\**" />
+    <EmbeddedResource Remove="Rhino.Mocks\**" />
+    <EmbeddedResource Remove="Setup\**" />
+    <EmbeddedResource Remove="stringprep\ResTool\**" />
+    <EmbeddedResource Remove="test\**" />
+    <EmbeddedResource Remove="VB.Example\**" />
+    <EmbeddedResource Remove="vsi\**" />
+    <None Remove="build\**" />
+    <None Remove="ConsoleClient\**" />
+    <None Remove="Example\**" />
+    <None Remove="Help\**" />
+    <None Remove="JabberNetInstaller\**" />
+    <None Remove="lib11\**" />
+    <None Remove="lib20\**" />
+    <None Remove="muzzle\**" />
+    <None Remove="Rhino.Mocks\**" />
+    <None Remove="Setup\**" />
+    <None Remove="stringprep\ResTool\**" />
+    <None Remove="test\**" />
+    <None Remove="VB.Example\**" />
+    <None Remove="vsi\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="bedrock\io\ZlibStream.cs" />
+    <Compile Remove="bedrock\net\CertUtil.cs" />
+    <Compile Remove="jabber\connection\CertificatePrompt.cs" />
+    <Compile Remove="jabber\protocol\SynchElementStream.cs" />
+    <Compile Remove="stringprep\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="jabber\connection\CertificatePrompt.resx" />
+    <EmbeddedResource Remove="jabber\client\PresenceManager.resx" />
+    <EmbeddedResource Remove="stringprep\unicode/Unicode.resx" />
+    <EmbeddedResource Remove="stringprep\steps\RFC3454.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Resources.Extensions" Version="4.7.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\MailClient.Authentication\MailClient.Authentication.csproj" />
+    <ProjectReference Include="..\netlib.Dns\netlib.Dns.csproj" />
+  </ItemGroup>
+</Project>
