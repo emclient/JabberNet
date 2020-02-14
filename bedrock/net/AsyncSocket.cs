@@ -885,7 +885,7 @@ namespace bedrock.net
 		/// Start an async read from the socket.  Listener.OnRead() is
 		/// eventually called when data arrives.
 		/// </summary>
-		public override void RequestRead()
+		public override async void RequestRead()
 		{
 			try
 			{
@@ -919,7 +919,59 @@ namespace bedrock.net
 
 					m_reading = true;
 				}
+
+#if NETSTANDARD || MAC
+				while (State == SocketState.Connected)
+				{
+					try
+					{
+						int count = await m_stream.ReadAsync(m_buf, 0, m_buf.Length);
+						if (count > 0)
+						{
+							if (!m_listener.OnRead(this, m_buf, 0, count))
+							{
+								break;
+							}
+						}
+						else
+						{
+							AsyncClose();
+							return;
+						}
+					}
+					catch (SocketException e)
+					{
+						// closed in middle of read
+						if (e.ErrorCode != 64)
+						{
+							FireError(e);
+						}
+
+						AsyncClose();
+						return;
+					}
+					catch (ObjectDisposedException)
+					{
+						//object already disposed, just exit
+						return;
+					}
+					catch (Exception e)
+					{
+						FireError(e);
+						AsyncClose();
+						return;
+					}
+					finally
+					{
+						lock (this)
+						{
+							m_reading = false;
+						}
+					}
+				}
+#else
 				m_stream.BeginRead(m_buf, 0, m_buf.Length, new AsyncCallback(GotData), null);
+#endif
 			}
 			catch (AuthenticationException)
 			{
@@ -1106,18 +1158,18 @@ namespace bedrock.net
 				return;
 			}
 
-			lock (this)
-			{
-				m_writing = false;
-			}
 			byte[] buf = (byte[])state[1];
 			m_listener.OnWrite(this, buf, 0, buf.Length);
 
-			if (m_pending.Length > 0)
+			lock (this)
 			{
-				buf = m_pending.ToArray();
-				m_pending.SetLength(0L);
-				Write(buf);
+				m_writing = false;
+				if (m_pending.Length > 0)
+				{
+					buf = m_pending.ToArray();
+					m_pending.SetLength(0L);
+					Write(buf);
+				}
 			}
 		}
 
