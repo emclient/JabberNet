@@ -24,6 +24,7 @@ using bedrock.util;
 using System.Security.Authentication;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
+using System.Runtime.InteropServices;
 
 namespace bedrock.net
 {
@@ -667,13 +668,13 @@ namespace bedrock.net
 				{
 					AsyncClose();
 				}
-#if MAC
 				// Can't handle more than 1024 handles on Mac: https://github.com/mono/mono/issues/15931
 				catch (NotSupportedException ex)
 				{
-					FireError(ex);
+					if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+						FireError(ex);
+					else throw ex;
 				}
-#endif
 			}
 		}
 
