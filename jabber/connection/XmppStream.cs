@@ -1017,10 +1017,13 @@ namespace jabber.connection
             if (m_reconnectTimer != null)
                 m_reconnectTimer.Dispose();
 
-            lock (StateLock)
+			StanzaStream _m_stanzas;
+
+			lock (StateLock)
             {
-                // if close is called, never try to reconnect.
-                    m_reconnect = false;
+				_m_stanzas = m_stanzas;
+					// if close is called, never try to reconnect.
+				m_reconnect = false;
 
                 if ((State == RunningState.Instance) && (clean))
                 {
@@ -1033,13 +1036,13 @@ namespace jabber.connection
                 }
             }
 
-            if ((m_stanzas != null) && m_stanzas.Connected && doClose)
+            if ((_m_stanzas != null) && _m_stanzas.Connected && doClose)
             {
-                m_stanzas.Close(doStream);
+				_m_stanzas.Close(doStream);
             }
             else
             {
-				string msg = $"Cannot close a socket before it is open. m_stanzas==null? {(m_stanzas == null).ToString()} m_stanzas.Connected? {m_stanzas?.Connected} State {m_state?.GetType().Name}";
+				string msg = $"Cannot close a socket before it is open. m_stanzas==null? {(_m_stanzas == null).ToString()} m_stanzas.Connected? {_m_stanzas?.Connected} State {m_state?.GetType().Name}";
 
 				try
 				{
