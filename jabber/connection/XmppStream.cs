@@ -1224,7 +1224,7 @@ namespace jabber.connection
 						saslCredential);
 					if (m_saslMechanism == null)
 					{
-						FireOnError(new NotImplementedException("No implemented mechanisms in: " + String.Join(" ", ms.GetMechanisms().Select(m => m.MechanismName).ToArray())));
+						FireOnError(new NotImplementedException("No implemented mechanisms in: " + string.Join(" ", ms.GetMechanisms().Select(m => m.MechanismName))));
 						return;
 					}
 					m_saslClient = m_saslMechanism.CreateClient(
